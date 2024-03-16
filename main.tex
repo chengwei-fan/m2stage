@@ -1,0 +1,1259 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amsfonts,amssymb,mathrsfs,amsthm}
+
+\usepackage[hidelinks]{hyperref}
+
+\usepackage{fullpage}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+
+\DeclareMathOperator{\supp}{supp}
+
+\begin{document}
+  \section{Introduction}
+  We consider the following cubic nonlinear Schr\"{o}dinger equation (NLS)
+  \begin{equation}\label{nls-ep-nonl} % nls with epsilon nonlinearity
+    \left\{
+    \begin{aligned}
+      & i\partial_t u = -\Delta u + \varepsilon^2 |u|^2 u, \quad (t,x) \in
+      \mathbb R\times\mathbb R^d, \\
+      & u|_{t=0} = \phi, \quad x \in \mathbb R^d,
+    \end{aligned}
+    \right.
+  \end{equation}
+  in dimension \( d \leq 3 \), where \(\phi\) is a given function, and \(
+  \varepsilon \in (0,1] \) is a dimensionless parameter.%to characterize the size of
+  %the initial data. 
+  Note that, rescaling the amplitude by introducing \(w = \varepsilon u\),
+  the original equation \eqref{nls-ep-nonl} with \(O(\varepsilon^2)\)-nonlinearity and 
+  \(O(1)\)-initial data can be reformulated as the following equivelant NLS
+  with \(O(1)\)-nonlinearity and \(O(\varepsilon)\)-initial data,
+  \begin{equation}%\label{nls-ep-ini} %nls with epsilon initial value
+    \left\{
+    \begin{aligned}
+      & i\partial_t w = -\Delta w + |w|^2 w, \quad (t,x) \in
+      \mathbb R\times\mathbb R^d, \\
+      & w|_{t=0} = \varepsilon \phi, \quad x \in \mathbb R^d.
+    \end{aligned}
+    \right.
+  \end{equation}
+  In this paper, we analysis the long time behavier of the numerical scheme
+  given in~\cite{OsRoSc21}.
+
+  \section{Main theorem}
+  As presented in~\cite{OsRoSc21}, we choose the following scheme
+  \begin{equation}\label{num-sol} %numerical solution
+    \left\{
+    \begin{aligned}
+      & u^{n+1} = \Phi_K^{\tau}(u^n) := e^{i\tau\Delta} \left( u^n - i\tau\Pi_K
+      \left( {(\Pi_K u^n)}^2 \varphi_1(-2i\tau\Delta)\Pi_K \bar{u}^n \right) \right), \\
+      & u^0 = \Pi_K \phi,
+    \end{aligned}
+    \right.
+  \end{equation}
+  to approximate the solution \(u(t)\) at time \( t = t_{n+1} = t_n + \tau \),
+  with \( \varphi_1(z) = \frac{e^z-1}{z} \) and the projection operator defined
+  by the Fourier multiplier
+  \begin{equation}
+    \Pi_K = \chi^2 \left( \frac{-i\nabla}{K} \right),
+  \end{equation}
+  Here \(\chi\) is a smooth radial nonnegative bump function which is one on \(
+  B(0,1) \) and supported in \( B(0,2) \), and \( K \geq 1 \) is considered as a
+  parameter that will depend on \(\tau\). More precisely, we will choose \( K =
+  \varepsilon^{-\beta}\tau^{-\frac\gamma2} \) with some \(\beta \geq 0\) and 
+  \(\gamma \geq 1\).  
+  %% TODO 解释选择gamma geq 1的原因
+
+  Denoting \(u^K\) as the exact solution of the filtered PDE,
+  \begin{equation}\label{nls-fil} % filtered NLS
+    \left\{
+    \begin{aligned}
+      & i\partial_t u^K = -\Delta u^K + \varepsilon^2 \Pi_K|\Pi_K u^K|^2 \Pi_K u^K \\
+      & u^K|_{t=0} = \Pi_K\phi,
+    \end{aligned}
+    \right.
+  \end{equation}
+  then we can bounded the total error by the following two parts
+  \begin{equation}%\label{seperr}
+    \| u(t_n) - u^n \|_{L^2} \leq \| u(t_n) - u^K(t_n) \|_{L^2} + 
+    \| u^K(t_n) - u^n \|_{L^2}
+  \end{equation}
+  
+  \begin{theorem}
+    For every \( T > 0 \), \( \phi \in H^1 \) and \(\alpha > 0\) (\(\alpha \leq 4\) 
+    if \(d=1\)), donote by \(u\) the exact solution of equation~\eqref{nls-ep-nonl} 
+    and by \(u^n\) the sequence defined by the scheme~\eqref{num-sol}. Then, 
+    there exist \(\tau_0 > 0\) such that for every step size \(\tau \in (0,\tau_0]\),
+    every \( \varepsilon \in (0,1] \), we have the following error estimates:
+    \begin{itemize}
+      \item if \(d=1\), with the choise \(K=1/\tau^\frac56\),
+        \[ \|u(t_n)-u^n\|_{L^2} \lesssim \varepsilon^\frac{4-\alpha}3\tau^\frac56, \quad 
+        0 \leq n\tau\varepsilon^\alpha \leq T \]
+      \item if \(d=2\), with the choise \(K=1/\varepsilon^\beta\tau^\frac34\),
+        for every \(\beta<1\) 
+        \[ \|u(t_n)-u^n\|_{L^2} \lesssim_\beta \varepsilon^\beta \tau^\frac34, \quad 
+        0 \leq n\tau\varepsilon^\alpha \leq T \]
+      \item if \(d=3\), with the choise \(K=1/\varepsilon^\frac23\tau^\frac23\),
+        \[ \|u(t_n)-u^n\|_{L^2} \lesssim \varepsilon^\frac23 \tau^\frac23|\log\tau+\log\varepsilon|^\frac23, 
+        \quad 0 \leq n\tau\varepsilon^\alpha \leq T \]
+    \end{itemize}
+  \end{theorem}
+  %% TODO 再补点东西
+
+  \section{Continuous and discrete Strichartz estimates}
+
+  First of all, let's recall the well known Strichartz estimates. We say that 
+  \( (p,q) \) is admissible if \(p \geq 2\), \(q \geq 2\), \((p,q,d) \neq (2,\infty,2)\)
+  and \( \frac2p + \frac{d}q = \frac{d}2 \). We denote \(p'\)
+  and \(q'\) be the dual of \(p\) and \(q\), i.e., \(\frac1p+\frac1{p'} = 1\) 
+  and \(\frac1q+\frac1{q'} = 1\).
+
+  \begin{theorem}
+    For every \((p,q)\) admissible, there exists \(C > 0\) such that for every 
+    \( f \in L^2 \) and \( F \in L^{p'} L^{q'} \)
+    \begin{eqnarray}
+      \label{Tc} & & \|e^{it \Delta} f \|_{L^p{L^q}} \leq C \| f\|_{L^2} \\
+      \label{T*c} & & \left \| \int_{\mathbb R} e^{-is \Delta } F(s,\cdot)\, ds\right\|_{L^2} 
+      \leq C \|F \|_{L^{p'} L^{q'}}.
+    \end{eqnarray}
+    Moreover, for every \((p_1, q_1)\) and \((p_2, q_2)\) admissible, there exists
+    \(C > 0\) such that for every \(F \in L^{p_2'} L^{q'_2}\), we have
+    \begin{equation}\label{TT*c} 
+      \left\| \int_{-\infty}^t e^{i ( t-s ) \Delta } F(s,\cdot) \, ds \right\|_{L^{p_{1}} L^{q_{1}}}
+      \leq  C \|F \|_{L^{p_{2}'} L^{q'_{2}}}.
+    \end{equation}
+  \end{theorem}
+  %% TODO 给出上述定理的证明来源。
+
+  We also have the discrete versions of these estimates for the group 
+  \begin{equation}\label{SK}
+    S_K(t) = e^{it\Delta} \Pi_K = \Pi e^{it\Delta}.
+  \end{equation}
+
+  \begin{theorem}\label{thmDSE} % discrete Strichartz estimates
+    For every \((p,q)\) admissible with \(p>2\), there exists \(C>0\) such that
+    for every \(K\) and \(\tau\) satisfying \(K\tau^\frac12 \geq 1\), all \(
+    f \in L^2 \) and all \(F \in l^{p'}_\tau L^{q'}\), we have 
+    \begin{eqnarray}
+      \label{T} & & \left\| S_{K}(n \tau) f\right\|_{l^p_\tau L^q} \leq C{(K\tau^\frac12)}^{\frac2p} \|f\|_{L^2} \\
+      \label{T*} & & \left\| \tau\sum_{n \in \mathbb{Z}}  S_K (-n\tau) F_n \right\|_{L^2} \leq C {(K\tau^\frac12)}^\frac2p \|F\|_{l^{p'}_\tau L^{q'}}.
+    \end{eqnarray}
+    For every \((p_1, q_1)\) and \((p_2, q_2)\) admissible with \(p_1>2\),
+    \(p_2>2\), there exists \(C > 0\) such that for every \(K\) and \(\tau\) 
+    satisfying \(K\tau^\frac12 \geq 1\), all \( s \in [-3,3] \) and all 
+    \(F \in L^{p_2'} L^{q'_2}\), we have
+    \begin{equation}\label{TT*}
+      \left\| \tau \sum_{k = -\infty}^{n-1}  S_K ((n-k+s)\tau) F_k \right\|_{l^{p_1}_\tau L^{q_1}}
+      \leq C (K\tau^\frac12)^{ \frac2{p_1} + \frac2{p_2} }  \|F\|_{l^{p_2'}_\tau L^{q_2'}}.
+    \end{equation}
+  \end{theorem}
+
+  %% TODO 指出 这里我们去掉了端点，给出证明来源
+
+  \begin{corollary}\label{corDSE}
+    For every $(p,q)$ admissible with $p>2$, there exists $C>0$ such that for every $0<\tau \leq 1$ and $K = \tau^{-\frac\gamma2}$, $\gamma \geq 1$,  we have
+    \begin{equation}
+    \label{Tloss}
+    \left\| S_{K}(n \tau) f\right\|_{l^p_{\tau}L^q} \leq C    \|f \|_{H^{ \frac2p(1 - \frac1\gamma) }}\qquad \text{for all \ $f\in H^{ {2 \over p}( 1 - {1 \over \gamma} ) }$}. 
+    \end{equation}
+    For every $(p, q)$ admissible with  $p>2$, there exists $C>0$ such that for every  $0<\tau \leq 1$, $K = \tau^{-{\gamma \over 2}}$,  $\gamma \ge 1$  and $s \in [-8,8]$ we have
+    \begin{equation}
+    \label{TT*loss}
+    \left\| \tau  \sum_{k=-\infty}^{n-1}   S_{K} ((n-k+ s) \tau)  F_{k} \right\|_{l^{p}_{\tau}L^{q} } \leq C   \| F\|_{l^1_\tau  H^{ {2 \over p}( 1 - {1 \over \gamma} ) } }\qquad 
+    \text{for all \ $F\in l^1_\tau  H^{ {2 \over p}( 1 - {1 \over \gamma} ) }$}. 
+    \end{equation}
+  \end{corollary}
+  Note that, since $\tau^{1 \over p}\| \Pi_{K} f\|_{L^q} \leq  \left\| S_{K}(n \tau) f\right\|_{l^p_{\tau}L^q}$ 
+  the estimate \eqref{Tloss} also encodes the modified Sobolev estimate
+  \begin{equation}
+    \label{sobmod}
+    \tau^{1 \over p} \| \Pi_{K} f\|_{L^q} \leq C \|f \|_{H^{ {2 \over p}( 1 - {1 \over \gamma} ) }}.
+  \end{equation}
+
+  %% TODO 给出Strichartz估计的表述和admissible的表述
+  % 给出离散的估计
+  
+  \begin{proposition}
+    Let \(\phi \in H^1\), \( d \leq 3 \) and \( (p,q) \) admissible with
+    \( p > 2 \). Let \( u \) be the solution of~\eqref{nls-ep-nonl} and \(u^K\)
+    be the solution of~\eqref{nls-fil}. We have for every \( \varepsilon \in 
+    (0,1] \),
+    \begin{equation}
+      \|u\|_{L^\infty H^1} \lesssim 1 \quad
+      \|u^K\|_{L^\infty H^1} \lesssim 1.
+    \end{equation}
+  \end{proposition}
+  
+  \begin{proof}
+    By using \( \varepsilon \leq 1 \), the estimate 
+    \[ \|u\|_{L^\infty H^1} \lesssim 1 \]
+    is the consequence of the conservation laws. And for \(u^K\), we have the
+    similar conservation laws for 
+    \[ H[u(t)] = \int_{\mathbb R^d} \frac12|\nabla u^K(t,x)|^2 + 
+    \frac{\varepsilon^2}2 |\Pi_K u(t,x)|^4 \,\mathrm{d}x, \quad M[u(t)] = 
+    \int_{\mathbb R^d} |u^K(t,x)|^2 \,\mathrm{d}x. \]
+    The proof follows exactly the proof of the classical conservation laws, then
+    we have the save estimates uniformly in \(\varepsilon\)
+    \[ \|u^K\|_{L^\infty H^1} \lesssim 1.\]
+  \end{proof}
+
+
+  Now we consider a subset of all admissible \((p,q)\),
+  \begin{equation}\label{lambdad}
+    p>2, (p,q)\text{ admissible, } p<4 \text{ if } d=3 \text{ and }
+    (p,q)= (4,\infty) \text{ if } d=1\}
+  \end{equation}
+  We ask \(p<4\) when \(d=3\) because in such situation we have \(q>3\), hence
+  \(W^{1,q} \subset L^\infty\).
+  In dimension 1, we have by H\"older's inequality
+  \[ \|\nabla u|u|^2\|_{L^\frac43_I L^1} + \|u|u|^2\|_{L^\frac43_I L^1} \leq 
+  |I|^\frac12 \|u\|_{L^4_I W^{1,\infty}} \|u\|^2_{L^\infty_I L^2}. \]
+  In dimension 2 and 3, similarly, for \((\bar{p},\bar{q})\) admissible we can write
+  \begin{equation}\label{XT}
+    \|\nabla u |u|^2\|_{L^{\bar{p}'}_I L^{\bar{q}'}} \leq \left\| 
+    \|\nabla u\|_{L^q} \|u\|_{L^r}^{2\gamma} \|u\|_{L^q}^{2(1-\gamma)}
+    \right\|_{L^{\bar{p}'}_I} \leq |I|^\theta \|\nabla u\|_{L^p_I L^q} 
+    \|u\|_{L^\infty_I L^r}^{2\gamma} \|u\|_{L^p_I L^q}^{2(1-\gamma)},
+  \end{equation}
+  and the same estimates by substituting \(\nabla u\) with \(u\),
+  if \( \frac1q + \frac{2\gamma}r + \frac{2(1-\gamma)}q = \frac1{\bar{q}'} \)
+  and \( \frac1p + \frac{2(1-\gamma)}p + \theta = \frac1{\bar{p}'} \). We may
+  choose a suitable \(r\) such that \(L^r \subset H^1\). Indeed, if \(d=2\),
+  we can choose \((\bar{p},\bar{q})=(\infty,2)\), \(p=\frac2{2-\theta}\),
+  \(q=\frac2\theta\), \(r=\frac2{1-2\theta}\) and \(\gamma=\frac12\), and if
+  \(d=3\), we can choose \((\bar{p},\bar{q})=(\frac1{\theta(1-\theta)},\frac6{3-4\theta(1-\theta)})\), 
+  \(p=\frac2{2-\theta}\), \(q=\frac6{2\theta+1}\), \(r=6\) and \(\gamma=\frac{1+2\theta}2\).
+
+  \begin{proposition}
+    Let \(\phi \in H^1\), \( d \leq 3 \) and \((p,q)\) satisfying~\eqref{lambdad}. 
+    Let \( u \) be the solution of~\eqref{nls-ep-nonl}, we
+    have the following estimates for every \( \varepsilon \in (0,1] \) and every
+    time interval \( I = [t_1,t_2] \)
+    \[ \|u\|_{L^p_I W^{1,q}} \lesssim
+    \langle\varepsilon^\alpha |I|\rangle^{\frac1p} \]
+    where \( \frac1\alpha = \frac12 - \frac1p \). Moreover, let \( u^K \) be the
+    solution of~\eqref{nls-fil}, \(u^K\) also satisfies the above estimates. 
+  \end{proposition}
+
+  \begin{remark}
+    %% TODO
+    % 加一些话：
+    % 为什么要用 <>来估计
+    % 虽然在某些p,q选取中这里的alpha不是最优的，但是对于我们的目的已经足够了
+    %
+    By H\"older's inequality, we have
+    \begin{equation}\label{uL2Linfty}
+      \varepsilon^2 \|u\|_{L^2_I L^\infty}^2 \leq \varepsilon^2 |I|^{2(\frac12-\frac1p)}\|u\|_{L^p_I W^{1,q}}^2 
+      \lesssim_{\alpha} {(\varepsilon^\alpha |I|)}^\frac2\alpha {\langle\varepsilon^\alpha |I|\rangle}^{1-\frac2\alpha},
+    \end{equation}
+    where \(\frac1\alpha=\frac12-\frac1p\). If \(d=1\), then \(\alpha=4\),
+    if \(d=2,3\), we can choose \(p\) close to \(2\) and we get any large enough
+    \(\alpha>0\).
+  \end{remark}
+  
+  \begin{proof}
+    Let's recall the well-known argument that proves the local well-posedness of
+    NLS. We consider \(\Phi_I: X_I \to X_I \) with \(X_I=L_I^\infty H^1
+    \cap L^p_I W^{1,q}\), \(\|\cdot\|_{X_I} = \|\cdot\|_{L^\infty_I H^1} +
+    \|\cdot\|_{L^p_I W^{1,q}}\) and 
+    \[ \Phi_I(u) = e^{it\Delta} u(t_1) - i\varepsilon^2 \int_{t_1}^{t_2} e^{i(t-s)\Delta}
+    f(s)\,\mathrm{d}s, \quad f(s)=|u(s)|^2u(s). \]
+    Ihen by Strichartz estimates~\eqref{Tc}, \eqref{TT*c} and the discuss~\eqref{XT} above ,
+    \begin{align}
+      \|\Phi_I(u)\|_{X_I} & \lesssim \|u(t_1)\|_{H^1} + \varepsilon^2
+      \|f\|_{L^{\bar{p}'}_I W^{1,\bar{q}'}} \\
+      & \lesssim \|u\|_{L^\infty H^1} + \varepsilon^2 |I|^\theta \|u\|_{X_I}^3
+    \end{align}
+    and 
+    \begin{equation}
+      \|\Phi_I(u)-\Phi_I(v)\|_{X_I} \lesssim \varepsilon^2 |I|^\theta 
+      \|u-v\|_{X_I} (\|u\|_{X_I}^2 + \|v\|_{X_I}^2),
+    \end{equation}
+    where \( \theta = 1 - \frac2p \). By the fix point argument, we could have
+    the estimate uniformly in \(\varepsilon\),
+    \begin{equation}\label{smallI}
+      \|u\|_{X_I} \lesssim 1,\quad \text{for }\varepsilon^\frac2\theta |I| < \delta
+    \end{equation}
+    for some \(\delta\) depending on \(\|u_0\|_{H^1}\). And for large \(|I|\),
+    we can iterate the above argument on \([t_1,t_1+\delta/(\varepsilon^{2/\theta})]\), 
+    \([t_1+\delta/(\varepsilon^{2/\theta}),t_1+2\delta/(\varepsilon^{2/\theta})]\), \(
+    \ldots\), for some \(\delta\) depending on \(\|u\|_{L^\infty H^1}
+    \lesssim_{\|\phi\|_{H^1}} 1 ,\)
+    \begin{equation}\label{largeI}
+      \|u\|_{L^\infty_I W^{1,q}} \lesssim (\varepsilon^\frac2\theta |I|)^\frac1p,
+    \quad \text{for } \varepsilon^\frac2\theta |I| < \delta.
+    \end{equation}
+    Combining~\eqref{smallI} and~\eqref{largeI}, we finally get 
+    \[ \|u\|_{L^p_I W^{1,q}} \lesssim
+    \langle\varepsilon^\alpha |I|\rangle^{\frac1p},\]
+    where \(\frac1\alpha=\frac\theta2=\frac12 - \frac1p.\) And the estimate for
+    \(u^K\) follows exactly the same lines of the proof above.
+  \end{proof}
+  %\begin{definition}
+  %  We say that triple \((p,q,\alpha)\) verifies property {\bf (H)} if \((p,q)\)
+  %  is admissible, \(\frac1\alpha = \frac12 - \frac1p\) and \(p=4\) if \(d=1\),
+  %  \(p<4\) if \(d=3\).
+  %\end{definition}
+  %\begin{remark}
+  %  We ask \(p<4\) when \(d=3\) because in such situation we have \(q>3\), hence
+  %  \(W^{1,q} \subset L^\infty\).
+  %  In dimension 1, \((p,q,\alpha)=(4,\infty,4)\),
+  %  we have by H\"older's inequality
+  %  \[ \|\nabla u|u|^2\|_{L^\frac43_T L^1} + \|u|u|^2\|_{L^\frac43_T L^1} \leq 
+  %  T^\frac12 \|u\|_{L^4_T W^{1,\infty}} \|u\|^2_{L^\infty_T L^2}. \]
+  %  In dimension 2 and 3, similarly, we can write
+  %  \begin{equation}
+  %    \|\nabla u |u|^2\|_{L^{\bar{p}'}_T L^{\bar{q}'}} \leq \left\| 
+  %    \|\nabla u\|_{L^q} \|u\|_{L^r}^{2\gamma} \|u\|_{L^q}^{2(1-\gamma)}
+  %    \right\|_{L^{\bar{p}'}_T} \leq T^\theta \|\nabla u\|_{L^p_T L^q} 
+  %    \|u\|_{L^\infty_T L^r}^{2\gamma} \|u\|_{L^p_T L^q}^{2(1-\gamma)},
+  %  \end{equation}
+  %  if \( \frac1q + \frac{2\gamma}r + \frac{2(1-\gamma)}q = \frac1{\bar{q}'} \)
+  %  and \( \frac1p + \frac{2(1-\gamma)}p + \theta = \frac1{\bar{p}'} \). We may
+  %  choose a suitable \(r\) such that \(L^r \subset H^1\). Indeed, if \(d=2\),
+  %  we can choose \(\bar{p}=\infty\), \(\bar{q}=2\), \(p=\frac2{2-\theta}\),
+  %  \(q=\frac2\theta\), \(r=\frac2{1-2\theta}\) and \(\gamma=\frac12\), and if
+  %  \(d=3\), we can choose \(bar\)
+  %\end{remark}
+
+  \begin{corollary}\label{coru-uKLinftyL2}
+    For \( d \leq 3 \), \( \phi \in H^1 \), for every \( \alpha > 0 \) (\( \alpha
+    \leq 4 \) if \( d = 1 \)), we have the estimate for every \( \varepsilon \in
+    (0,1] \),
+    \begin{equation}
+      \|u-u^K\|_{L^\infty_{T/\varepsilon^\alpha} L^2} \lesssim_\alpha
+      \frac1K.
+    \end{equation}
+  \end{corollary}
+  \begin{proof}
+    By using Duhamel's formula, we have
+    that for every interval \(I = [t_1 , t_2]\),
+    \begin{multline}
+      u(t_2) - u^K(t_2) = e^{it\Delta}(u(t_1) - u^K(t_1))  
+      - i \varepsilon^2 \int_{t_1}^{t_2} e^{i(t-s)\Delta} \Pi_K (|u|^2u 
+      - |\Pi_K u|^2\Pi_K u) \,\mathrm{d}s \\ 
+      - i \varepsilon^2 \int_{t_1}^{t_2} e^{i(t-s)\Delta} \Pi_K (|\Pi_K u|^2\Pi_K u 
+      - |\Pi_K u^K|^2\Pi_K u^K) \,\mathrm{d}s  
+      - i \varepsilon^2 \int_{t_1}^{t_2} e^{i(t-s)\Delta} (1 - \Pi_K)(|u|^2u) 
+      \,\mathrm{d}s .
+    \end{multline}
+    We then obtain that
+    \begin{multline}\label{u-uKLinftyL2}
+      \|u-u^K\|_{L^{\infty}_{I}L^2} - \|(u-u^K)(t_1)\|_{L^2} \lesssim
+      \varepsilon^2 \| u - \Pi_K u \|_{L^{\infty}_{I}L^2} ( \|u\|^2_{L^2_{I}L^{\infty}} + 
+      \|u^K\|^2_{L^2_{I}L^{\infty}} ) \\
+      + \varepsilon^2 \| u - u^K \|_{L^{\infty}_{I}L^2} ( \|u\|^2_{L^2_{I}L^{\infty}} + 
+      \|u^K\|^2_{L^2_{I}L^{\infty}} ) + \varepsilon^2 \| u - \Pi_K u \|_{L^{\infty}_{I}L^2} 
+      \|u\|^2_{L^2_{I}L^{\infty}}.
+    \end{multline}
+    By conservation laws, we have the estimate
+    \begin{equation}\label{u-PiKu}
+      \|u-\Pi_K u\|_{L^\infty L^2} \lesssim \frac1K \|u\|_{L^\infty H^1}
+      \lesssim \frac1K
+    \end{equation}
+    By plugging~\eqref{u-PiKu} and~\eqref{uL2Linfty} into~\eqref{u-uKLinftyL2},
+    we obtain that
+    \[ \|u-u^K\|_{L^{\infty}_{I}L^2} - \|(u-u^K)(t_1)\|_{L^2} 
+    \lesssim_{\alpha} \frac1K 
+    {(\varepsilon^\alpha |I|)}^\frac2\alpha {\langle\varepsilon^\alpha |I|\rangle}^{1-\frac2\alpha} + 
+    {(\varepsilon^\alpha |I|)}^\frac2\alpha {\langle\varepsilon^\alpha |I|\rangle}^{1-\frac2\alpha}
+    \|u-u^K\|_{L^{\infty}_{I}L^2}. \]
+    Consequently, we can choose \(\delta\) small enough such that for every 
+    \(\varepsilon^\alpha |I| < \delta\)
+    \[ \|u-u^K\|_{L^{\infty}_{I}L^2} - \|(u-u^K)(t_1)\|_{L^2} 
+    \lesssim_\alpha \frac1K. \]
+    Finally, ue can iterate the above argument to get 
+    \[ \|u-u^K\|_{L^\infty_{T/\varepsilon^\alpha} L^2} \lesssim_\alpha
+    \frac1K.\]
+  \end{proof}
+
+  \section{Discrete Strichartz estimates for exact solution}
+
+  %% TODO 加一些解释性的话
+  % property H 和 相应的计算
+  %
+
+  Let \(K=\tau^{-\frac\gamma2}\) for some \(\gamma\geq1\), \(\gamma<2\) in
+  dimension \(3\) and \((p,q)\) be admissible. We suppose that \((p,q)=(4,\infty)\) if
+  \(d=1\) and \(2<p<2+\delta\) for some small \(\delta>0\) depending on \(\alpha\).
+  Then there always exists a \(\sigma\) such that 
+  \begin{equation}\label{prpH}
+    \sigma q > d, \quad \sigma + \frac2p \left( 1-\frac1\gamma \right) \leq 1.
+  \end{equation}
+  Indeed, when \(d=1\), we have \(p=4,q=\infty\) then every \(\sigma \in
+  (0,\frac12] \) and every \(\alpha\geq1\) satisfying~\eqref{prpH}. In dimension
+  \(2\), the existence of \(\sigma\) satisfying~\eqref{prpH} is equivelant to
+  \( \frac dq +\frac2p (1-\frac1\alpha) \leq 1 \), which is always true when
+  \(\alpha \geq 1\) and \((p,q)\) is admissible. In dimension \(3\), the claim
+  above is equivelant to \(p\alpha < 4\). Consequently, if \(\alpha<2\), we can
+  find small \(\delta>0\) such that this is satisfied.
+
+  \begin{proposition}\label{uKlpLq}
+    Let \(K = \tau^{-\frac\gamma2}\) for some \(\gamma\geq1\), \(\gamma<2\)
+    in dimension \(3\). Furthur let triple \((p,q,\sigma)\) verify~\eqref{prpH}.
+    Then for every \( \tau \in (0,1] \) and every \(\hat{s} \in 
+    [-2\tau,2\tau] \), ue have the estimate
+    \begin{equation}
+      \sup_{s\in[0,\tau]} \|e^{i\hat{s}\Delta}u^K(t_k+s)\|_{l^p_{\tau,N} W^{\sigma,q}}
+      \lesssim \langle\varepsilon^\alpha N\tau\rangle^\frac1p,
+    \end{equation}
+    where \(\frac1\alpha = \frac12 - \frac1p\).
+  \end{proposition}
+  
+  \begin{remark}\label{remuKlpLq}
+    As we done in the continuous case, under the above assumptions and in the
+    particular case when \(\hat{s}=0\), we get by Sobolev embedding and H\"older's
+    inequality that
+    \begin{equation}\label{uKl2Linfty}
+      \varepsilon \sup_{s\in[0,\tau]} \|u^K(t_k+s)\|_{l^2_{\tau,N} L^\infty}
+      \lesssim_{\alpha} {(\varepsilon^\alpha N\tau)}^\frac1\alpha {\langle\varepsilon^\alpha N\tau\rangle}^{\frac12-\frac1\alpha},
+    \end{equation}
+    for \(\alpha\leq4\) if \(d=1\) and every \(\alpha>0\) if \(d=2,3\).
+    
+    We can easily perform the same argument in the proof of the proposition to get
+    the estimates
+    \[ \sup_{s\in[0,\tau]} \|\left(e^{i\hat{s}\Delta}u^K(t_k+s)\right)_{n\leq k\leq n+N}\|
+    _{l^p_{\tau} W^{\sigma,q}} \lesssim \langle\varepsilon^\alpha N\tau\rangle^\frac1p \]
+    and 
+    \[
+      \varepsilon \sup_{s\in[0,\tau]} \|\left(u^K(t_k+s)\right)_{n\leq k\leq n+N}\|
+      _{l^2_{\tau} L^\infty} \lesssim_{\alpha} {(\varepsilon^\alpha N\tau)}^\frac1\alpha
+      {\langle\varepsilon^\alpha N\tau\rangle}^{\frac12-\frac1\alpha}.\]
+  \end{remark}
+
+  \begin{proof}
+    We first prove the estimate for \(\hat{s}=0\).
+
+    Let us first observe that by elliptic regularity, we have for every time
+    \(t\),
+    \[ \tau^{\frac{1}{p}} \|u^K(t)\|_{W^{\sigma,q}} \lesssim \tau^{\frac{1}{p}}
+    \|(I-\Delta)^{\frac{\sigma}{2}} u^K(t)\|_{L^q}, \]
+    therefore, since \(\Pi_{2K}u^K=u^K\), we can use the modified Sobolev
+    estimate~\eqref{sobmod} to get 
+    \begin{equation}\label{l0usq}% estimate for l_0 W^sigma,q
+      \tau^{\frac{1}{p}} \|u^K(t)\|_{W^{\sigma, q}} \lesssim 
+      \tau^{\frac{1}{p}} \|(I-\Delta)^{\frac{\sigma}{2}} u^K(t)\|_{L^q} 
+      \lesssim \|u^K(t)\|_{H^{\sigma_1}} 
+      \lesssim_{\|\phi\|_{H^1}} 1,
+    \end{equation}
+    where \(\sigma_1 = \sigma + \frac2p(1-\frac1\gamma) \leq 1\).
+    We use Duhamel's formula to get that for every \( 0 \leq n \leq N \) and 
+    \( s \in [0,\tau] \),
+    \[ u^K(t_n+s) = e^{i(n+1)\tau\Delta} u^K(s-\tau) - i\varepsilon^2 
+    \int_{s-\tau}^{s+t_n} e^{i(t_n+s-\tilde{s})\Delta}\Pi_K
+    \left(|\Pi_K u^K|^2 \Pi_K u^K\right) (\tilde{s}) \mathrm{d} \tilde{s}. \]
+    We rewrite as 
+    \begin{equation}\label{disc-str-est-duham}
+      u^K(t_n+s) = S_{2K}((n+1)\tau) u^K(s-\tau) - i\varepsilon^2 
+      \sum_{k=0}^n \int_{s-\tau}^{s} S_K(t_{n-k}+s-\tilde{s}) \left(|\Pi_K u^K|^2 \Pi_K u^K\right) (t_k+\tilde{s}) \mathrm{d} \tilde{s}.
+    \end{equation}
+    We get by Strichartz estimate, % TODO link to eqref
+    \begin{equation}
+      \|u^K(t_k+s)\|_{l^p_{\tau,n}W^{\sigma,q}} \lesssim \|u^K(s-\tau)\|_{H^1} + \tau^{-1}
+      \varepsilon^2 \int_{s-\tau}^s \left\|\left(|\Pi_K u^K|^2 \Pi_K u^K\right) 
+      (t_k+\tilde{s})\right\|_{l^1_{\tau,n}H^{\sigma_1}} \mathrm{d} \tilde{s}.
+    \end{equation}
+    Next, we can use that 
+    \[ \left\|\left(|\Pi_K u^K|^2 \Pi_K u^K\right) (t_k+\tilde{s})\right\|_{l^1_{\tau,n}H^{\sigma_1}}
+    \leq \left\|\left(|\Pi_K u^K|^2 \Pi_K u^K\right) (t_k+\tilde{s})\right\|_{l^1_{\tau,n}H^1}
+    \leq \|u^K\|_{L^{\infty}H^1}\|u^K(t_k+\tilde{s})\|_{l^2_{\tau,n}L^{\infty}}^2. \]
+    Since by Sobolev embedding and H\"older inequality, we have 
+    \[ \|u^K(t_k+\tilde{s})\|_{l^2_{\tau,n}L^{\infty}}^2 \lesssim
+    (n\tau)^{1-\frac{2}{p}}\|u^K(t_k+\tilde{s})\|_{l^p_{\tau,n}W^{\sigma,q}}^2.\]
+    For \( \tilde{s} < 0 \), we have by~\eqref{l0usq}
+    \[ \|u^K(t_k+\tilde{s})\|_{l^p_{\tau,n}W^{\sigma,q}} \leq
+    \|u^K(t_k+\tilde{s})\|_{l^p_{\tau,(n-1)}W^{\sigma,q}} + \tau^{\frac{1}{p}} \|u^K(\tilde{s}-\tau)\|_{W^{\sigma, q}}
+    \leq \|u^K(t_k+\tilde{s})\|_{l^p_{\tau,n}W^{\sigma,q}} + C(\|\phi\|_{H^1}).
+    \]
+    Combining all estimates above, we finally get 
+    \[ \|u^K(t_k+s)\|_{l^p_{\tau,n}W^{\sigma,q}} \lesssim
+    C(\|\phi\|_{H^1}) + \varepsilon^2 \frac{s-\tau}{\tau} C(\|\phi\|_{H^1})
+    (n\tau)^{1-\frac{2}{p}} + \varepsilon^2 (n\tau)^{1-\frac{2}{p}}
+    \sup_{\tilde{s} \in [0,\tau]}\|u^K(t_k+\tilde{s})\|_{l^p_{\tau,n}W^{\sigma,q}} \]
+    Consequently, we could find a generic \( \delta \) small enough such that
+    for every \( \varepsilon^\alpha n \tau < \delta \),
+    \[ \|u^K(t_k+\tilde{s})\|_{l^p_{\tau,n}W^{\sigma,q}} \lesssim_{\|\phi\|_{H^1}} 1. \]
+    Finally, by interating, we get the estimate we want
+    \[ \sup_{s\in[0,\tau]} \|u^K(t_k+s)\|
+      _{l^p_{\tau,N}W^{\sigma,q}} \lesssim \langle\varepsilon^\alpha N\tau\rangle^\frac1p.\]
+    To get the estimate in \( \hat{s} \neq 0 \), we can just apply
+    \( e^{i\hat{s}\Delta} \) to~\eqref{disc-str-est-duham}. All subseqwent
+    arguments are the same. 
+  \end{proof}
+
+  \begin{corollary}\label{corphiuKlpLq}
+    Under the same assumption of the previous proposition, we also have 
+    \begin{equation}\label{phiuKlpLq}
+      \|\varphi_1(-2i\tau\Delta) u^K(t_k)\|_{l^p_{\tau,N} W^{\sigma,q}} \lesssim 
+      \langle\varepsilon^\alpha N\tau\rangle^\frac1p,
+    \end{equation}
+    where \(\frac1\alpha = \frac12 - \frac1p\).
+  \end{corollary}
+
+  \begin{proof}
+    We first note that we can decompose
+    \[
+      \varphi_1(-2i\tau\Delta) u^K(t_k) = \varphi_1(-2i\tau\Delta) (1 - \Pi_{\tau^{-{1 \over 2}}})u^K(t_k) + \varphi_1(-2i\tau\Delta)  \Pi_{\tau^{-{1 \over 2}}}u^K(t_k).
+    \]
+    By using Lemma \ref{lemfilter1}, we have that  the multiplier $ \varphi_{1}(-2i \tau \Delta)  \Pi_{\tau^{-{1 \over 2}}} $ is continuous on $L^q$ for every $q$ with norm uniform in $\tau$. 
+    Therefore, we get from Proposition \ref{uKlpLq} that
+    $$
+    \| \varphi_{1}(-2i \tau \Delta) { \Pi_{\tau^{-{1 \over 2}}}} u^K(t_{k})\|_{l^p_{\tau, N}W^{\sigma, q}} \leq C \|u^K(t_{k})\|_{l^p_{\tau, N}W^{\sigma, q}}.
+    $$
+    To estimate the remaining part, we just observe that
+    $$
+    \varphi_{1}(-2i \tau \Delta) ( 1 - \Pi_{\tau^{-{1 \over 2}}})u^K(t_{k}) =- {1 - \Pi_{\tau^{-{1 \over 2}}} \over 2 i \tau \Delta }   e^{2 i\tau \Delta} u^K(t_{k})  + {1 - \Pi_{\tau^{-{1 \over 2}}} \over 2 i \tau \Delta } u^K(t_{k}).
+    $$
+    Again, the multiplier  ${1 - \Pi_{\tau^{-{1 \over 2}}} \over 2 i \tau \Delta } $ is continuous on $L^q$ for every $q$ with norm uniform in $\tau.$, see \eqref{102} in Lemma \ref{lemfilter1}.
+    $$
+    \|\varphi_{1}(-2i \tau \Delta) ( 1 - \Pi_{\tau^{-{1 \over 2}}})u^K(t_{k})\|_{l^p_{\tau, N}W^{\sigma, q}}\leq C\left(  \|e^{2 i\tau \Delta} u^K(t_{k})\|_{l^p_{\tau, N}W^{\sigma, q}} + \|u^K(t_{k})\|_{l^p_{\tau, N}W^{\sigma, q}}   \right)
+    $$
+    and the result follows by using again Proposition~\ref{uKlpLq}.
+  \end{proof}
+
+  \begin{proposition}\label{DuKlpLq}
+    Under the same assumption as in prop~\ref{uKlpLq}, we have the estimates
+    \begin{equation}
+       \sup_{s\in[-2\tau,2\tau]} \left\|e^{is\Delta}\nabla u^K(t_k)\right\|_{l^p_{\tau,N}L^q}
+       \lesssim_\alpha \langle\varepsilon^\alpha N\tau\rangle^\frac1p (K\tau^\frac12)^\frac2p,
+    \end{equation}
+    for every \(\alpha>0\) (\(\alpha\leq4\) if \(d=1\)).
+  \end{proposition}
+  \begin{remark}
+    We can by the same arguments to get 
+    \begin{equation}
+      \sup_{s\in[-2\tau,2\tau]} \left\|e^{is\Delta}u^K(t_k)\right\|_{l^p_{\tau,N}W^{1,q}}
+      \lesssim_\alpha \langle\varepsilon^\alpha N\tau\rangle^\frac1p (K\tau^\frac12)^\frac2p.
+    \end{equation}
+  \end{remark}
+
+  \begin{proof}
+    By Duhamel's formula, we write
+    \begin{equation}
+      e^{is\Delta} \nabla u_K(t_n) = S_K(n\tau) (e^{is\Delta} \nabla u_0) 
+      -i\varepsilon^2 \int_{0}^{\tau} \sum_{k=0}^{n-1} S_K(t_{n-k}+s-\tilde{s}) 
+      \nabla \left(|\Pi_K u^K|^2 \Pi_K u^K\right)(t_k+\tilde{s}) \mathrm{d} \tilde{s}.
+    \end{equation}
+    We can use Strichartz estimate to get %TODO link to equation
+    %\begin{multline}
+    \[ \|e^{is\Delta} \nabla u_K(t_n)\|_{l^p_{\tau,N}L^q} \lesssim
+      (K\tau^{\frac{1}{2}})^{\frac{2}{p}}\|e^{is\Delta}\nabla \phi\|_{L^2} 
+      + \varepsilon^2
+      (K\tau^{\frac{1}{2}})^{\frac{2}{p}}\sup_{\tilde{s}\in[0,\tau]}\left\| 
+      \nabla \left(|\Pi_K u^K|^2 \Pi_K u^K\right)(t_k+\tilde{s}) \right\|_{l^1_{\tau,N}L^2} \]
+    %\end{multline}
+    By H\"older's inequality and Proposition~\ref{uKlpLq},
+    \begin{align}
+      \varepsilon^2 \sup_{\tilde{s}\in[0,\tau]}\left\| 
+      \nabla \left(|\Pi_K u^K|^2 \Pi_K u^K\right)(t_k+\tilde{s}) \right\|_{l^1_{\tau,N}L^2} 
+      &\leq \|\nabla u^K\|_{L^{\infty} L^2} \varepsilon^2 \sup_{\tilde{s} \in [0,\tau]} 
+      \left\|\Pi_K u^K(t_k+\tilde{s})\right\|_{l_{\tau, N}^2 L^{\infty}}^2 \\
+      & \lesssim_{\alpha}  {(\varepsilon^\alpha N\tau)}^\frac2\alpha 
+      {\langle\varepsilon^\alpha N\tau\rangle}^{1-\frac2\alpha}. 
+    \end{align}
+    Consequently, we can find a suitable \(T_1\), such that for every \(
+    \varepsilon^\alpha n \tau \leq T_1 \), we have 
+    \[ 
+      \sup_{s\in[-2\tau,2\tau]}\|e^{is\Delta}\nabla u^K(t_k)\|_{l^p_{\tau,N}L^q}
+      \lesssim (K\tau^\frac12)^\frac2p.
+    \]
+    Hence, we can iterate the above estimate to get 
+    \[ 
+      \sup_{s\in[-2\tau,2\tau]}\|e^{is\Delta}\nabla u^K(t_k)\|_{l^p_{\tau,N}L^q}
+      \lesssim \langle\varepsilon^\alpha N\tau\rangle^\frac1p (K\tau^\frac12)^\frac2p.
+    \]
+  \end{proof}
+
+  \section{Error analysis}
+  Following the discussing in~\cite{OsRoSc21}, we set
+  \begin{align}
+    \label{TOp}& T(u)(\tau,t_n) = \int_0^{\tau} e^{-is\Delta} |u(t_n+s)|^2 u(t_n+s) \mathrm{d} s.\\
+    \label{T1} & T_1(s, t_n) = -i\varepsilon^2 \left(e^{i s \Delta} \Pi_K u^K\left(t_n\right)\right)^2 e^{-i s \Delta} \Pi_K \bar{T}\left(\Pi_K u^K\right)\left(s, t_n\right) \\
+    \label{T2} & T_2(s, t_n) = -2\varepsilon^4 \left(e^{i s \Delta} \Pi_K u^K\left(t_n\right)\right)\left|e^{i s \Delta} \Pi_K T\left(\Pi_K u^K\right)\left(s, t_n\right)\right|^2 \\
+    \label{T3} & T_3(s, t_n) = i\varepsilon^6 \left|e^{i s \Delta} \Pi_K T\left(\Pi_K u^K\right)\left(s, t_n\right)\right|^2 e^{i s \Delta} \Pi_K T\left(\Pi_K u^K\right)\left(s, t_n\right) \\
+    \label{T4} & T_4(s, t_n) = 2i\varepsilon^2 \left|e^{i s \Delta} \Pi_K u^K\left(t_n\right)\right|^2 e^{i s \Delta} \Pi_K T\left(\Pi_K u^K\right)\left(s, t_n\right) \\
+    \label{T5} & T_5(s, t_n) = \varepsilon^4 \left(e^{-i s \Delta} \Pi_K \bar{u}^K\left(t_n\right)\right)\left(e^{i s \Delta} \Pi_K T\left(\Pi_K u^K\right)\left(s, t_n\right)\right)^2 \\
+    \label{E1} & E_1(u^K, \tau, t_n) = i \int_0^{\tau} e^{-is\Delta} 
+    [T_1 + T_2 + T_3 + T_4 + T_5](s, t_n) \mathrm{d} s,
+  \end{align}
+  We have the following error analysis
+  \begin{multline}
+    u^K(t_{n+1}) = e^{i\tau\Delta}u^K(t_n) 
+    - i\varepsilon^2\tau S_K(\tau) \left( \left(\Pi_K u^K(t_n)\right)^2 
+    \varphi_1(-2i\tau\Delta)\Pi_K \bar{u}^K(t_n) \right) \\
+    + \varepsilon^2 S_K(\tau) \left( E_1(u^K, \tau, t_n) + E_2(u^K, \tau, t_n) 
+    \right)
+  \end{multline}
+  where \(E_2\) is defined by 
+  \begin{multline}\label{E2}
+    E_2(u^K, \tau, t_n) = -2 \int_0^{\tau} \int_0^s e^{-is_1\Delta} \left[
+    \nabla \left(e^{is_1\Delta}\Pi_K u^K(t_n)\right)^2 
+    \nabla \left(e^{i(s_1-2s)\Delta}\overline{\Pi_K u^K(t_n)}\right)\right. \\
+    \left.+ \left( \nabla e^{is_1\Delta}\Pi_K u^K(t_n) \right)^2 
+    \left( e^{i(s_1-2s)\Delta}\overline{\Pi_K u^K(t_n)} \right) 
+    \right] \mathrm{d}s_1\mathrm{d}s .
+  \end{multline}
+  
+  Note that we can rewrite our scheme~\eqref{num-sol} in the form 
+  \[ 
+    u^{n+1} = e^{i\tau\Delta}u^n - i\varepsilon^2\tau S_K(\tau) 
+    \left( (\Pi_K u^n)^2 \varphi_1(-2i\tau\Delta)\Pi_K \bar{u}^n \right).
+  \]
+  Let \( e^n = u^K(t_n) - u^n \) donote the error. Thus the error satisfies 
+  the following 
+  \begin{multline}
+    e^{n+1} = e^{i\tau\Delta}e^n - i \varepsilon^2 \tau S_K(\tau) \left( 
+    \left(\Pi_K u^K(t_n)\right)^2 \varphi_1(-2i\tau\Delta)\Pi_K \bar{u}^K(t_n)
+    - (\Pi_K u^n)^2 \varphi_1(-2i\tau\Delta)\Pi_K \bar{u}^n \right) \\ 
+    + \varepsilon^2 S_K(\tau) \left( E_1(u^K, \tau, t_n) + E_2(u^K, \tau, t_n) 
+    \right),
+  \end{multline}
+  with \( e^0 = 0 \). Therefore, we obtain that 
+  \begin{equation}
+    e^n = -i \varepsilon^2 \tau \sum_{k=1}^{n-1}
+    S_K(t_{n-k})G_k + \mathcal F_1^{n} + \mathcal F_1^{n},
+  \end{equation}
+  where
+  \begin{align}
+    \label{Gk} G_k = \left(\Pi_K u^K(t_n)\right)^2 \varphi_1(-2i\tau\Delta)\Pi_K 
+    \bar{u}^K(t_n) - (\Pi_K u^n)^2 \varphi_1(-2i\tau\Delta)\Pi_K \bar{u}^n \\
+    \label{F1F2} \mathcal F^{n}_1 = \varepsilon^2 \sum_{k=0}^{n-1} S_K(t_{n-k}) E_1(u^k, \tau, t_k), \quad
+    \mathcal F^{n}_2 = \varepsilon^2 \sum_{k=0}^{n-1} S_K(t_{n-k}) E_2(u^k, \tau, t_k).
+  \end{align}
+  And we also have 
+  \begin{equation}\label{emn}
+    e^n = e^m -i \varepsilon^2 \tau \sum_{k=m}^{n-1}
+    S_K(t_{n-k})G_k + 
+    + \varepsilon^2 \sum_{k=m}^{n-1} S_K(t_{n-k}) E_1(u^k, \tau, t_k)
+    + \varepsilon^2 \sum_{k=m}^{n-1} S_K(t_{n-k}) E_2(u^k, \tau, t_k)
+  \end{equation}
+  
+  Next, we give the estimates of \(\mathcal F^n_1\) and \(\mathcal F^n_2\).
+  \begin{lemma}\label{F1} %estimates of F_1
+    For every \( T > 0 \), \( (p, q) \) admissible with \( p > 2 \) .
+    We have the estimates for every \( \tau, \varepsilon
+    \in (0,1] \) and every positive integer \(N\) satisfying \(\varepsilon^\alpha
+    N\tau \leq T\)
+    \begin{equation}
+      \| \mathcal F_1^n \|_{l^p_{\tau,N}L^q} \lesssim_{\alpha,T}
+      \varepsilon^2 (K\tau^\frac12)^\frac2p \tau 
+      {(\varepsilon^\alpha N\tau)}^\frac2\alpha {\langle\varepsilon^\alpha N\tau\rangle}^{1-\frac2\alpha}.% , \quad
+      % \| (\mathcal F_1{m,n})_{m \leq n \leq m+N} \|_{l^p_{\tau}W^{1,q}} \lessim_T
+      % (K\tau^{\frac{1}{2}})^{\frac{2}{p}} \tau (N\tau\varepsilon^2).
+    \end{equation}
+  \end{lemma}
+
+  \begin{remark}\label{remF1}
+    By the same way of the proof we can also have the estimates 
+    \[ \| S_K(-2\tau) \mathcal F_1^n \|_{l^p_\tau L^q} \lesssim_{\alpha,T}
+    \varepsilon^2 (K\tau^\frac12)^\frac2p \tau 
+    {(\varepsilon^\alpha N\tau)}^\frac2\alpha {\langle\varepsilon^\alpha N\tau\rangle}^{1-\frac2\alpha} \]
+    and 
+    \[ \left\| \left( \varepsilon^2 \sum_{k=m}^{n-1} S_K(t_{n-k}) E_1(u^k, \tau, t_k)
+    \right)_{m \leq n \leq m+N} \right\|_{l^p_\tau L^q} \lesssim_{\alpha,T}
+    \varepsilon^2 (K\tau^\frac12)^\frac2p \tau 
+    {(\varepsilon^\alpha N\tau)}^\frac2\alpha {\langle\varepsilon^\alpha N\tau\rangle}^{1-\frac2\alpha}.% , \quad
+    \]
+  \end{remark}
+
+  \begin{proof}
+    First of all, by using the discrete Strichartz estimates
+    \begin{equation}\label{F1lplq}
+      \begin{aligned}
+        \|\mathcal F_1^n\|_{l^p_{\tau,N}L^q} & \lesssim \varepsilon^2 (K\tau^\frac12)^\frac2p
+        \tau^{-1} \|E_1(u^K, \tau, t_k)\|_{l^1_{\tau,N}L^2} \\ 
+        &\lesssim \varepsilon^2 (K\tau^\frac12)^\frac2p \sup_{s \in [0,\tau]}
+        \left(\sum_{i=1}^5 \|T_i(t_n,s)\|_{l^1_{\tau,N}L^2} \right).
+      \end{aligned}
+    \end{equation}
+    Next by using~\eqref{T1} and Sobolev embedding, we have 
+    \begin{equation}
+      \begin{aligned}
+        \|T_1(t_n,s)\|_{L^2} &\lesssim \varepsilon^2\|e^{is\Delta}u^K\|^2_{L^6} \|e^{is\Delta} T(\Pi_K u^K)(s,t_n)\|_{L^6} \\ 
+        &\lesssim \varepsilon^2\|e^{is\Delta}u^K\|^2_{H^1} \|e^{is\Delta} T(\Pi_K u^K)(s,t_n)\|_{H^1} \\ 
+        &\lesssim \varepsilon^2\|u^K\|^2_{H^1} \|T(\Pi_K u^K)(s,t_n)\|_{H^1} \\ 
+      \end{aligned}
+    \end{equation}
+    Next, by using~\eqref{TOp},
+    \begin{equation}\label{TH1}
+      \begin{aligned}
+        & \|T(\Pi_K u^K)(s,t_n)\|_{H^1} \\ & \lesssim 
+        \int_0^\tau \left( 
+        \left\| |\Pi_K u^K(t_n+\tilde{s})|^2 \nabla\Pi_K u^K(t_n+\tilde{s}) \right\|_{L^2}
+        \left\| |\Pi_K u^K(t_n+\tilde{s})|^2 \Pi_K u^K(t_n+\tilde{s}) \right\|_{L^2}
+        \right)\,\mathrm{d}\tilde{s} \\ 
+        & \lesssim \|u^K\|_{L^\infty H^1} \int_0^\tau
+        \|u^K(t_n+\tilde{s})\|_{L^\infty}^2\,\mathrm{d}\tilde{s}.
+      \end{aligned}
+    \end{equation}
+    Hence, 
+    \begin{equation}\label{Tl1H1}
+      \|T(\Pi_K u^K)(s,t_n)\|_{l^1 H^1} \lesssim \tau \|u^K\|_{L^\infty H^1}
+      \sup_{\tilde{s} \in [0,\tau]} \|u^K(t_n+\tilde{s})\|^2_{l^2_{\tau,N}L^\infty}.
+    \end{equation}
+    We thus obtain
+    \[ \|T_1(t_n,s)\|_{l^1_{\tau,N}L^2} \lesssim \varepsilon^2\|u^K\|_{L^\infty H^1}^2 \|T(\Pi_K u^K)(s,t_n)\|_{l^1 H^1}
+    \lesssim \tau \|u^K\|_{L^\infty H^1}^3 \varepsilon^2\sup_{\tilde{s} \in [0,\tau]} 
+    \|u^K(t_n+\tilde{s})\|^2_{l^2_{\tau,N}L^\infty} .\]
+    By using~\eqref{uKl2Linfty}, we finally obtain 
+    \begin{equation}\label{T1l1L2}
+      \|T_1(t_n,s)\|_{l^1_{\tau,N}L^2} \lesssim \tau 
+      {(\varepsilon^\alpha N\tau)}^\frac2\alpha {\langle\varepsilon^\alpha N\tau\rangle}^{1-\frac2\alpha}.
+    \end{equation}
+    In a similar way, we obtain that 
+    \begin{align*}
+      \|T_2(s,t_n)\|_{L^2} & \lesssim  \varepsilon^4 \|e^{is\Delta} u^K(t_n)\|_{L^6}
+      \| e^{is\Delta}T(\Pi_K u^K)(s,t_n) \|_{L^6}^2 \\
+      &\lesssim \varepsilon^4 \|u^K(t_n)\|_{H^1} \|T(\Pi_K u^K)(s, t_n) \|_{H^1}^2
+    \end{align*}
+    Hence, we get 
+    \[ \|T_2(s,t_n)\|_{l^1_{\tau,N}L^2} \lesssim \|u\|_{L^\infty_{T}H^1} \varepsilon^2 
+    \|T(\Pi_K u^K)(s,t_n)\|_{l^\infty_{\tau,N}H^1} \varepsilon^2 
+    \|T(\Pi_K u^K)(s,t_n)\|_{l^1_{\tau,N}H^1}.\]
+    By using~\eqref{Tl1H1} to estimate \(\varepsilon^2\|T(\Pi_K u^K)(s,t_n)\|_{l^1 H^1}\), we
+    only need to estimate the last term. By using again~\eqref{TH1}, we obtain that
+    \[ \|T(\Pi_K u^K)(s,t_n)\|_{l^\infty_{\tau,N}H^1} \lesssim \int_0^\tau \|u^K(t_{n}+s)\|_{H^1} \|u^K(t_n+ s) \|_{L^\infty}^2\,\mathrm{d}s \lesssim \|u^K\|_{L^\infty_{T}H^1} \|u^K\|_{L^2_{T}L^\infty}^2 \]
+    and, therefore by~\eqref{uL2Linfty},
+    \begin{equation}\label{TlinftyH1}
+      \varepsilon^2\|t(\pi_k u^k)(s,t_n)\|_{l^\infty_{\tau,n}h^1} \leq 
+      \varepsilon^2 \|u^k\|_{l^\infty h^1} \|u^k\|_{l^2_{n\tau} l^\infty}^2 
+      \leq {(\varepsilon^\alpha n\tau)}^\frac2\alpha {\langle\varepsilon^\alpha n\tau\rangle}^{1-\frac2\alpha} 
+      \lesssim_T 1,
+    \end{equation}
+    for all \(N\) satisfying \( \varepsilon^\alpha N\tau \leq T \).
+    We thus finally obtain that 
+    \begin{equation}\label{T2l1L2}
+      \|T_2(t_n,s)\|_{l^1_{\tau,N}L^2} \lesssim_T \tau 
+      {(\varepsilon^\alpha N\tau)}^\frac2\alpha {\langle\varepsilon^\alpha N\tau\rangle}^{1-\frac2\alpha}.
+    \end{equation}
+    Finally, from the same arguments as above, we have that 
+    \[ \|T_3(s,t_n)\|_{L^2}  \lesssim \left(\varepsilon^2\|T(\Pi_K u^K)(s, t_n) \|_{H^1}\right)^3 \]
+    and thus 
+    \[ \|T_3(t_n,s)\|_{l^1_{\tau,N}L^2} \lesssim \left(\varepsilon^2 
+    \|T(\Pi_K u^K)(s,t_n)\|_{l^\infty_{\tau,N}H^1}\right)^2 \varepsilon^2 
+    \|T(\Pi_K u^K)(s,t_n)\|_{l^1_{\tau,N}H^1}. \]
+    Therefore, by using~\eqref{Tl1H1} and~\eqref{TlinftyH1}, we obtain that 
+    \begin{equation}\label{T3l1L2}
+      \|T_3(t_n,s)\|_{l^1_{\tau,N}L^2} \lesssim_T \tau 
+      {(\varepsilon^\alpha N\tau)}^\frac2\alpha {\langle\varepsilon^\alpha N\tau\rangle}^{1-\frac2\alpha}.
+    \end{equation}
+    The term \(T_4\) is estimated in the same way as \(T_1\), the term \(T_5\)
+    in the same way as \(T_2\). Finally, by combining~\eqref{F1lplq},~\eqref{T1l1L2},~\eqref{T2l1L2} 
+    and~\eqref{T3l1L2}, we obtain that 
+    \[ \| \mathcal F_1^n \|_{l^p_{\tau,N}L^q} \lesssim_{\alpha,T}
+    \varepsilon^2 (K\tau^\frac12)^\frac2p \tau 
+    {(\varepsilon^\alpha N\tau)}^\frac2\alpha {\langle\varepsilon^\alpha N\tau\rangle}^{1-\frac2\alpha}
+    \]
+  \end{proof}
+
+  \begin{lemma}\label{F2} %estimates of F_2
+    Under the same assumption of the previous lemma, we have 
+    \begin{align}
+      &\label{F2d1p} \| \mathcal F_2^n \|_{l^p_{\tau,N}L^q} \lesssim (K\tau^\frac12)^{\frac2p+\frac12} \tau 
+      {(\varepsilon^4 N\tau)}^\frac12 {\langle\varepsilon^4 N\tau\rangle}^\frac12 ,\quad \text{if }d=1, \\
+      &\label{F2d2p} \| \mathcal F_2^n \|_{l^p_{\tau,N}L^q} \lesssim_\alpha \varepsilon (K\tau^\frac12)^{\frac2p+1} \tau 
+      {(\varepsilon^\alpha N\tau)}^\frac1\alpha {\langle\varepsilon^\alpha N\tau\rangle}^{1-\frac1\alpha} ,\quad \text{if }d=2, \\
+      &\label{F2d3} \| \mathcal F_2^n \|_{l^p_{\tau,N}L^q} \lesssim_\alpha \varepsilon^2 (K\tau^\frac12)^{\frac2p+2} \tau \log{K}^\frac23
+      \langle\varepsilon^\alpha N\tau\rangle ,\quad \text{if }d=3.
+    \end{align}
+    Moreover, by~\eqref{F2d1p} and~\eqref{F2d2p}, we cound have for every \( 0 <
+    \eta < 1\)
+    \begin{align}
+      &\label{F2d1} \| \mathcal F_2^n \|_{l^p_{\tau,N}L^q} \lesssim_\alpha \varepsilon^{2-\frac\alpha2} (K\tau^\frac12)^{\frac2p+\frac12} \tau 
+      {(\varepsilon^\alpha N\tau)}^\frac12 {\langle\varepsilon^\alpha N\tau\rangle}^\frac12 ,\quad \text{if }d=1,\alpha \leq 4 \\
+      &\label{F2d2} \| \mathcal F_2^n \|_{l^p_{\tau,N}L^q} \lesssim_{\alpha,\eta} \varepsilon^{1+\eta} (K\tau^\frac12)^{\frac2p+1} \tau 
+      {(\varepsilon^\alpha N\tau)}^\frac{1-\eta}\alpha {\langle\varepsilon^\alpha N\tau\rangle}^{1-\frac{1-\eta}\alpha} ,\quad \text{if }d=2
+    \end{align}
+  \end{lemma}
+
+  \begin{remark}\label{remF2}
+    As in the previous lemma, we can also have the corresponding estimates for
+    \( \|S_K(-2\tau)\mathcal F^2_n\|_{l^p_{\tau,N}L^q} \) and the sequence 
+    \( (\varepsilon^2 \sum_{k=m}^{n-1} S_K(t_{n-k}) E_2(u^k, \tau, t_k))_{m \leq n \leq m+N} \).
+  \end{remark}
+
+  \begin{proof}
+    At first, we observe that using the expressions~\eqref{E2},~\eqref{F1F2}, we can write that
+    \begin{equation}%\label{1F2n0}
+      \begin{aligned}
+        \mathcal F_2^n &= 2\varepsilon^2 \int_0^\tau \int_0^s e^{-is_1\Delta}
+        \sum_{k=0}^{n-1} S_K(t_{n-k})  G(s,s_1,t_k)\,\mathrm{d}s_1\,\mathrm{d}s \\
+        & = 2\varepsilon^2 \int_0^\tau \int_0^s \sum_{k=0}^{n-1}  S_K(t_{n-k}- s_1)
+        G(s,s_1,t_k)\,\mathrm{d}s_1\,\mathrm{d}s,
+      \end{aligned}
+    \end{equation}
+    where
+    \begin{multline*}
+      G(s,s_1,t_k) =  -\nabla\left( e^{is_1\Delta} \Pi_K u^K(t_k) \right)^2 
+      \nabla \left( e^{i(s_1-2s)\Delta} \overline{\Pi_K u^K(t_k)} \right) \\
+      + \left( \nabla e^{is_1\Delta} \Pi_K u^K(t_k) \right)^2 \left( e^{i(s_1-2s)\Delta} \overline{\Pi_K u(t_k)} \right)
+    \end{multline*}
+    and we observe that \(s/\tau\), \(s_1/\tau\), \((s_1- 2s)/\tau\) are uniformly
+    bounded in \([-2, 1]\) so that we will be able to use~Theorem~\ref{thmDSE}
+    and Proposition~\ref{uKlpLq} and~\ref{DuKlpLq}.
+    We first estimate
+    \begin{equation}%\label{1F2n}
+      \|\mathcal F_2^n\|_{l^p_{\tau,N}L^q} \lesssim \varepsilon^2\tau^2  
+      \sup_{0 \leq s_1 \leq s \leq \tau} \left\|\sum_{k=0}^{n-1}  S_K(t_{n-k}-s_1)
+      G(s, s_1, t_k) \right\|_{l^p_{\tau, N}L^q}.
+    \end{equation}
+    Then, using  discrete Strichartz estimates, we obtain that
+    \[ \| \mathcal F_{2}^n \|_{l^p_{\tau, N}L^{q}} \lesssim \varepsilon^2\tau
+    (K \tau^\frac12)^\frac2p \sup_{0 \leq s, s_1 \leq \tau}\ \|G(s, s_1,
+    t_k) \|_{l^1_{\tau, N} L^2}. 
+    \]
+    We shall then use slightly different arguments depending on the dimension.
+    In dimension \(d \leq 2\), we use H\"older's inequality to get
+    \begin{multline*}
+      \|G(s,s_1,t_k)\|_{L^2} \lesssim  \|\nabla e^{-i(s_1-2s)\Delta}\Pi_{K}u^K(t_k)\|_{L^4} 
+      \|\nabla e^{is_1\Delta} \Pi_{K}u^K(t_k)\|_{L^4}
+      \|e^{is_1\Delta}\Pi_{K}u^K(t_k)\|_{L^\infty}  \\
+      + \|\nabla e^{is_1\Delta}\Pi_{K}u^K(t_k)\|_{L^4}^2 \|e^{-i(s_1-2s)\Delta}\Pi_{K}u^K(t_k)\|_{L^\infty}
+    \end{multline*}
+    and therefore,
+    \begin{equation}\label{F2lpLq}
+      \|\mathcal F_2^n |_{l^p_{\tau, N}L^q} \lesssim \varepsilon^2 \tau 
+      (K\tau^\frac12)^\frac2p \left(\sup_{\hat{s} \in [-2\tau,\tau]}  
+      \|\nabla e^{i\hat{s}\Delta}\Pi_K u^K(t_k)\|_{l^4_{\tau, N}L^4}  \right)^2 
+      \sup_{\hat s \in [-2\tau, \tau]} \|e^{i\hat{s}\Delta}\Pi_K u^K(t_k)\|_{l^2_{\tau, N}L^\infty}.
+    \end{equation}
+    Next, we use the estimate
+    \begin{equation}\label{expuKl2Linfty}
+      \sup_{\hat s \in [-2\tau, 2\tau]} \|e^{i \hat s\Delta }\Pi_{K} u^K(t_{k})\|_{l^2_{\tau, N}L^\infty} 
+      \lesssim_{\alpha} {(N\tau)}^\frac1\alpha {\langle\varepsilon^\alpha N\tau\rangle}^{\frac12-\frac1\alpha},
+    \end{equation}
+    from~\eqref{uKl2Linfty}. %Indeed, as noticed after Proposition \ref{propuKinfty}, in \black dimensions $1$ and 2, \black this estimate is true without further restriction on $\alpha \geq 1$. \black Moreover, for all $\hat s \in [-2\tau, 2\tau]$, \black we have the estimate
+    For \(d=1\), using H\"older and~\eqref{DuKlpLq}, we have
+    \begin{equation}\label{1Dul4L4}
+      \sup_{\hat{s} \in [-2\tau,\tau]} \|\nabla e^{i\hat{s}\Delta}\Pi_K u^K(t_k)\|_{l^4_{\tau, N}L^4}
+    \leq (N\tau)^\frac18 \sup_{\hat{s} \in [-2\tau,\tau]} \|\nabla e^{i\hat{s}\Delta}\Pi_K u^K(t_k)\|_{l^8_{\tau, N}L^4}
+    \lesssim_\alpha (N\tau)^\frac18 \langle\varepsilon^4 N\tau\rangle^\frac18 (K\tau^\frac12)^\frac14.
+    \end{equation}
+    while for \(d=2\), since \((4,4)\) is admissible, we get 
+    \begin{equation}\label{2Dul4L4}
+      \sup_{\hat{s} \in [-2\tau,\tau]} \|\nabla e^{i\hat{s}\Delta}\Pi_K u^K(t_k)\|_{l^4_{\tau, N}L^4}
+    \lesssim_\alpha \langle\varepsilon^\alpha N\tau\rangle^\frac14 (K\tau^\frac12)^\frac12.
+    \end{equation}
+    Consequently, by combining~\eqref{F2lpLq},~\eqref{expuKl2Linfty} and~\eqref{1Dul4L4},
+    we get the desired estimate for \(d=1\)
+    \[ \| \mathcal F_2^n \|_{l^p_{\tau,N}L^q} \lesssim_T (K\tau^\frac12)^{\frac2p+\frac12} \tau 
+    {(\varepsilon^4 N\tau)}^\frac12 {\langle\varepsilon^4
+    N\tau\rangle}^\frac12 , \]
+    and by combining~\eqref{F2lpLq},~\eqref{expuKl2Linfty} and~\eqref{2Dul4L4},
+    we get for \(d=2\)
+    \[ \| \mathcal F_2^n \|_{l^p_{\tau,N}L^q} \lesssim \varepsilon (K\tau^\frac12)^{\frac2p+1} \tau 
+    {(\varepsilon^\alpha N\tau)}^\frac1\alpha {\langle\varepsilon^\alpha N\tau\rangle}^{1-\frac1\alpha} .\]
+    In dimension \(3\), since \((4,4)\) is not admissible. We use in place the
+    estimate 
+    \begin{equation}
+      \| \mathcal F_2^n \|_{l^p_{\tau, N}L^q} \lesssim \varepsilon^2 \tau 
+      (K\tau^\frac12)^\frac2p \left(\sup_{\hat s \in [-2\tau, \tau]} 
+      \|\nabla e^{i\hat s\Delta}\Pi_{K}u^K(t_k)\|_{l^\frac83_{\tau,N}L^4} \right)^2 
+      \sup_{\hat s \in [-2\tau, \tau]} \|e^{i\hat s\Delta }\Pi_K u^K(t_k)\|_{l^4_{\tau, N}L^\infty}
+    \end{equation}
+    and therefore, we get from Proposition~\ref{DuKlpLq} that 
+    \[ \| \mathcal F_2^n \|_{l^p_{\tau, N}L^q} \lesssim \varepsilon^2 \tau 
+    (K\tau^\frac12)^{\frac2p+\frac32} {\langle\varepsilon^\alpha N\tau\rangle}^\frac34 
+    \sup_{\hat s \in [-2\tau, \tau]} \|e^{i\hat s\Delta }\Pi_K u^K(t_k)\|_{l^4_{\tau, N}L^\infty} \]
+    Here we cannot use anymore Proposition~\ref{uKlpLq} in order to estimate 
+    \(\|e^{i \hat s\Delta }\Pi_{K} u^K(t_{k})\|_{l^4_{\tau, N}L^\infty}\). We 
+    are thus forced to use Sobolev embedding and proposition~\ref{DuKlpLq}. 
+    Thanks to Lemma~\ref{sobbord}, 
+    \[ \|e^{i\hat s\Delta }\Pi_K u^K(t_k)\|_{l^4_{\tau, N}L^\infty} \lesssim 
+    (\log K)^\frac23 \|e^{i\hat s\Delta }\Pi_K u^K(t_k)\|_{l^4_{\tau, N}W^{1,3}}
+    \lesssim (\log K)^\frac23 {\langle\varepsilon^\alpha N\tau\rangle}^\frac14 
+    (K\tau^\frac12)^\frac12 .\]
+    This finally yields 
+    \[ \| \mathcal F_2^n \|_{l^p_{\tau,N}L^q} \lesssim \varepsilon^2 (K\tau^\frac12)^{\frac2p+2}
+    \tau \log{K}^\frac23 \langle\varepsilon^\alpha N\tau\rangle.\]
+
+    Finally, estimate~\eqref{F2d1} is directly get from~\eqref{F2d1p} by using
+    \(\alpha\leq4\). And by substituting \(\alpha\) by \(\frac\alpha{1-\eta}\) 
+    in~\eqref{F2d2p} for some \(0<\eta<1\) and using 
+    \(\varepsilon^\frac\alpha{1-\eta}\leq\varepsilon^\alpha\), then we
+    get~\eqref{F2d2}.
+  \end{proof}
+
+  \section{Proof of the main theorem}
+  At first, we use Corollary~\ref{coru-uKLinftyL2} to write that 
+  \[ \| u(t_n) - u^n \|_{L^2} \leq \|u(t_n) - u^K(t_n)\|_{L^2} + \|u^K(t_n) - u^n\|_{L^2}
+  \lesssim_{\alpha,T} \frac1K + \|e^n\|_{L^2}, \]
+  for every \( 0 \leq \varepsilon^\alpha n\tau \leq T.\)
+  We shall choose the parameter \(K = \varepsilon^{-\beta} \tau^{-\frac\gamma2}\)
+  to get the optimal error. The choice will depend on the dimension. 
+  By using Lemma~\ref{F1} and Lemma~\ref{F2}, we
+  have that for every \(0<\eta<1\)
+  \begin{equation*}
+    \begin{aligned}
+      & \|\mathcal F_1^n\|_{l^\infty_{\tau,N}L^2} + 
+      \|\mathcal F_2^n\|_{l^\infty_{\tau,N}L^2} \lesssim_{T} \varepsilon^2 \tau +
+      \varepsilon^{2-\frac\alpha2}\tau (K\tau^\frac12)^\frac12,\quad \text{if } d=1, \\
+      & \|\mathcal F_1^n\|_{l^\infty_{\tau,N}L^2} + 
+      \|\mathcal F_2^n\|_{l^\infty_{\tau,N}L^2} \lesssim_{T} \varepsilon^2 \tau +
+      \varepsilon^{1+\eta} \tau (K\tau^\frac12),\quad \text{if } d=2, \\
+      & \|\mathcal F_1^n\|_{l^\infty_{\tau,N}L^2} + 
+      \|\mathcal F_2^n\|_{l^\infty_{\tau,N}L^2} \lesssim_{T} \varepsilon^2 \tau +
+      \varepsilon^2 \tau (K\tau^\frac12)^2 \log{K}^\frac23,\quad \text{if } d=3.
+    \end{aligned}
+  \end{equation*}
+  We thus choose \(\beta,\gamma\) such that \(\|\mathcal F_2^n\|_{l^\infty_{\tau,N}L^2}\) 
+  have the same order as \(\frac1K\) which gives
+  \begin{equation}\label{bg}
+    \begin{aligned}
+      & \beta = \frac{4-\alpha}3, \gamma = \frac53 ,\quad \text{if } d=1, \\ 
+      & \beta = \frac{1+\eta}2, \gamma = \frac32, \quad \text{if } d=2, \\ 
+      & \beta = \frac23, \gamma = \frac43, \quad \text{if } d=3. 
+    \end{aligned}
+  \end{equation}
+  For simplicity, we write 
+  \begin{equation}\label{delta}
+    \begin{aligned}
+      \delta &= \frac1K = \varepsilon^\beta \tau^{\frac\gamma2}, \quad \text{if } d=1,2\\ 
+      \delta &= \varepsilon^\beta \tau^{\frac\gamma2}(|\log\tau|+|\log\varepsilon|)^\frac23,
+      \quad \text{if } d=3 
+    \end{aligned}
+  \end{equation}
+  Under this CFL type condition, we get that 
+  \begin{equation}\label{F1F2linftyL2}
+      \|\mathcal F_1^n\|_{l^\infty_{\tau,N}L^2} + 
+      \|\mathcal F_2^n\|_{l^\infty_{\tau,N}L^2} \lesssim_T \delta
+  \end{equation}
+  and more generally 
+  \begin{equation}\label{F1F2lpLq}
+      \|\mathcal F_1^n\|_{l^p_{\tau,N}L^q} + 
+      \|\mathcal F_2^n\|_{l^p_{\tau,N}L^q} \lesssim_T \delta
+      (K\tau^\frac12)^\frac2p,
+  \end{equation}
+  %For simplicity, we define a small \(T_1 \leq T\) and assume that all the index 
+  %\(k\) below satisfies \(\varepsilon^\alpha k\tau leq T_1\). We will prove by
+  %induction that \(\|e^n\|_{l^\infty L^2}\|\) is bounded by some constant
+  %depending on \(T\) for sufficiently small \(T_1\) and \(\tau\).
+
+  We define the normalized norm 
+  \begin{equation}\label{Xtau}
+      \|e^n\|_{X_{\tau,k}} := \frac1\delta \|e^n\|_{l^\infty_{\tau,k}L^2} 
+      + \frac1{\delta(K\tau^\frac12)^\frac d4} \left(\|e^n\|_{l^\frac8d_{\tau,k}L^4}
+      + \|S_K(-2\tau)e^n\|_{l^\frac8d_{\tau,k}L^4}\right).
+  \end{equation}
+  Note that by substituting \(u^k = u^K(t_k) - e^k \), we can write~\eqref{Gk}
+  as 
+  \[ G_k = G_k^1 + G_k^2 + G_k^3, \]
+  where 
+  \begin{equation*}
+    \begin{aligned}
+      G_k^1 &= 2(\Pi_K u^K(t_k))(\varphi_1(-2i\tau\Delta)\Pi_K\overline u^K(t_k))(\Pi_K e^k)
+      + (\Pi_K u^K(t_k))^2\varphi_1(-2i\tau\Delta)\Pi_K\overline e^k, \\
+      G_k^2 &= -\left(\varphi_1(-2i\tau\Delta)\Pi_K \overline u^K(t_k)\right)(\Pi_K e^k)^2 
+      - 2(\Pi_K u^K(t_k))(\Pi_k e^k)\varphi_1(-2i\tau\Delta)\Pi_K \overline e^k, \\
+      G_k^3 &= (\Pi_K e^k)^2\varphi_1(-2i\tau\Delta)\Pi_K\overline e^k.
+    \end{aligned}
+  \end{equation*}
+  To estimates \(e^n\), we use the discrete Strichartz estimates of
+  Theorem~\ref{thmDSE}, we get that 
+  \begin{equation}\label{enlinftyL2}
+    \|e^n\|_{l^\infty_{\tau,k+1}L^2} \lesssim \|\mathcal F_1^n\|_{l^\infty_{\tau,k}L^2} + 
+    \|\mathcal F_2^n\|_{l^\infty_{\tau,k}L^2} + \varepsilon^2\|G_n^1\|_{l^1_{\tau,k}L^2} 
+    + \varepsilon^2\|G_n^2\|_{l^1_{\tau,k}L^2} + (K\tau^\frac12)^\frac d4 
+    \varepsilon^2\|G_n^3\|_{l^{(\frac8d)'}_{\tau,k}L^\frac43} .
+  \end{equation}
+  The first two terms are bounded by~\eqref{F1F2linftyL2}. To estimate the third
+  term, we use that 
+  \[ \varepsilon^2\|G_n^1\|_{l^1_{\tau,k}L^2} \lesssim \left(\|e^n\|_{l^\infty_{\tau,k}L^2}
+  + \|\varphi_1(-2i\tau\Delta)e^n\|_{l^\infty_{\tau,k}L^2} \right)  \left( 
+  \varepsilon^2 \|u^K(t_n)\|_{l^2_{\tau,k}L^\infty}^2 + 
+  \varepsilon^2 \|\varphi_1(-2i\tau\Delta)\Pi_K u^K(t_n)\|_{l^2_{\tau,k}L^\infty}^2 \right). \]
+  By using~\eqref{uKl2Linfty} and~\eqref{phiuKlpLq}, we can estimate the right
+  hand side by 
+  \[ \varepsilon^2 \|u^K(t_n)\|_{l^2_{\tau,k}L^\infty}^2 + \varepsilon^2 
+  \|\varphi_1(-2i\tau\Delta)\Pi_K u^K(t_n)\|_{l^2_{\tau,k}L^\infty}^2 \lesssim 
+  {(\varepsilon^\alpha k\tau)}^\frac2\alpha {\langle\varepsilon^\alpha k\tau\rangle}^{1-\frac2\alpha}.\]
+  Combining with~\eqref{103}, we get that
+  \begin{equation}\label{G1}
+    \varepsilon^2\|G_n^1\|_{l^1_{\tau,k}L^2} \lesssim \|e^n\|_{l^\infty_{\tau,k}L^2}
+    {(\varepsilon^\alpha k\tau)}^\frac2\alpha {\langle\varepsilon^\alpha k\tau\rangle}^{1-\frac2\alpha}.
+  \end{equation}
+  Let's now estimate \(G_n^2\). From the same argument, we obtain that 
+  \[ \varepsilon^2\|G_n^2\|_{l^1_{\tau,k}L^2} \lesssim  \varepsilon
+  \left(\|e^n\|^2_{l^4_{\tau,k}L^4} + \|\varphi_1(-2i\tau\Delta)\Pi_K e^n\|^2_{l^4_{\tau,k}L^4} \right)
+  \left( \varepsilon \|u^K(t_n)\|_{l^2_{\tau,k}L^\infty} + 
+  \varepsilon \|\varphi_1(-2i\tau\Delta)\Pi_K u^K(t_n)\|_{l^2_{\tau,k}L^\infty} \right). \]
+  which yields 
+  \[ \varepsilon^2\|G_n^2\|_{l^1_{\tau,k}L^2} \lesssim  \varepsilon
+  \left(\|e^n\|^2_{l^4_{\tau,k}L^4} + \|\varphi_1(-2i\tau\Delta)\Pi_K e^n\|^2_{l^4_{\tau,k}L^4} \right)
+  {(\varepsilon^\alpha k\tau)}^\frac1\alpha {\langle\varepsilon^\alpha k\tau\rangle}^{\frac12-\frac1\alpha}. \]
+  We will estimate the \(l^4L^4\) norm depending on dimension. Note that pair 
+  \((\frac8d,4)\) is admissible. For \(d=1\), note that in this situation we
+  assume that \(\alpha \leq 4\), hence by h\"older, we have 
+  \begin{equation*}
+    \begin{aligned}
+      \varepsilon \left(\|e^n\|^2_{l^4_{\tau,k}L^4} + \|\varphi_1(-2i\tau\Delta)\Pi_K e^n\|^2_{l^4_{\tau,k}L^4} \right)
+      &\leq \varepsilon (k\tau)^{\frac12-\frac d4} \left(\|e^n\|^2_{l^\frac8d_{\tau,k}L^4} 
+      + \|\varphi_1(-2i\tau\Delta)\Pi_K e^n\|^2_{l^\frac8d_{\tau,k}L^4} \right) \\
+      &\leq  (\varepsilon^\alpha k\tau)^{\frac12-\frac d4}
+      \left(\|e^n\|^2_{l^\frac8d_{\tau,k}L^4} 
+      + \|\varphi_1(-2i\tau\Delta)\Pi_K e^n\|^2_{l^\frac8d_{\tau,k}L^4} \right). 
+    \end{aligned}
+  \end{equation*}
+  For \(d=2\), \((4,4)\) is exactly \((\frac8d,4)\) which is admissible. And for
+  \(d=3\), since \((\frac83,4) < 4\) we will use the reverse inclusion rule for
+  the discrete \(l^p_\tau\) spaces, which is 
+  \[ \|f\|_{l^p_\tau X} \leq \frac1{\tau^{\frac1q-\frac1p}} \|f\|_{l^q_\tau X}, 
+  \quad p > q.\]
+  Thus 
+  \[ \varepsilon \left(\|e^n\|^2_{l^4_{\tau,k}L^4} + \|\varphi_1(-2i\tau\Delta)\Pi_K e^n\|^2_{l^4_{\tau,k}L^4} \right)
+  \leq \varepsilon \tau^{\frac12-\frac d4} \left(\|e^n\|^2_{l^\frac8d_{\tau,k}L^4} + 
+  \|\varphi_1(-2i\tau\Delta)\Pi_K e^n\|^2_{l^\frac8d_{\tau,k}L^4}\right). \]
+  As we use in the proof of Corollary~\ref{corphiuKlpLq}, we use the
+  decomposition
+  \[ \varphi_1(-2i\tau\Delta)\Pi_K e^n = \varphi_1(-2i\tau\Delta)\Pi_{\tau^{-\frac12}}\Pi_K e^n
+  - \frac{1 - \Pi_{\tau^{-\frac12}}}{2i\tau\Delta} e^{-2i\tau\Delta}\Pi_K e^n
+  + \frac{1 - \Pi_{\tau^{-\frac12}}}{2i\tau\Delta}\Pi_K e^n. \]
+  We have that 
+  \begin{equation}\label{phie}
+    \|\varphi_1(-2i\tau\Delta)\Pi_K e^n\|_{L^4} 
+    \lesssim \|S_K(-2\tau)e^n\|_{L^4} + 
+    \|e^n\|_{L^4}.
+  \end{equation}
+  For summary, we have 
+  \begin{equation}\label{G2}
+    \begin{aligned}
+      \varepsilon^2\|G_n^2\|_{l^1_{\tau,k}L^2} &\lesssim (\varepsilon^\alpha k\tau)^{\frac14+\frac1\alpha}
+      \langle\varepsilon^\alpha k\tau\rangle^{\frac12-\frac1\alpha}
+      \left(\|e^n\|^2_{l^\frac8d_{\tau,k}L^4} + \|S_K(-2\tau)e^n\|_{l^\frac8d_{\tau,k}L^4}^2\right),\quad \text{if }d=1,\\
+      \varepsilon^2\|G_n^2\|_{l^1_{\tau,k}L^2} &\lesssim \varepsilon
+      (\varepsilon^\alpha k\tau)^\frac1\alpha \langle\varepsilon^\alpha k\tau\rangle^{\frac12-\frac1\alpha}
+      \left(\|e^n\|^2_{l^\frac8d_{\tau,k}L^4} + \|S_K(-2\tau)e^n\|_{l^\frac8d_{\tau,k}L^4}^2\right),\quad \text{if }d=2,\\
+      \varepsilon^2\|G_n^2\|_{l^1_{\tau,k}L^2} &\lesssim \varepsilon \tau^{-\frac14}
+      (\varepsilon^\alpha k\tau)^\frac1\alpha \langle\varepsilon^\alpha k\tau\rangle^{\frac12-\frac1\alpha}
+      \left(\|e^n\|^2_{l^\frac8d_{\tau,k}L^4} + \|S_K(-2\tau)e^n\|_{l^\frac8d_{\tau,k}L^4}^2\right),\quad \text{if }d=3,\\
+    \end{aligned}
+  \end{equation}
+  Finally, to estimate the last term of~\eqref{enlinftyL2}, by H\"older
+  and~\eqref{phie},
+  \[ \|G_n^3\|_{l^{(\frac8d)'}_{\tau,k}L^\frac43} \lesssim \left(
+  \left\| \|e^n\|_{L^4}^3 \right\|_{l^{(\frac8d)'}_{\tau,k}} 
+  + \left\| \|S_K(-2\tau)e^n \|_{L^4}^3 \right\|_{l^{(\frac8d)'}_{\tau,k}}\right). \]
+  For \(d=1\), again use \(\alpha\leq4\), we obtain by H\"older that 
+  \begin{equation}\label{G3d1}
+    \varepsilon^2 \|G_n^3\|_{l^{(\frac8d)'}_{\tau,k}L^\frac43} \lesssim 
+    (\varepsilon^\alpha k\tau)^\frac12 \left(
+    \|e^n\|^3_{l^\frac8d_{\tau,k}L^4} + \|S_K(-2\tau)e^n\|_{l^\frac8d_{\tau,k}L^4}^3\right).
+  \end{equation}
+  For \(d=2\), since \((\frac8d)' = \frac13\frac8d\), we obtain again by
+  H\"older that 
+  \begin{equation}\label{G3d2}
+    \varepsilon^2 \|G_n^3\|_{l^{(\frac8d)'}_{\tau,k}L^\frac43} \lesssim \varepsilon^2
+    \left(\|e^n\|^3_{l^\frac8d_{\tau,k}L^4} + \|S_K(-2\tau)e^n\|_{l^\frac8d_{\tau,k}L^4}^3\right).
+  \end{equation}
+  For \(d=3\), since \((\frac8d)' > \frac13\frac8d\), we use again by reverse
+  inclusion of \(l^p_\tau\) and \( \frac1{(\frac8d)'} - \frac{8d}3 = -\frac12\)
+  to get that 
+  \begin{equation}\label{G3d3}
+    \varepsilon^2 \|G_n^3\|_{l^{(\frac8d)'}_{\tau,k}L^\frac43} \lesssim \varepsilon^2 \tau^{-\frac12}
+    \left(\|e^n\|^3_{l^\frac8d_{\tau,k}L^4} + \|S_K(-2\tau)e^n\|_{l^\frac8d_{\tau,k}L^4}^3\right).
+  \end{equation}
+
+  Next, we need to estimate \(l^\frac8d_{\tau,k}L^4\) norm of \(e^n\) and
+  \(S_K(-2\tau)e^n\). Indeed by Discrete Strichartz estimate Corollary~\ref{corDSE},
+  we have
+  \begin{multline}\label{enl8dL4}
+    \|e^n\|_{l^\frac8d_{\tau,k+1}L^4} + \|S_K(-2\tau)e^n\|_{l^\frac8d_{\tau,k+1}L^4} 
+    \lesssim \|\mathcal F_1^n\|_{l^\frac8d_{\tau,k}L^4} + 
+    \|\mathcal F_2^n\|_{l^\frac8d_{\tau,k}L^4} + (K\tau^\frac12)^\frac d4 \left(
+    \varepsilon^2\|G_n^1\|_{l^1_{\tau,k}L^2} \right. \\ \left.
+    + \varepsilon^2\|G_n^2\|_{l^1_{\tau,k}L^2} + (K\tau^\frac12)^\frac d4 
+    \varepsilon^2\|G_n^3\|_{l^{(\frac8d)'}_{\tau,k}L^\frac43}\right) .
+  \end{multline}
+  Consequently, by combining~\eqref{F1F2linftyL2},~\eqref{F1F2lpLq},~\eqref{Xtau}
+  ,~\eqref{enlinftyL2} and~\eqref{enl8dL4}, we get 
+  \begin{equation}\label{enXtaupart}
+    \|e^n\|_{X_{\tau,k+1}} \lesssim 1 + \frac1\delta \left( 
+    \varepsilon^2\|G_n^1\|_{l^1_{\tau,k}L^2} + \varepsilon^2\|G_n^2\|_{l^1_{\tau,k}L^2} 
+    + (K\tau^\frac12)^\frac d4 \varepsilon^2\|G_n^3\|_{l^{(\frac8d)'}_{\tau,k}L^\frac43}\right).
+  \end{equation}
+  Finally, we can plug~\eqref{Xtau},~\eqref{G1},~\eqref{G2},~\eqref{G3d1} into~\eqref{enXtaupart}
+  to get for \(d=1\),
+  \begin{equation*}
+    \begin{aligned}
+      \|e^n\|_{X_{\tau,k+1}} &\lesssim 1 + \|e^n\|_{X_{\tau,k}} 
+      (\varepsilon^\alpha k\tau)^\frac2\alpha \langle\varepsilon^\alpha k\tau\rangle^{1-\frac2\alpha} %G1
+      + \delta(K\tau^\frac12)^\frac12 (\varepsilon^\alpha k\tau)^{\frac14+\frac1\alpha}
+      \langle\varepsilon^\alpha k\tau\rangle^{\frac12-\frac1\alpha} \|e^n\|_{X_{\tau,k}}^2 \\
+      & \qquad + \delta^2(K\tau^\frac12)^\frac34 (\varepsilon^\alpha k\tau)^\frac12 
+      \|e^n\|_{X_{\tau,k}}^3.
+    \end{aligned}
+  \end{equation*}
+  then by~\eqref{bg} and~\eqref{delta}, since \(\delta(K\tau^\frac12)^\frac12 = 
+  \tau^\frac14 K^{-\frac12} = \varepsilon^\frac{4-\alpha}6\tau^\frac23\) and 
+  \(\delta^2(K\tau^\frac12)^\frac34 = \tau^\frac38K^{-\frac54} = 
+  \varepsilon^\frac{5(4-\alpha)}{12}\tau^\frac{17}{12}\),
+  \begin{equation}\label{eXtaud1}
+    \begin{aligned}
+      \|e^n\|_{X_{\tau,k+1}} &\lesssim 1 + \|e^n\|_{X_{\tau,k}} 
+      (\varepsilon^\alpha k\tau)^\frac2\alpha \langle\varepsilon^\alpha k\tau\rangle^{1-\frac2\alpha} %G1
+      + \varepsilon^\frac{4-\alpha}6\tau^\frac23 (\varepsilon^\alpha k\tau)^{\frac14+\frac1\alpha}
+      \langle\varepsilon^\alpha k\tau\rangle^{\frac12-\frac1\alpha} \|e^n\|_{X_{\tau,k}}^2 \\
+      & \qquad + \varepsilon^\frac{5(4-\alpha)}{12}\tau^\frac{17}{12} 
+      (\varepsilon^\alpha k\tau)^\frac12 \|e^n\|_{X_{\tau,k}}^3.
+    \end{aligned}
+  \end{equation}
+  Similarly, in dimension \(2\), by plugging~\eqref{Xtau},~\eqref{G1},~\eqref{G2},~\eqref{G3d2} 
+  into~\eqref{enXtaupart} ,
+  \begin{equation*}
+    \begin{aligned}
+      \|e^n\|_{X_{\tau,k+1}} &\lesssim 1 + \|e^n\|_{X_{\tau,k}} 
+      (\varepsilon^\alpha k\tau)^\frac2\alpha \langle\varepsilon^\alpha k\tau\rangle^{1-\frac2\alpha} %G1
+      + \delta(K\tau^\frac12) \varepsilon (\varepsilon^\alpha k\tau)^\frac1\alpha
+      \langle\varepsilon^\alpha k\tau\rangle^{\frac12-\frac1\alpha} \|e^n\|_{X_{\tau,k}}^2 \\
+      & \qquad + \delta^2(K\tau^\frac12)^\frac32 \varepsilon^2 
+      \|e^n\|_{X_{\tau,k}}^3,
+    \end{aligned}
+  \end{equation*}
+  and by~\eqref{bg} and~\eqref{delta}, since 
+  \(\delta(K\tau^\frac12) \varepsilon = \varepsilon\tau^\frac12\) and
+  \(\delta^2(K\tau^\frac12)^\frac32 \varepsilon^2 =
+  \varepsilon^2\tau^\frac34K^{-\frac12} = 
+  \varepsilon^\frac{9+\eta}4\tau^\frac98\),
+  \begin{equation}\label{eXtaud2}
+    \begin{aligned}
+      \|e^n\|_{X_{\tau,k+1}} &\lesssim 1 + \|e^n\|_{X_{\tau,k}} 
+      (\varepsilon^\alpha k\tau)^\frac2\alpha \langle\varepsilon^\alpha k\tau\rangle^{1-\frac2\alpha} %G1
+      + \varepsilon\tau^\frac12 (\varepsilon^\alpha k\tau)^\frac1\alpha
+      \langle\varepsilon^\alpha k\tau\rangle^{\frac12-\frac1\alpha} \|e^n\|_{X_{\tau,k}}^2 \\
+      & \qquad + \varepsilon^\frac{9+\eta}4\tau^\frac98 \|e^n\|_{X_{\tau,k}}^3 .
+    \end{aligned}
+  \end{equation}
+  And in dimension \(3\), by plugging~\eqref{Xtau},~\eqref{G1},~\eqref{G2},~\eqref{G3d3} 
+  into~\eqref{enXtaupart}, 
+  \begin{equation*}
+    \begin{aligned}
+      \|e^n\|_{X_{\tau,k+1}} &\lesssim 1 + \|e^n\|_{X_{\tau,k}} 
+      (\varepsilon^\alpha k\tau)^\frac2\alpha \langle\varepsilon^\alpha k\tau\rangle^{1-\frac2\alpha} %G1
+      + \delta(K\tau^\frac12)^\frac32 \varepsilon\tau^{-\frac14} (\varepsilon^\alpha k\tau)^\frac1\alpha
+      \langle\varepsilon^\alpha k\tau\rangle^{\frac12-\frac1\alpha} \|e^n\|_{X_{\tau,k}}^2 \\
+      & \qquad + \delta^2(K\tau^\frac12)^\frac94 \varepsilon^2 \tau^{-\frac12}
+      \|e^n\|_{X_{\tau,k}}^3 , 
+    \end{aligned}
+  \end{equation*}
+  and by~\eqref{bg} and~\eqref{delta}, since
+  \(\delta(K\tau^\frac12)^\frac32 \varepsilon\tau^{-\frac14} = 
+  \varepsilon^\frac23\tau^\frac16(|\log\tau|+|\log\varepsilon|)^\frac23\)
+  \(\delta^2(K\tau^\frac12)^\frac94 \varepsilon^2 \tau^{-\frac12} = 
+  \varepsilon^\frac{11}6\tau^\frac{11}{24}(|\log\tau|+|\log\varepsilon|)^\frac43\)
+  \begin{equation}\label{eXtaud3}
+    \begin{aligned}
+      \|e^n\|_{X_{\tau,k+1}} &\lesssim 1 + \|e^n\|_{X_{\tau,k}} 
+      (\varepsilon^\alpha k\tau)^\frac2\alpha \langle\varepsilon^\alpha k\tau\rangle^{1-\frac2\alpha} %G1
+      + \varepsilon^\frac23\tau^\frac16(|\log\tau|+|\log\varepsilon|)^\frac23 
+      (\varepsilon^\alpha k\tau)^\frac1\alpha
+      \langle\varepsilon^\alpha k\tau\rangle^{\frac12-\frac1\alpha} \|e^n\|_{X_{\tau,k}}^2 \\
+      & \qquad + \varepsilon^\frac{11}6\tau^\frac{11}{24}(|\log\tau|+|\log\varepsilon|)^\frac43 
+      \|e^n\|_{X_{\tau,k}}^3 .
+    \end{aligned}
+  \end{equation}
+  To summarize the above discussion, define \(N_1\) such that 
+  \(\varepsilon^\alpha N_1\tau = T_1 \leq T\). We can rewrite~\eqref{eXtaud1},~\eqref{eXtaud2} 
+  and~\eqref{eXtaud3} as, for every \( 0 \leq k \leq N_1 \),
+  \begin{equation}\label{enXtau0k}
+    \|e^n\|_{X_{\tau,k+1}} \leq C_T + C_T (T_1)^{\theta} \|e^n\|_{X_{\tau,k}} 
+    + C_T \tau^{\lambda_1} \|e^n\|_{X_{\tau,k}}^2 
+    + C_T \tau^{\lambda_2} \|e^n\|_{X_{\tau,k}}^3
+  \end{equation}
+  for some \(\theta,\lambda_1,\lambda_2 > 0 \).
+  Consequently, by taking \(T_1\) sufficiently small so that \(C_T T_1^{\theta} 
+  \leq \frac12 \), we get that by induction for every \(k\) so that 
+  \(0 \leq k \leq N_1 + 1\),
+  \[ \|e^n\|_{X_{\tau,k+1}} \leq \widetilde C_T \]
+  for \(\tau\) sufficiently small.
+
+  Now let us denote \(m\) be some positive integer, and we consider \(m\) such
+  that \( m \leq n \leq m+N_1\), where \(N_1\) as above.
+  Let us denote 
+  \( \|f^k\|_{l^p_{\tau,m,n}X} = \|(f^k)_{m\leq k\leq n}\|_{l^p_{\tau,m,n}X} \)
+  for simplicity, and 
+  \[
+      \|e^k\|_{X_{\tau,m,n}} := \frac1\delta \|e^k\|_{l^\infty_{\tau,m,n}L^2} 
+      + \frac1{\delta(K\tau^\frac12)^\frac d4} \left(\|e^k\|_{l^\frac8d_{\tau,m,n}L^4}
+      + \|S_K(-2\tau)e^k\|_{l^\frac8d_{\tau,m,n}L^4}\right).
+  \]
+  By the same way above, we can use formula~\eqref{emn},and Remark~\ref{remF1}
+  and~\ref{remF2}. 
+  \begin{equation}\label{enXtaumn}
+    \|e^k\|_{X_{\tau,m,n}} \leq \frac1\delta \|e^m\|_{L^\infty L^2} + C_T + C_T (T_1)^{\theta}
+    \|e^k\|_{X_{\tau,m,n}} + C_T \tau^{\lambda_1} \|e^k\|_{X_{\tau,m,n}}^2 
+    + C_T \tau^{\lambda_2} \|e^k\|_{X_{\tau,m,n}}^3,
+  \end{equation}
+  where the constant \(C_T\) are the same as~\eqref{enXtau0k}.
+  By inductive hypothesis, we have \( \frac1\delta \|e^m\|_{L^\infty L^2} \leq C_T'\).
+  Hence we have again 
+  \[ \|e^k\|_{X_{\tau,m,n}} \leq \widetilde C_T', \]
+  for some constant \(\widetilde C_T'\) and sufficiently small \(\tau\).
+  We can then iterate the estimates on \([0,T_1],[T_1,2T_1],\cdots\)to finally
+  obtain the result after a finite number of steps.
+  %\begin{equation}
+  %  \begin{aligned}
+  %    \|e^n\|_{X_{\tau,k+1}} &\lesssim 1 + \frac1{\varepsilon^\beta\tau^{-\frac\gamma2}}
+  %    \left( \varepsilon^2\|G_n^1\|_{l^1_{\tau,k}L^2} 
+  %    + \varepsilon^2\|G_n^2\|_{l^1_{\tau,k}L^2} + (\varepsilon^{-\beta}\tau^{-\frac\gamma2})^\frac d4 
+  %    \varepsilon^2\|G_n^3\|_{l^{(\frac8d)'}_{\tau,k}L^\frac43}\right),\quad
+  %    d=1,2, \\
+  %    \|e^n\|_{X_{\tau,k+1}} &\lesssim 1 + 
+  %    \frac1{\varepsilon^\beta\tau^{-\frac\gamma2}(|\log\tau|+|\log\varepsilon|)^\frac23}
+  %    \left(\varepsilon^2\|G_n^1\|_{l^1_{\tau,k}L^2} 
+  %    + \varepsilon^2\|G_n^2\|_{l^1_{\tau,k}L^2} + (\varepsilon^{-\beta}\tau^{-\frac\gamma2})^\frac d4 
+  %    \varepsilon^2\|G_n^3\|_{l^{(\frac8d)'}_{\tau,k}L^\frac43}\right),\quad d=3
+  %  \end{aligned}
+  %\end{equation}
+  %\varepsilon^\beta\tau^{-\frac\gamma2}(|\log\tau|+|\log\varepsilon|)^\frac23 
+
+
+  \section{some technical estimates}
+
+  \begin{lemma}\label{lemfilter1}
+    We have the following:
+    \begin{itemize}
+      \item For every \(p \in [1,\infty]\), there exists \(C>0\) such that for every
+        \(\tau \in (0,1]\),
+        \begin{equation}\label{101}
+          \|\varphi_1(-2i\tau\Delta)\Pi_{\tau^{-\frac12}} f\|_{L^p} \leq
+          C\|f\|_{L^p} \quad\text{for all } f \in L^p.
+        \end{equation}
+      \item For every \(p \in (1,\infty)\), there exists \(C>0\) such that for every
+        \(\tau \in (0,1]\),
+        \begin{equation}\label{102}
+          \|\frac{1-\Pi_{\tau^{-\frac12}}}{2i\tau\Delta} f\|_{L^p} \leq
+          C\|f\|_{L^p} \quad\text{for all } f \in L^p.
+        \end{equation}
+      \item For every \(s \in [0,2]\), there exists \(C>0\) such that for every
+        \(\tau \in (0,1]\),
+        \begin{equation}\label{103}
+          \|\varphi_1(-2i\tau\Delta) f\|_{L^2} \leq
+          \frac C{\tau^\frac s2}\|f\|_{L^2} \quad\text{for all } f \in L^2.
+        \end{equation}
+    \end{itemize}
+  \end{lemma}
+
+  \begin{lemma}\label{sobbord}
+    There exists \(C>0\) such that for every \(u\in W^{1,3}(\mathbb R^3)\) with
+    \(\supp \hat{u} \subset B(0,4K)\), \(K \geq 1\), we have
+    \[ \|u\|_{L^\infty} \leq C (\log K)^\frac23 \|u\|_{W^{1,3}}. \]
+  \end{lemma}
+
+  \begin{thebibliography}{99}
+    \bibitem{OsRoSc21}
+      {\rm A. Ostermann, F. Rousset, K. Schratz,}
+      {\em Error estimates of a fourier integrator for the cubic schr\"odinger equation at low regularity.}
+      Found. Comput. Math. \textbf{21}, 725--765 (2021).
+
+  \end{thebibliography}
+\end{document}
