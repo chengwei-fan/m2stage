@@ -48,10 +48,10 @@
     \right.
   \end{equation}
   In this paper, we analysis the long time behavier of the numerical scheme
-  given in~\cite{OsRoSc21}.
+  given in~\cite{ORS21}.
 
   \section{Main theorem}
-  As presented in~\cite{OsRoSc21}, we choose the following scheme
+  As presented in~\cite{ORS21}, we choose the following scheme
   \begin{equation}\label{num-sol} %numerical solution
     \left\{
     \begin{aligned}
@@ -96,7 +96,7 @@
     there exist \(\tau_0 > 0\) such that for every step size \(\tau \in (0,\tau_0]\),
     every \( \varepsilon \in (0,1] \), we have the following error estimates:
     \begin{itemize}
-      \item if \(d=1\), with the choise \(K=1/\tau^\frac56\),
+      \item if \(d=1\), with the choise \(K=1/\varepsilon^\frac{4-\alpha}3\tau^\frac56\),
         \[ \|u(t_n)-u^n\|_{L^2} \lesssim \varepsilon^\frac{4-\alpha}3\tau^\frac56, \quad 
         0 \leq n\tau\varepsilon^\alpha \leq T \]
       \item if \(d=2\), with the choise \(K=1/\varepsilon^\beta\tau^\frac34\),
@@ -108,7 +108,40 @@
         \quad 0 \leq n\tau\varepsilon^\alpha \leq T \]
     \end{itemize}
   \end{theorem}
-  %% TODO 再补点东西
+
+  And we also have the following result, which is more practical. Particularly, for \(d=3\)
+  with the help of scattering theory, we could have a global in time bound.
+  \begin{theorem}
+    For every \( T > 0 \), \( \phi \in H^1 \) and \(\alpha > 0\) (\(\alpha \leq 4\) 
+    if \(d=1\)), donote by \(u\) the exact solution of equation~\eqref{nls-ep-nonl} 
+    and by \(u^n\) the sequence defined by the scheme~\eqref{num-sol}. Then, 
+    there exist \(\tau_0 > 0\) and \(\varepsilon_0>0 \) such that for every step size \(\tau \in (0,\tau_0]\),
+    every \( \varepsilon \in (0,\varepsilon_0] \), we have the following error estimates:
+    \begin{itemize}
+      \item if \(d=1\), with the choise \(K=1/\tau^\frac56\),
+        \[ \|u(t_n)-u^n\|_{L^2} \leq 2\|\phi\|_{H^1}\tau^\frac56 + C_{u_0,\alpha,T} \varepsilon^{2-\frac\alpha2}\tau^\frac56, \quad 
+        0 \leq n\tau\varepsilon^\alpha \leq T \]
+      \item if \(d=2\), with the choise \(K=1/\tau^\frac34\),
+        for every \(\eta>0\) 
+        \[ \|u(t_n)-u^n\|_{L^2} \leq 2\|\phi\|_{H^1}\tau^\frac56 + C_{u_0,\alpha,T,\eta} \varepsilon^{2-\eta} \tau^\frac34, \quad 
+        0 \leq n\tau\varepsilon^\alpha \leq T \]
+      \item if \(d=3\), with the choise \(K=1/\tau^\frac23\),
+        \[ \|u(t_n)-u^n\|_{L^2} \leq 2\|\phi\|_{H^1}\tau^\frac23 + C_{u_0,\alpha} \varepsilon^{2} \tau^\frac23|\log\tau+\log\varepsilon|^\frac23, 
+        \quad \forall n \geq 0 \]
+    \end{itemize}
+  \end{theorem}
+
+  And by scattering theory we could also strengthen the result in \(d=3\) in~\cite{ORS21}. 
+  \begin{theorem}
+    For \(\varepsilon=1\) and the same assumptions as previous theorem in
+    \(d=3\), we have
+    \[ \|u(t_n)-u^n\|_{L^2} \lesssim \tau^\frac23|\log\tau|^\frac23, 
+    \quad \forall n \geq 0, \]
+    with the choice of \(K=\tau^{-\frac23}
+  \end{theorem}
+  Indeed this is different from the previous theorem, because in the previous
+  theorem we only prove the global bound for \(\varepsilon< \varepsilon_0\),
+  which may not take \(1\).
 
   \section{Continuous and discrete Strichartz estimates}
 
@@ -116,7 +149,8 @@
   \( (p,q) \) is admissible if \(p \geq 2\), \(q \geq 2\), \((p,q,d) \neq (2,\infty,2)\)
   and \( \frac2p + \frac{d}q = \frac{d}2 \). We denote \(p'\)
   and \(q'\) be the dual of \(p\) and \(q\), i.e., \(\frac1p+\frac1{p'} = 1\) 
-  and \(\frac1q+\frac1{q'} = 1\).
+  and \(\frac1q+\frac1{q'} = 1\). The following three results have been proved
+  in~\cite{ORS21}.
 
   \begin{theorem}
     For every \((p,q)\) admissible, there exists \(C > 0\) such that for every 
@@ -140,19 +174,19 @@
     S_K(t) = e^{it\Delta} \Pi_K = \Pi e^{it\Delta}.
   \end{equation}
 
-  \begin{theorem}\label{thmDSE} % discrete Strichartz estimates
+  \begin{theorem}\label{thmDSEold} % discrete Strichartz estimates
     For every \((p,q)\) admissible with \(p>2\), there exists \(C>0\) such that
     for every \(K\) and \(\tau\) satisfying \(K\tau^\frac12 \geq 1\), all \(
     f \in L^2 \) and all \(F \in l^{p'}_\tau L^{q'}\), we have 
     \begin{eqnarray}
-      \label{T} & & \left\| S_{K}(n \tau) f\right\|_{l^p_\tau L^q} \leq C{(K\tau^\frac12)}^{\frac2p} \|f\|_{L^2} \\
-      \label{T*} & & \left\| \tau\sum_{n \in \mathbb{Z}}  S_K (-n\tau) F_n \right\|_{L^2} \leq C {(K\tau^\frac12)}^\frac2p \|F\|_{l^{p'}_\tau L^{q'}}.
+      \label{To} & & \left\| S_{K}(n \tau) f\right\|_{l^p_\tau L^q} \leq C{(K\tau^\frac12)}^{\frac2p} \|f\|_{L^2} \\
+      \label{T*o} & & \left\| \tau\sum_{n \in \mathbb{Z}}  S_K (-n\tau) F_n \right\|_{L^2} \leq C {(K\tau^\frac12)}^\frac2p \|F\|_{l^{p'}_\tau L^{q'}}.
     \end{eqnarray}
     For every \((p_1, q_1)\) and \((p_2, q_2)\) admissible with \(p_1>2\),
     \(p_2>2\), there exists \(C > 0\) such that for every \(K\) and \(\tau\) 
     satisfying \(K\tau^\frac12 \geq 1\), all \( s \in [-3,3] \) and all 
     \(F \in L^{p_2'} L^{q'_2}\), we have
-    \begin{equation}\label{TT*}
+    \begin{equation}\label{TT*o}
       \left\| \tau \sum_{k = -\infty}^{n-1}  S_K ((n-k+s)\tau) F_k \right\|_{l^{p_1}_\tau L^{q_1}}
       \leq C (K\tau^\frac12)^{ \frac2{p_1} + \frac2{p_2} }  \|F\|_{l^{p_2'}_\tau L^{q_2'}}.
     \end{equation}
@@ -160,15 +194,15 @@
 
   %% TODO 指出 这里我们去掉了端点，给出证明来源
 
-  \begin{corollary}\label{corDSE}
+  \begin{corollary}\label{corDSEold}
     For every $(p,q)$ admissible with $p>2$, there exists $C>0$ such that for every $0<\tau \leq 1$ and $K = \tau^{-\frac\gamma2}$, $\gamma \geq 1$,  we have
     \begin{equation}
-    \label{Tloss}
+    \label{Tlossold}
     \left\| S_{K}(n \tau) f\right\|_{l^p_{\tau}L^q} \leq C    \|f \|_{H^{ \frac2p(1 - \frac1\gamma) }}\qquad \text{for all \ $f\in H^{ {2 \over p}( 1 - {1 \over \gamma} ) }$}. 
     \end{equation}
     For every $(p, q)$ admissible with  $p>2$, there exists $C>0$ such that for every  $0<\tau \leq 1$, $K = \tau^{-{\gamma \over 2}}$,  $\gamma \ge 1$  and $s \in [-8,8]$ we have
     \begin{equation}
-    \label{TT*loss}
+    \label{TT*lossold}
     \left\| \tau  \sum_{k=-\infty}^{n-1}   S_{K} ((n-k+ s) \tau)  F_{k} \right\|_{l^{p}_{\tau}L^{q} } \leq C   \| F\|_{l^1_\tau  H^{ {2 \over p}( 1 - {1 \over \gamma} ) } }\qquad 
     \text{for all \ $F\in l^1_\tau  H^{ {2 \over p}( 1 - {1 \over \gamma} ) }$}. 
     \end{equation}
@@ -176,9 +210,65 @@
   Note that, since $\tau^{1 \over p}\| \Pi_{K} f\|_{L^q} \leq  \left\| S_{K}(n \tau) f\right\|_{l^p_{\tau}L^q}$ 
   the estimate \eqref{Tloss} also encodes the modified Sobolev estimate
   \begin{equation}
-    \label{sobmod}
+    \label{sobmodold}
     \tau^{1 \over p} \| \Pi_{K} f\|_{L^q} \leq C \|f \|_{H^{ {2 \over p}( 1 - {1 \over \gamma} ) }}.
   \end{equation}
+
+  Indeed, we can generalize the above two theorem, and have the following, for
+  \(K = \varepsilon^{-\beta\gamma} \tau^{-\frac\gamma2}\). And for all exponent
+  pairs \((p,q)\) with \( \frac2p + \frac{d}q \leq \frac{d}2\) if \(p\neq2\) and
+  \( \frac2p + \frac{d}q < \frac{d}2\) if \(p=2\). We call such a pair weakly
+  admissible.
+
+  \begin{theorem}\label{thmDSE} % discrete Strichartz estimates
+    For every exponent pair \((p,q)\) weakly admissible, there exists \(C>0\) such that
+    for every \(K\) and \(\tau\) satisfying \(K\tau^\frac12 \geq 1\), all \(
+    f \in L^2 \) and all \(F \in l^{p'}_\tau L^{q'}\), we have 
+    \begin{eqnarray}
+      \label{T} & & \left\| S_{K}(n \tau) f\right\|_{l^p_\tau L^q} \leq C{(K\tau^\frac12)}^{d(\frac12-\frac1q)} \|f\|_{L^2} \\
+      \label{T*} & & \left\| \tau\sum_{n \in \mathbb{Z}}  S_K (-n\tau) F_n \right\|_{L^2} 
+      \leq C {(K\tau^\frac12)}^{d(\frac12-\frac1q)} \|F\|_{l^{p'}_\tau L^{q'}}.
+    \end{eqnarray}
+    For every \((p_1, q_1)\) and \((p_2, q_2)\) weakly admissible,
+    there exists \(C > 0\) such that for every \(K\) and \(\tau\) 
+    satisfying \(K\tau^\frac12 \geq 1\), all \( s \in [-3,3] \) and all 
+    \(F \in L^{p_2'} L^{q'_2}\), we have
+    \begin{equation}\label{TT*}
+      \left\| \tau \sum_{k = -\infty}^{n-1}  S_K ((n-k+s)\tau) F_k \right\|_{l^{p_1}_\tau L^{q_1}}
+      \leq C (K\tau^\frac12)^{d(1-\frac1{q_1}-\frac1{q_2})}  \|F\|_{l^{p_2'}_\tau L^{q_2'}}.
+    \end{equation}
+  \end{theorem}
+
+  \begin{corollary}\label{corDSE}
+    For every \((p,q)\) weakly admissible, there exists \(C>0\) such that 
+    for every \(0<\tau \leq 1\), \( 0 < \varepsilon \leq 1 \) and 
+    \(K = \varepsilon^{\beta\gamma}\tau^{-\frac\gamma2}\), \(\gamma \geq 1\), 
+    \(\beta \geq 0\),  we have
+    \begin{equation}
+    \label{Tloss}
+      \left\| S_{K}(n \tau) f\right\|_{l^p_\tau L^q} \leq \varepsilon^{-\beta d(\frac12-\frac1q)} 
+      \|f \|_{H^{(1-\frac1\gamma)d(\frac12-\frac1q)}} \qquad \text{for all \(f \in H^{(1-\frac1\gamma)d(\frac12-\frac1q)}\)}. 
+    \end{equation}
+    For every \((p_1, q_1)\) and \((p_2, q_2)\) weakly admissible, there exists \(C>0\) such that for 
+    for every \(0<\tau \leq 1\), \( 0 < \varepsilon \leq 1 \) and 
+    \(K = -\varepsilon^{\beta\gamma}\tau^{-\frac\gamma2}\), \(\gamma \geq 1\), 
+    \(\beta \geq 0\) and \(s \in [-8,8]\) we have,
+    \begin{equation}
+    \label{TT*loss}
+      \left\| \tau  \sum_{k=-\infty}^{n-1} S_{K} ((n-k+s) \tau) F_k \right\|_{l^p_\tau L^q} 
+      \leq \varepsilon^{-\beta d(\frac12-\frac1q)} \|F\|_{l^{p_2}_\tau B^{(1-\frac1\gamma)d(1-\frac1{q_1}-\frac1{q_2})}_{q_2',2}}\qquad 
+      \text{for all  \(F\in l^{p_2}_\tau B^{(1-\frac1\gamma)d(1-\frac1{q_1}-\frac1{q_2})}_{q_2',2}\) },
+    \end{equation}
+    where we use \(B^s_{p,q}\) to denote inhomogeneous Besov space.
+  \end{corollary}
+  Note that, since \(\tau^\frac1p\| \Pi_{K} f\|_{L^q} \leq  \left\| S_{K}(n \tau) f\right\|_{l^p_{\tau}L^q}\) 
+  the estimate~\eqref{Tloss} also encodes the modified Sobolev estimate
+  \begin{equation}
+    \label{sobmod}
+    \tau^\frac1p \|\Pi_K f\|_{L^q} \leq \varepsilon^{-\beta d(\frac12-\frac1q)} \|f\|_{H^{(1-\frac1\gamma)d(\frac12-\frac1q)}}.
+  \end{equation}
+
+
 
   %% TODO 给出Strichartz估计的表述和admissible的表述
   % 给出离散的估计
@@ -398,6 +488,11 @@
   above is equivelant to \(p\alpha < 4\). Consequently, if \(\alpha<2\), we can
   find small \(\delta>0\) such that this is satisfied.
 
+
+  The statement and the proof of the following theorem is wrong, I will fix it
+  later!!!
+  Fortunately, the estimate of the norm \(l^2L^\infty\) can still hold.
+
   \begin{proposition}\label{uKlpLq}
     Let \(K = \tau^{-\frac\gamma2}\) for some \(\gamma\geq1\), \(\gamma<2\)
     in dimension \(3\). Furthur let triple \((p,q,\sigma)\) verify~\eqref{prpH}.
@@ -575,7 +670,7 @@
   \end{proof}
 
   \section{Error analysis}
-  Following the discussing in~\cite{OsRoSc21}, we set
+  Following the discussing in~\cite{ORS21}, we set
   \begin{align}
     \label{TOp}& T(u)(\tau,t_n) = \int_0^{\tau} e^{-is\Delta} |u(t_n+s)|^2 u(t_n+s) \mathrm{d} s.\\
     \label{T1} & T_1(s, t_n) = -i\varepsilon^2 \left(e^{i s \Delta} \Pi_K u^K\left(t_n\right)\right)^2 e^{-i s \Delta} \Pi_K \bar{T}\left(\Pi_K u^K\right)\left(s, t_n\right) \\
@@ -1215,6 +1310,34 @@
   %  \end{aligned}
   %\end{equation}
   %\varepsilon^\beta\tau^{-\frac\gamma2}(|\log\tau|+|\log\varepsilon|)^\frac23 
+  %
+  \section{proof of the generalization of discrete Strichartz estimates}
+  \begin{proof}[Proof of Theorem~\ref{thmDSE}]
+    Since the filtered Schr\"odinger flow satisfying the following truncated
+    decay estimates
+    \[ \|S_K(t)f\|_{L^p} \lesssim
+    \frac{K^{d(1-\frac2p)}}{1+|t|^{\frac{d}2(1-\frac2p)}}\|f\|_{L^{p'}},\]
+    we can just imitate the proof the continuous case but just replace the 
+    Hardy-Littlewood-Sobelev inequality by Young inequality.
+  \end{proof}
+
+  \begin{proof}[Proof of Corollary~\ref{corDSE}]
+    Use Littlewood-Paley theory.
+    By Littlewood-Paley inequality, then Minkowski inequality, then Discrete
+    Strichartz estimate, we have
+    \begin{equation}
+      \begin{aligned}
+        \|S_K(n\tau)u\|_{l^p_\tau L^q} & \sim \|\|(S_K(n\tau) u_k)_{k\in \mathbb{Z}}\|_{l^2}\|_{l^p_\tau L^q} \\
+        &\lesssim \|(\|S_K(n\tau) u_k\|_{l^p_\tau L^q})_{k\in \mathbb{Z}}\|_{l^2} \\
+        &\lesssim \|((2^k\tau^\frac12)^\frac2p \|u_k\|_{L^2})_{k\in \mathbb{Z}, 2^k \lesssim K}\|_{l^2} \\
+        &\lesssim \varepsilon^{-\beta\frac2p}\|(2^{k\frac2p(1-\frac1\gamma)} \|u_k\|_{L^2})_{k\in \mathbb{Z}}\|_{l^2} \\
+        &= \varepsilon^{-\beta\frac2p}\|u\|_{B^{\frac2p(1-\frac1\gamma)}_{2,2}} \\
+        &\sim \varepsilon^{-\beta\frac2p}\|u\|_{H^{\frac2p(1-\frac1\gamma)}}
+      \end{aligned}
+    \end{equation}
+
+    The other statement are proved by the same spirit.
+  \end{proof}
 
 
   \section{some technical estimates}
@@ -1250,7 +1373,7 @@
   \end{lemma}
 
   \begin{thebibliography}{99}
-    \bibitem{OsRoSc21}
+    \bibitem{ORS21}
       {\rm A. Ostermann, F. Rousset, K. Schratz,}
       {\em Error estimates of a fourier integrator for the cubic schr\"odinger equation at low regularity.}
       Found. Comput. Math. \textbf{21}, 725--765 (2021).
