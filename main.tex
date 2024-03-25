@@ -142,9 +142,6 @@ Schr\"odinger equations}
     For every \( T > 0 \), \( \phi \in H^1 \), donote by \(u\) the exact solution
     of equation~\eqref{nls-ep-nonl} and by \(u^n\) the sequence defined by the 
     scheme~\eqref{num-sol}.
-    %Then, there exist \(\tau_0 > 0\) such that for every 
-    %step size \(\tau \in (0,\tau_0]\), every \( \varepsilon \in (0,1] \), we have 
-    %the following error estimates:
     \begin{itemize}
       \item If \(d=1\), for every \(0 < \alpha \leq 4\), with the choise 
         \(K=1/\varepsilon^\frac{5(4-\alpha)}{18}\tau^\frac56\), there exist \(\tau_0 > 0\) 
@@ -371,19 +368,6 @@ Schr\"odinger equations}
       \|u^K\|_{L^\infty H^1} \lesssim 1.
     \end{equation}
   \end{proposition}
-  
-  %\begin{proof}
-  %  By using \( \varepsilon \leq 1 \), the estimate 
-  %  \[ \|u\|_{L^\infty H^1} \lesssim 1 \]
-  %  is the consequence of the conservation laws. And for \(u^K\), we have the
-  %  similar conservation laws for 
-  %  \[ H[u(t)] = \int_{\mathbb R^d} \frac12|\nabla u^K(t,x)|^2 + 
-  %  \frac{\varepsilon^2}2 |\Pi_K u(t,x)|^4 \,\mathrm{d}x, \quad M[u(t)] = 
-  %  \int_{\mathbb R^d} |u^K(t,x)|^2 \,\mathrm{d}x. \]
-  %  The proof follows exactly the proof of the classical conservation laws, then
-  %  we have the save estimates uniformly in \(\varepsilon\)
-  %  \[ \|u^K\|_{L^\infty H^1} \lesssim 1.\]
-  %\end{proof}
 
   In dimension \(3\), we have the scattering theory of \(H^1\) scattering for
   \(H^1\) initial data. Let's first recall some intermediate results in
@@ -412,12 +396,12 @@ Schr\"odinger equations}
   admissible,
   \[ \|v\|_{L^p(\mathbb R,W^{1,q})} \lesssim_{\|v_0\|_{H^1}} 1,\]
   which easily yields the scattering in \(H^1\).
-  % TODO show that it is a simplified proof.
+  % TODO: show that it is a simplified proof.
 
   Now for our purpose, one can easily get the similar uniformly in
   \(\varepsilon\) estimates for \(u\) satisfying~\eqref{nls-ep-nonl} and
   \(u^K\) satisfying~\eqref{nls-fil}. 
-  % TODO by either following the proof step by step 
+  % TODO: by either following the proof step by step 
   %or by pluging w into the above estimates and then rescaling to get estimates
   %of u. 
   \begin{proposition}\label{S1}
@@ -603,197 +587,8 @@ Schr\"odinger equations}
     \[ \|u-u^K\|_{L^\infty_{T/\varepsilon^\alpha}L^2} \lesssim \frac1K. \]
   \end{proof}
 
-  %Now we consider a subset of all admissible \((p,q)\),
-  %\begin{equation}\label{lambdad}
-  %  p>2, (p,q)\text{ admissible, } p<4 \text{ if } d=3 \text{ and }
-  %  (p,q)= (4,\infty) \text{ if } d=1\}
-  %\end{equation}
-  %We ask \(p<4\) when \(d=3\) because in such situation we have \(q>3\), hence
-  %\(W^{1,q} \subset L^\infty\).
-  %In dimension 1, we have by H\"older's inequality
-  %\[ \|\nabla u|u|^2\|_{L^\frac43_I L^1} + \|u|u|^2\|_{L^\frac43_I L^1} \leq 
-  %|I|^\frac12 \|u\|_{L^4_I W^{1,\infty}} \|u\|^2_{L^\infty_I L^2}. \]
-  %In dimension 2 and 3, similarly, for \((\bar{p},\bar{q})\) admissible we can write
-  %\begin{equation}\label{XT}
-  %  \|\nabla u |u|^2\|_{L^{\bar{p}'}_I L^{\bar{q}'}} \leq \left\| 
-  %  \|\nabla u\|_{L^q} \|u\|_{L^r}^{2\gamma} \|u\|_{L^q}^{2(1-\gamma)}
-  %  \right\|_{L^{\bar{p}'}_I} \leq |I|^\theta \|\nabla u\|_{L^p_I L^q} 
-  %  \|u\|_{L^\infty_I L^r}^{2\gamma} \|u\|_{L^p_I L^q}^{2(1-\gamma)},
-  %\end{equation}
-  %and the same estimates by substituting \(\nabla u\) with \(u\),
-  %if \( \frac1q + \frac{2\gamma}r + \frac{2(1-\gamma)}q = \frac1{\bar{q}'} \)
-  %and \( \frac1p + \frac{2(1-\gamma)}p + \theta = \frac1{\bar{p}'} \). We may
-  %choose a suitable \(r\) such that \(L^r \subset H^1\). Indeed, if \(d=2\),
-  %we can choose \((\bar{p},\bar{q})=(\infty,2)\), \(p=\frac2{2-\theta}\),
-  %\(q=\frac2\theta\), \(r=\frac2{1-2\theta}\) and \(\gamma=\frac12\), and if
-  %\(d=3\), we can choose \((\bar{p},\bar{q})=(\frac1{\theta(1-\theta)},\frac6{3-4\theta(1-\theta)})\), 
-  %\(p=\frac2{2-\theta}\), \(q=\frac6{2\theta+1}\), \(r=6\) and \(\gamma=\frac{1+2\theta}2\).
-
-  %%%\begin{proposition}
-  %%%  Let \(\phi \in H^1\), \( d \leq 3 \) and \((p,q)\) satisfying~\eqref{lambdad}. 
-  %%%  Let \( u \) be the solution of~\eqref{nls-ep-nonl}, we
-  %%%  have the following estimates for every \( \varepsilon \in (0,1] \) and every
-  %%%  time interval \( I = [t_1,t_2] \)
-  %%%  \[ \|u\|_{L^p_I W^{1,q}} \lesssim
-  %%%  \langle\varepsilon^\alpha |I|\rangle^{\frac1p} \]
-  %%%  where \( \frac1\alpha = \frac12 - \frac1p \). Moreover, let \( u^K \) be the
-  %%%  solution of~\eqref{nls-fil}, \(u^K\) also satisfies the above estimates. 
-  %%%\end{proposition}
-
-  %%%\begin{remark}
-  %%%  % 加一些话：
-  %%%  % 为什么要用 <>来估计
-  %%%  % 虽然在某些p,q选取中这里的alpha不是最优的，但是对于我们的目的已经足够了
-  %%%  %
-  %%%  By H\"older's inequality, we have
-  %%%  \begin{equation}\label{uL2Linfty}
-  %%%    \varepsilon^2 \|u\|_{L^2_I L^\infty}^2 \leq \varepsilon^2 |I|^{2(\frac12-\frac1p)}\|u\|_{L^p_I W^{1,q}}^2 
-  %%%    \lesssim_{\alpha} {(\varepsilon^\alpha |I|)}^\frac2\alpha {\langle\varepsilon^\alpha |I|\rangle}^{1-\frac2\alpha},
-  %%%  \end{equation}
-  %%%  where \(\frac1\alpha=\frac12-\frac1p\). If \(d=1\), then \(\alpha=4\),
-  %%%  if \(d=2,3\), we can choose \(p\) close to \(2\) and we get any large enough
-  %%%  \(\alpha>0\).
-  %%%\end{remark}
-  %%%
-  %%%\begin{proof}
-  %%%  Let's recall the well-known argument that proves the local well-posedness of
-  %%%  NLS. We consider \(\Phi_I: X_I \to X_I \) with \(X_I=L_I^\infty H^1
-  %%%  \cap L^p_I W^{1,q}\), \(\|\cdot\|_{X_I} = \|\cdot\|_{L^\infty_I H^1} +
-  %%%  \|\cdot\|_{L^p_I W^{1,q}}\) and 
-  %%%  \[ \Phi_I(u) = e^{it\Delta} u(t_1) - i\varepsilon^2 \int_{t_1}^{t_2} e^{i(t-s)\Delta}
-  %%%  f(s)\,\mathrm{d}s, \quad f(s)=|u(s)|^2u(s). \]
-  %%%  Ihen by Strichartz estimates~\eqref{Tc}, \eqref{TT*c} and the discuss~\eqref{XT} above ,
-  %%%  \begin{align}
-  %%%    \|\Phi_I(u)\|_{X_I} & \lesssim \|u(t_1)\|_{H^1} + \varepsilon^2
-  %%%    \|f\|_{L^{\bar{p}'}_I W^{1,\bar{q}'}} \\
-  %%%    & \lesssim \|u\|_{L^\infty H^1} + \varepsilon^2 |I|^\theta \|u\|_{X_I}^3
-  %%%  \end{align}
-  %%%  and 
-  %%%  \begin{equation}
-  %%%    \|\Phi_I(u)-\Phi_I(v)\|_{X_I} \lesssim \varepsilon^2 |I|^\theta 
-  %%%    \|u-v\|_{X_I} (\|u\|_{X_I}^2 + \|v\|_{X_I}^2),
-  %%%  \end{equation}
-  %%%  where \( \theta = 1 - \frac2p \). By the fix point argument, we could have
-  %%%  the estimate uniformly in \(\varepsilon\),
-  %%%  \begin{equation}\label{smallI}
-  %%%    \|u\|_{X_I} \lesssim 1,\quad \text{for }\varepsilon^\frac2\theta |I| < \delta
-  %%%  \end{equation}
-  %%%  for some \(\delta\) depending on \(\|u_0\|_{H^1}\). And for large \(|I|\),
-  %%%  we can iterate the above argument on \([t_1,t_1+\delta/(\varepsilon^{2/\theta})]\), 
-  %%%  \([t_1+\delta/(\varepsilon^{2/\theta}),t_1+2\delta/(\varepsilon^{2/\theta})]\), \(
-  %%%  \ldots\), for some \(\delta\) depending on \(\|u\|_{L^\infty H^1}
-  %%%  \lesssim_{\|\phi\|_{H^1}} 1 ,\)
-  %%%  \begin{equation}\label{largeI}
-  %%%    \|u\|_{L^\infty_I W^{1,q}} \lesssim (\varepsilon^\frac2\theta |I|)^\frac1p,
-  %%%  \quad \text{for } \varepsilon^\frac2\theta |I| < \delta.
-  %%%  \end{equation}
-  %%%  Combining~\eqref{smallI} and~\eqref{largeI}, we finally get 
-  %%%  \[ \|u\|_{L^p_I W^{1,q}} \lesssim
-  %%%  \langle\varepsilon^\alpha |I|\rangle^{\frac1p},\]
-  %%%  where \(\frac1\alpha=\frac\theta2=\frac12 - \frac1p.\) And the estimate for
-  %%%  \(u^K\) follows exactly the same lines of the proof above.
-  %%%\end{proof}
-  %%%%\begin{definition}
-  %%%%  We say that triple \((p,q,\alpha)\) verifies property {\bf (H)} if \((p,q)\)
-  %%%%  is admissible, \(\frac1\alpha = \frac12 - \frac1p\) and \(p=4\) if \(d=1\),
-  %%%%  \(p<4\) if \(d=3\).
-  %%%%\end{definition}
-  %%%%\begin{remark}
-  %%%%  We ask \(p<4\) when \(d=3\) because in such situation we have \(q>3\), hence
-  %%%%  \(W^{1,q} \subset L^\infty\).
-  %%%%  In dimension 1, \((p,q,\alpha)=(4,\infty,4)\),
-  %%%%  we have by H\"older's inequality
-  %%%%  \[ \|\nabla u|u|^2\|_{L^\frac43_T L^1} + \|u|u|^2\|_{L^\frac43_T L^1} \leq 
-  %%%%  T^\frac12 \|u\|_{L^4_T W^{1,\infty}} \|u\|^2_{L^\infty_T L^2}. \]
-  %%%%  In dimension 2 and 3, similarly, we can write
-  %%%%  \begin{equation}
-  %%%%    \|\nabla u |u|^2\|_{L^{\bar{p}'}_T L^{\bar{q}'}} \leq \left\| 
-  %%%%    \|\nabla u\|_{L^q} \|u\|_{L^r}^{2\gamma} \|u\|_{L^q}^{2(1-\gamma)}
-  %%%%    \right\|_{L^{\bar{p}'}_T} \leq T^\theta \|\nabla u\|_{L^p_T L^q} 
-  %%%%    \|u\|_{L^\infty_T L^r}^{2\gamma} \|u\|_{L^p_T L^q}^{2(1-\gamma)},
-  %%%%  \end{equation}
-  %%%%  if \( \frac1q + \frac{2\gamma}r + \frac{2(1-\gamma)}q = \frac1{\bar{q}'} \)
-  %%%%  and \( \frac1p + \frac{2(1-\gamma)}p + \theta = \frac1{\bar{p}'} \). We may
-  %%%%  choose a suitable \(r\) such that \(L^r \subset H^1\). Indeed, if \(d=2\),
-  %%%%  we can choose \(\bar{p}=\infty\), \(\bar{q}=2\), \(p=\frac2{2-\theta}\),
-  %%%%  \(q=\frac2\theta\), \(r=\frac2{1-2\theta}\) and \(\gamma=\frac12\), and if
-  %%%%  \(d=3\), we can choose \(bar\)
-  %%%%\end{remark}
-
-  %%%\begin{corollary}\label{coru-uKLinftyL2}
-  %%%  For \( d \leq 3 \), \( \phi \in H^1 \), for every \( \alpha > 0 \) (\( \alpha
-  %%%  \leq 4 \) if \( d = 1 \)), we have the estimate for every \( \varepsilon \in
-  %%%  (0,1] \),
-  %%%  \begin{equation}
-  %%%    \|u-u^K\|_{L^\infty_{T/\varepsilon^\alpha} L^2} \lesssim_\alpha
-  %%%    \frac1K.
-  %%%  \end{equation}
-  %%%\end{corollary}
-  %%%\begin{proof}
-  %%%  By using Duhamel's formula, we have
-  %%%  that for every interval \(I = [t_1 , t_2]\),
-  %%%  \begin{multline}
-  %%%    u(t_2) - u^K(t_2) = e^{it\Delta}(u(t_1) - u^K(t_1))  
-  %%%    - i \varepsilon^2 \int_{t_1}^{t_2} e^{i(t-s)\Delta} \Pi_K (|u|^2u 
-  %%%    - |\Pi_K u|^2\Pi_K u) \,\mathrm{d}s \\ 
-  %%%    - i \varepsilon^2 \int_{t_1}^{t_2} e^{i(t-s)\Delta} \Pi_K (|\Pi_K u|^2\Pi_K u 
-  %%%    - |\Pi_K u^K|^2\Pi_K u^K) \,\mathrm{d}s  
-  %%%    - i \varepsilon^2 \int_{t_1}^{t_2} e^{i(t-s)\Delta} (1 - \Pi_K)(|u|^2u) 
-  %%%    \,\mathrm{d}s .
-  %%%  \end{multline}
-  %%%  We then obtain that
-  %%%  \begin{multline}\label{u-uKLinftyL2}
-  %%%    \|u-u^K\|_{L^{\infty}_{I}L^2} - \|(u-u^K)(t_1)\|_{L^2} \lesssim
-  %%%    \varepsilon^2 \| u - \Pi_K u \|_{L^{\infty}_{I}L^2} ( \|u\|^2_{L^2_{I}L^{\infty}} + 
-  %%%    \|u^K\|^2_{L^2_{I}L^{\infty}} ) \\
-  %%%    + \varepsilon^2 \| u - u^K \|_{L^{\infty}_{I}L^2} ( \|u\|^2_{L^2_{I}L^{\infty}} + 
-  %%%    \|u^K\|^2_{L^2_{I}L^{\infty}} ) + \varepsilon^2 \| u - \Pi_K u \|_{L^{\infty}_{I}L^2} 
-  %%%    \|u\|^2_{L^2_{I}L^{\infty}}.
-  %%%  \end{multline}
-  %%%  By conservation laws, we have the estimate
-  %%%  \begin{equation}\label{u-PiKu}
-  %%%    \|u-\Pi_K u\|_{L^\infty L^2} \lesssim \frac1K \|u\|_{L^\infty H^1}
-  %%%    \lesssim \frac1K
-  %%%  \end{equation}
-  %%%  By plugging~\eqref{u-PiKu} and~\eqref{uL2Linfty} into~\eqref{u-uKLinftyL2},
-  %%%  we obtain that
-  %%%  \[ \|u-u^K\|_{L^{\infty}_{I}L^2} - \|(u-u^K)(t_1)\|_{L^2} 
-  %%%  \lesssim_{\alpha} \frac1K 
-  %%%  {(\varepsilon^\alpha |I|)}^\frac2\alpha {\langle\varepsilon^\alpha |I|\rangle}^{1-\frac2\alpha} + 
-  %%%  {(\varepsilon^\alpha |I|)}^\frac2\alpha {\langle\varepsilon^\alpha |I|\rangle}^{1-\frac2\alpha}
-  %%%  \|u-u^K\|_{L^{\infty}_{I}L^2}. \]
-  %%%  Consequently, we can choose \(\delta\) small enough such that for every 
-  %%%  \(\varepsilon^\alpha |I| < \delta\)
-  %%%  \[ \|u-u^K\|_{L^{\infty}_{I}L^2} - \|(u-u^K)(t_1)\|_{L^2} 
-  %%%  \lesssim_\alpha \frac1K. \]
-  %%%  Finally, ue can iterate the above argument to get 
-  %%%  \[ \|u-u^K\|_{L^\infty_{T/\varepsilon^\alpha} L^2} \lesssim_\alpha
-  %%%  \frac1K.\]
-  %%%\end{proof}
-
   \section{Discrete Strichartz estimates for exact solution}\label{sec:DSE-exact-sol}
 
-  %
-
-  %Let \(K=\tau^{-\frac\gamma2}\) for some \(\gamma\geq1\), \(\gamma<2\) in
-  %dimension \(3\) and \((p,q)\) be admissible. We suppose that \((p,q)=(4,\infty)\) if
-  %\(d=1\) and \(2<p<2+\delta\) for some small \(\delta>0\) depending on \(\alpha\).
-  %Then there always exists a \(\sigma\) such that 
-  %\begin{equation}\label{prpH}
-  %  \sigma q > d, \quad \sigma + \frac2p \left( 1-\frac1\gamma \right) \leq 1.
-  %\end{equation}
-  %Indeed, when \(d=1\), we have \(p=4,q=\infty\) then every \(\sigma \in
-  %(0,\frac12] \) and every \(\alpha\geq1\) satisfying~\eqref{prpH}. In dimension
-  %\(2\), the existence of \(\sigma\) satisfying~\eqref{prpH} is equivelant to
-  %\( \frac dq +\frac2p (1-\frac1\alpha) \leq 1 \), which is always true when
-  %\(\alpha \geq 1\) and \((p,q)\) is admissible. In dimension \(3\), the claim
-  %above is equivelant to \(p\alpha < 4\). Consequently, if \(\alpha<2\), we can
-  %find small \(\delta>0\) such that this is satisfied.
-
-
-  %The statement and the proof of the following theorem is wrong, I will fix it
-  %later!!!
-  %Fortunately, the estimate of the norm \(l^2L^\infty\) can still hold.
 
   \begin{definition}
     Let \(K=\varepsilon^{-\beta\gamma}\tau^{-\frac\gamma2}\) for some \(\gamma
@@ -819,8 +614,6 @@ Schr\"odinger equations}
   \end{proposition}
 
   \begin{proof}[Proof of Proposition~\ref{uKlpLq}]
-    %We first prove the estimate for \(\hat{s}=0\).
-
     Since \(\Pi_{2K} u^K = u^K\), we can use the modified Sobolev
     estimates~\eqref{sobmod} to get 
     \begin{equation}\label{l0usq}
@@ -903,7 +696,7 @@ Schr\"odinger equations}
   
   \begin{corollary}\label{uKl2Linfty}
     Under the same assumptions as previous proposition, and assume that \(T\) is
-    %TODO 把这句话改掉不要说under the same assumption
+    % TODO: 把这句话改掉不要说under the same assumption
     given. For every \(\alpha > 0\) (\(\alpha\leq4\) in dimension one). If 
     additionally, \(\beta\leq\frac{4-\alpha}2\) in dimension one. There exist
     an \(\eta>0\) such that for every \(0< T_1 \leq T\), we have 
@@ -918,8 +711,6 @@ Schr\"odinger equations}
   \end{corollary}
 
   \begin{proof}
-    %The crucial consequence of this proposition is that, under the above
-    %assumptions, 
     we obtain by Sobolev embedding, H\"older's inequality and the previous
     proposition that 
     \[ \varepsilon \sup_{s\in[0,\tau]} \|e^{i\hat{s}\Delta}u^K(t_k+s)\|_{l^2_{\tau,m,n}L^\infty}
@@ -1010,117 +801,6 @@ Schr\"odinger equations}
     \leq C. \]
   \end{corollary}
   
-  %\begin{remark}\label{remuKlpLq}
-  %  As we done in the continuous case, under the above assumptions and in the
-  %  particular case when \(\hat{s}=0\), we get by Sobolev embedding and H\"older's
-  %  inequality that
-  %  \begin{equation}\label{uKl2Linfty}
-  %    \varepsilon \sup_{s\in[0,\tau]} \|u^K(t_k+s)\|_{l^2_{\tau,N} L^\infty}
-  %    \lesssim_{\alpha} {(\varepsilon^\alpha N\tau)}^\frac1\alpha {\langle\varepsilon^\alpha N\tau\rangle}^{\frac12-\frac1\alpha},
-  %  \end{equation}
-  %  for \(\alpha\leq4\) if \(d=1\) and every \(\alpha>0\) if \(d=2,3\).
-  %  
-  %  We can easily perform the same argument in the proof of the proposition to get
-  %  the estimates
-  %  \[ \sup_{s\in[0,\tau]} \|\left(e^{i\hat{s}\Delta}u^K(t_k+s)\right)_{n\leq k\leq n+N}\|
-  %  _{l^p_{\tau} W^{\sigma,q}} \lesssim \langle\varepsilon^\alpha N\tau\rangle^\frac1p \]
-  %  and 
-  %  \[
-  %    \varepsilon \sup_{s\in[0,\tau]} \|\left(u^K(t_k+s)\right)_{n\leq k\leq n+N}\|
-  %    _{l^2_{\tau} L^\infty} \lesssim_{\alpha} {(\varepsilon^\alpha N\tau)}^\frac1\alpha
-  %    {\langle\varepsilon^\alpha N\tau\rangle}^{\frac12-\frac1\alpha}.\]
-  %\end{remark}
-
-  %\begin{proof}[Proof of Proposition~\ref{uKlpLq}]
-  %  We first prove the estimate for \(\hat{s}=0\).
-
-  %  Let us first observe that by elliptic regularity, we have for every time
-  %  \(t\),
-  %  \[ \tau^{\frac{1}{p}} \|u^K(t)\|_{W^{\sigma,q}} \lesssim \tau^{\frac{1}{p}}
-  %  \|(I-\Delta)^{\frac{\sigma}{2}} u^K(t)\|_{L^q}, \]
-  %  therefore, since \(\Pi_{2K}u^K=u^K\), we can use the modified Sobolev
-  %  estimate~\eqref{sobmod} to get 
-  %  \begin{equation}\label{l0usq}% estimate for l_0 W^sigma,q
-  %    \tau^{\frac{1}{p}} \|u^K(t)\|_{W^{\sigma, q}} \lesssim 
-  %    \tau^{\frac{1}{p}} \|(I-\Delta)^{\frac{\sigma}{2}} u^K(t)\|_{L^q} 
-  %    \lesssim \|u^K(t)\|_{H^{\sigma_1}} 
-  %    \lesssim_{\|\phi\|_{H^1}} 1,
-  %  \end{equation}
-  %  where \(\sigma_1 = \sigma + \frac2p(1-\frac1\gamma) \leq 1\).
-  %  We use Duhamel's formula to get that for every \( 0 \leq n \leq N \) and 
-  %  \( s \in [0,\tau] \),
-  %  \[ u^K(t_n+s) = e^{i(n+1)\tau\Delta} u^K(s-\tau) - i\varepsilon^2 
-  %  \int_{s-\tau}^{s+t_n} e^{i(t_n+s-\tilde{s})\Delta}\Pi_K
-  %  \left(|\Pi_K u^K|^2 \Pi_K u^K\right) (\tilde{s}) \mathrm{d} \tilde{s}. \]
-  %  We rewrite as 
-  %  \begin{equation}\label{disc-str-est-duham}
-  %    u^K(t_n+s) = S_{2K}((n+1)\tau) u^K(s-\tau) - i\varepsilon^2 
-  %    \sum_{k=0}^n \int_{s-\tau}^{s} S_K(t_{n-k}+s-\tilde{s}) \left(|\Pi_K u^K|^2 \Pi_K u^K\right) (t_k+\tilde{s}) \mathrm{d} \tilde{s}.
-  %  \end{equation}
-  %  We get by Strichartz estimate, %
-  %  \begin{equation}
-  %    \|u^K(t_k+s)\|_{l^p_{\tau,n}W^{\sigma,q}} \lesssim \|u^K(s-\tau)\|_{H^1} + \tau^{-1}
-  %    \varepsilon^2 \int_{s-\tau}^s \left\|\left(|\Pi_K u^K|^2 \Pi_K u^K\right) 
-  %    (t_k+\tilde{s})\right\|_{l^1_{\tau,n}H^{\sigma_1}} \mathrm{d} \tilde{s}.
-  %  \end{equation}
-  %  Next, we can use that 
-  %  \[ \left\|\left(|\Pi_K u^K|^2 \Pi_K u^K\right) (t_k+\tilde{s})\right\|_{l^1_{\tau,n}H^{\sigma_1}}
-  %  \leq \left\|\left(|\Pi_K u^K|^2 \Pi_K u^K\right) (t_k+\tilde{s})\right\|_{l^1_{\tau,n}H^1}
-  %  \leq \|u^K\|_{L^{\infty}H^1}\|u^K(t_k+\tilde{s})\|_{l^2_{\tau,n}L^{\infty}}^2. \]
-  %  Since by Sobolev embedding and H\"older inequality, we have 
-  %  \[ \|u^K(t_k+\tilde{s})\|_{l^2_{\tau,n}L^{\infty}}^2 \lesssim
-  %  (n\tau)^{1-\frac{2}{p}}\|u^K(t_k+\tilde{s})\|_{l^p_{\tau,n}W^{\sigma,q}}^2.\]
-  %  For \( \tilde{s} < 0 \), we have by~\eqref{l0usq}
-  %  \[ \|u^K(t_k+\tilde{s})\|_{l^p_{\tau,n}W^{\sigma,q}} \leq
-  %  \|u^K(t_k+\tilde{s})\|_{l^p_{\tau,(n-1)}W^{\sigma,q}} + \tau^{\frac{1}{p}} \|u^K(\tilde{s}-\tau)\|_{W^{\sigma, q}}
-  %  \leq \|u^K(t_k+\tilde{s})\|_{l^p_{\tau,n}W^{\sigma,q}} + C(\|\phi\|_{H^1}).
-  %  \]
-  %  Combining all estimates above, we finally get 
-  %  \[ \|u^K(t_k+s)\|_{l^p_{\tau,n}W^{\sigma,q}} \lesssim
-  %  C(\|\phi\|_{H^1}) + \varepsilon^2 \frac{s-\tau}{\tau} C(\|\phi\|_{H^1})
-  %  (n\tau)^{1-\frac{2}{p}} + \varepsilon^2 (n\tau)^{1-\frac{2}{p}}
-  %  \sup_{\tilde{s} \in [0,\tau]}\|u^K(t_k+\tilde{s})\|_{l^p_{\tau,n}W^{\sigma,q}} \]
-  %  Consequently, we could find a generic \( \delta \) small enough such that
-  %  for every \( \varepsilon^\alpha n \tau < \delta \),
-  %  \[ \|u^K(t_k+\tilde{s})\|_{l^p_{\tau,n}W^{\sigma,q}} \lesssim_{\|\phi\|_{H^1}} 1. \]
-  %  Finally, by interating, we get the estimate we want
-  %  \[ \sup_{s\in[0,\tau]} \|u^K(t_k+s)\|
-  %    _{l^p_{\tau,N}W^{\sigma,q}} \lesssim \langle\varepsilon^\alpha N\tau\rangle^\frac1p.\]
-  %  To get the estimate in \( \hat{s} \neq 0 \), we can just apply
-  %  \( e^{i\hat{s}\Delta} \) to~\eqref{disc-str-est-duham}. All subseqwent
-  %  arguments are the same. 
-  %\end{proof}
-
-  %\begin{corollary}\label{corphiuKlpLq}
-  %  Under the same assumption of the previous proposition, we also have 
-  %  \begin{equation}\label{phiuKlpLq}
-  %    \|\varphi_1(-2i\tau\Delta) u^K(t_k)\|_{l^p_{\tau,N} W^{\sigma,q}} \lesssim 
-  %    \langle\varepsilon^\alpha N\tau\rangle^\frac1p,
-  %  \end{equation}
-  %  where \(\frac1\alpha = \frac12 - \frac1p\).
-  %\end{corollary}
-
-  %%%%\begin{proof}
-  %%%%  We first note that we can decompose
-  %%%%  \[
-  %%%%    \varphi_1(-2i\tau\Delta) u^K(t_k) = \varphi_1(-2i\tau\Delta) (1 - \Pi_{\tau^{-{1 \over 2}}})u^K(t_k) + \varphi_1(-2i\tau\Delta)  \Pi_{\tau^{-{1 \over 2}}}u^K(t_k).
-  %%%%  \]
-  %%%%  By using Lemma \ref{lemfilter1}, we have that  the multiplier $ \varphi_{1}(-2i \tau \Delta)  \Pi_{\tau^{-{1 \over 2}}} $ is continuous on $L^q$ for every $q$ with norm uniform in $\tau$. 
-  %%%%  Therefore, we get from Proposition \ref{uKlpLq} that
-  %%%%  $$
-  %%%%  \| \varphi_{1}(-2i \tau \Delta) { \Pi_{\tau^{-{1 \over 2}}}} u^K(t_{k})\|_{l^p_{\tau, N}W^{\sigma, q}} \leq C \|u^K(t_{k})\|_{l^p_{\tau, N}W^{\sigma, q}}.
-  %%%%  $$
-  %%%%  To estimate the remaining part, we just observe that
-  %%%%  $$
-  %%%%  \varphi_{1}(-2i \tau \Delta) ( 1 - \Pi_{\tau^{-{1 \over 2}}})u^K(t_{k}) =- {1 - \Pi_{\tau^{-{1 \over 2}}} \over 2 i \tau \Delta }   e^{2 i\tau \Delta} u^K(t_{k})  + {1 - \Pi_{\tau^{-{1 \over 2}}} \over 2 i \tau \Delta } u^K(t_{k}).
-  %%%%  $$
-  %%%%  Again, the multiplier  ${1 - \Pi_{\tau^{-{1 \over 2}}} \over 2 i \tau \Delta } $ is continuous on $L^q$ for every $q$ with norm uniform in $\tau.$, see \eqref{102} in Lemma \ref{lemfilter1}.
-  %%%%  $$
-  %%%%  \|\varphi_{1}(-2i \tau \Delta) ( 1 - \Pi_{\tau^{-{1 \over 2}}})u^K(t_{k})\|_{l^p_{\tau, N}W^{\sigma, q}}\leq C\left(  \|e^{2 i\tau \Delta} u^K(t_{k})\|_{l^p_{\tau, N}W^{\sigma, q}} + \|u^K(t_{k})\|_{l^p_{\tau, N}W^{\sigma, q}}   \right)
-  %%%%  $$
-  %%%%  and the result follows by using again Proposition~\ref{uKlpLq}.
-  %%%%\end{proof}
-
   
   Finally, we give the estimates for \(\|\nabla u^K\|_{l^p L^q}\).
 
@@ -1261,19 +941,6 @@ Schr\"odinger equations}
     \end{equation}
   \end{lemma}
 
-  %\begin{remark}\label{remF1}
-  %  By the same way of the proof we can also have the estimates 
-  %  \[ \| S_K(-2\tau) \mathcal F_1^n \|_{l^p_\tau L^q} \lesssim_{\alpha,T}
-  %  \varepsilon^2 (K\tau^\frac12)^\frac2p \tau 
-  %  {(\varepsilon^\alpha N\tau)}^\frac2\alpha {\langle\varepsilon^\alpha N\tau\rangle}^{1-\frac2\alpha} \]
-  %  and 
-  %  \[ \left\| \left( \varepsilon^2 \sum_{k=m}^{n-1} S_K(t_{n-k}) E_1(u^k, \tau, t_k)
-  %  \right)_{m \leq n \leq m+N} \right\|_{l^p_\tau L^q} \lesssim_{\alpha,T}
-  %  \varepsilon^2 (K\tau^\frac12)^\frac2p \tau 
-  %  {(\varepsilon^\alpha N\tau)}^\frac2\alpha {\langle\varepsilon^\alpha N\tau\rangle}^{1-\frac2\alpha}.% , \quad
-  %  \]
-  %\end{remark}
-
   \begin{proof}
     First of all, we can write
     \begin{equation}\label{F1lplq}
@@ -1377,12 +1044,6 @@ Schr\"odinger equations}
     less then \(2-\beta\).
   \end{lemma}
 
-  %\begin{remark}\label{remF2}
-  %  As in the previous lemma, we can also have the corresponding estimates for
-  %  \( \|S_K(-2\tau)\mathcal F^2_n\|_{l^p_{\tau,N}L^q} \) and the sequence 
-  %  \( (\varepsilon^2 \sum_{k=m}^{n-1} S_K(t_{n-k}) E_2(u^k, \tau, t_k))_{m \leq n \leq m+N} \).
-  %\end{remark}
-
   \begin{proof}
     At first, using the expressions~\eqref{E2}, we rewrite that
     \begin{equation}%\label{1F2n0}
@@ -1482,21 +1143,6 @@ Schr\"odinger equations}
   to get the optimal error. The choice will depend on the dimension. 
   We hope that \(\tau^{-1}(\|E_1\|_{l^1_{\tau,m,n} L^2} + \|E_2\|_{l^2_{\tau,m,n} L^2})\)
   have the same order as \(\frac1K\). Therefore, we choose
-  %\begin{equation*}
-  %  \begin{aligned}
-  %    & \|\mathcal F_1^n\|_{l^\infty_{\tau,N}L^2} + 
-  %    \|\mathcal F_2^n\|_{l^\infty_{\tau,N}L^2} \lesssim_{T} \varepsilon^2 \tau +
-  %    \varepsilon^{2-\frac\alpha2}\tau (K\tau^\frac12)^\frac12,\quad \text{if } d=1, \\
-  %    & \|\mathcal F_1^n\|_{l^\infty_{\tau,N}L^2} + 
-  %    \|\mathcal F_2^n\|_{l^\infty_{\tau,N}L^2} \lesssim_{T} \varepsilon^2 \tau +
-  %    \varepsilon^{1+\eta} \tau (K\tau^\frac12),\quad \text{if } d=2, \\
-  %    & \|\mathcal F_1^n\|_{l^\infty_{\tau,N}L^2} + 
-  %    \|\mathcal F_2^n\|_{l^\infty_{\tau,N}L^2} \lesssim_{T} \varepsilon^2 \tau +
-  %    \varepsilon^2 \tau (K\tau^\frac12)^2 \log{K}^\frac23,\quad \text{if } d=3.
-  %  \end{aligned}
-  %\end{equation*}
-  %We thus choose \(\beta,\gamma\) such that \(\|\mathcal F_2^n\|_{l^\infty_{\tau,N}L^2}\) 
-  %have the same order as \(\frac1K\) which gives
   \begin{equation}\label{bg}
     \begin{aligned}
       & \beta = (4-\alpha)/6, \gamma = 5/3 ,\quad \text{if } d=1, \\ 
@@ -1518,21 +1164,11 @@ Schr\"odinger equations}
       \quad \text{if } d=3 .
     \end{aligned}
   \end{equation}
-  %For simplicity, we define a small \(T_1 \leq T\) and assume that all the index 
-  %\(k\) below satisfies \(\varepsilon^\alpha k\tau leq T_1\). We will prove by
-  %induction that \(\|e^n\|_{l^\infty L^2}\|\) is bounded by some constant
-  %depending on \(T\) for sufficiently small \(T_1\) and \(\tau\).
 
-  %As we done in the continuous case, we define the discrete Strichartz space
-  %\(S^{\tau,K}_{m,n}\) under the norm 
   We define the norm \(S^{\tau,K}_{m,n}\)
   \[ \|f_k\|_{S^{\tau,K}_{m,n}} := \sup_{s \in \{0,-2\tau\}}\sup_{(p,q) \in \{(\infty,2),(8/d,4)\}} 
   (\|S_K(s)f_k\|_{l^p_{\tau,m,n} L^q} / (K\tau^\frac12)^\frac2p). \]
-  %\begin{equation}\label{Xtau}
-  %    \|e^n\|_{X_{\tau,k}} := \frac1\delta \|e^n\|_{l^\infty_{\tau,k}L^2} 
-  %    + \frac1{\delta(K\tau^\frac12)^\frac d4} \left(\|e^n\|_{l^\frac8d_{\tau,k}L^4}
-  %    + \|S_K(-2\tau)e^n\|_{l^\frac8d_{\tau,k}L^4}\right).
-  %\end{equation}
+
   Note that by substituting \(u^k = u^K(t_k) - e^k \), we can write~\eqref{Gk}
   as 
   \[ G_k = G_k^1 + G_k^2 + G_k^3, \]
@@ -1684,159 +1320,7 @@ Schr\"odinger equations}
   \frac12,\] 
   then similarly the conclusion follows by induction.
 
-  %Next, we need to estimate \(l^\frac8d_{\tau,k}L^4\) norm of \(e^n\) and
-  %\(S_K(-2\tau)e^n\). Indeed by Discrete Strichartz estimate Corollary~\ref{corDSE},
-  %we have
-  %\begin{multline}\label{enl8dL4}
-  %  \|e^n\|_{l^\frac8d_{\tau,k+1}L^4} + \|S_K(-2\tau)e^n\|_{l^\frac8d_{\tau,k+1}L^4} 
-  %  \lesssim \|\mathcal F_1^n\|_{l^\frac8d_{\tau,k}L^4} + 
-  %  \|\mathcal F_2^n\|_{l^\frac8d_{\tau,k}L^4} + (K\tau^\frac12)^\frac d4 \left(
-  %  \varepsilon^2\|G_n^1\|_{l^1_{\tau,k}L^2} \right. \\ \left.
-  %  + \varepsilon^2\|G_n^2\|_{l^1_{\tau,k}L^2} + (K\tau^\frac12)^\frac d4 
-  %  \varepsilon^2\|G_n^3\|_{l^{(\frac8d)'}_{\tau,k}L^\frac43}\right) .
-  %\end{multline}
-  %Consequently, by combining~\eqref{F1F2linftyL2},~\eqref{F1F2lpLq},~\eqref{Xtau}
-  %,~\eqref{enlinftyL2} and~\eqref{enl8dL4}, we get 
-  %\begin{equation}\label{enXtaupart}
-  %  \|e^n\|_{X_{\tau,k+1}} \lesssim 1 + \frac1\delta \left( 
-  %  \varepsilon^2\|G_n^1\|_{l^1_{\tau,k}L^2} + \varepsilon^2\|G_n^2\|_{l^1_{\tau,k}L^2} 
-  %  + (K\tau^\frac12)^\frac d4 \varepsilon^2\|G_n^3\|_{l^{(\frac8d)'}_{\tau,k}L^\frac43}\right).
-  %\end{equation}
-  %Finally, we can plug~\eqref{Xtau},~\eqref{G1},~\eqref{G2},~\eqref{G3d1} into~\eqref{enXtaupart}
-  %to get for \(d=1\),
-  %\begin{equation*}
-  %  \begin{aligned}
-  %    \|e^n\|_{X_{\tau,k+1}} &\lesssim 1 + \|e^n\|_{X_{\tau,k}} 
-  %    (\varepsilon^\alpha k\tau)^\frac2\alpha \langle\varepsilon^\alpha k\tau\rangle^{1-\frac2\alpha} %G1
-  %    + \delta(K\tau^\frac12)^\frac12 (\varepsilon^\alpha k\tau)^{\frac14+\frac1\alpha}
-  %    \langle\varepsilon^\alpha k\tau\rangle^{\frac12-\frac1\alpha} \|e^n\|_{X_{\tau,k}}^2 \\
-  %    & \qquad + \delta^2(K\tau^\frac12)^\frac34 (\varepsilon^\alpha k\tau)^\frac12 
-  %    \|e^n\|_{X_{\tau,k}}^3.
-  %  \end{aligned}
-  %\end{equation*}
-  %then by~\eqref{bg} and~\eqref{delta}, since \(\delta(K\tau^\frac12)^\frac12 = 
-  %\tau^\frac14 K^{-\frac12} = \varepsilon^\frac{4-\alpha}6\tau^\frac23\) and 
-  %\(\delta^2(K\tau^\frac12)^\frac34 = \tau^\frac38K^{-\frac54} = 
-  %\varepsilon^\frac{5(4-\alpha)}{12}\tau^\frac{17}{12}\),
-  %\begin{equation}\label{eXtaud1}
-  %  \begin{aligned}
-  %    \|e^n\|_{X_{\tau,k+1}} &\lesssim 1 + \|e^n\|_{X_{\tau,k}} 
-  %    (\varepsilon^\alpha k\tau)^\frac2\alpha \langle\varepsilon^\alpha k\tau\rangle^{1-\frac2\alpha} %G1
-  %    + \varepsilon^\frac{4-\alpha}6\tau^\frac23 (\varepsilon^\alpha k\tau)^{\frac14+\frac1\alpha}
-  %    \langle\varepsilon^\alpha k\tau\rangle^{\frac12-\frac1\alpha} \|e^n\|_{X_{\tau,k}}^2 \\
-  %    & \qquad + \varepsilon^\frac{5(4-\alpha)}{12}\tau^\frac{17}{12} 
-  %    (\varepsilon^\alpha k\tau)^\frac12 \|e^n\|_{X_{\tau,k}}^3.
-  %  \end{aligned}
-  %\end{equation}
-  %Similarly, in dimension \(2\), by plugging~\eqref{Xtau},~\eqref{G1},~\eqref{G2},~\eqref{G3d2} 
-  %into~\eqref{enXtaupart} ,
-  %\begin{equation*}
-  %  \begin{aligned}
-  %    \|e^n\|_{X_{\tau,k+1}} &\lesssim 1 + \|e^n\|_{X_{\tau,k}} 
-  %    (\varepsilon^\alpha k\tau)^\frac2\alpha \langle\varepsilon^\alpha k\tau\rangle^{1-\frac2\alpha} %G1
-  %    + \delta(K\tau^\frac12) \varepsilon (\varepsilon^\alpha k\tau)^\frac1\alpha
-  %    \langle\varepsilon^\alpha k\tau\rangle^{\frac12-\frac1\alpha} \|e^n\|_{X_{\tau,k}}^2 \\
-  %    & \qquad + \delta^2(K\tau^\frac12)^\frac32 \varepsilon^2 
-  %    \|e^n\|_{X_{\tau,k}}^3,
-  %  \end{aligned}
-  %\end{equation*}
-  %and by~\eqref{bg} and~\eqref{delta}, since 
-  %\(\delta(K\tau^\frac12) \varepsilon = \varepsilon\tau^\frac12\) and
-  %\(\delta^2(K\tau^\frac12)^\frac32 \varepsilon^2 =
-  %\varepsilon^2\tau^\frac34K^{-\frac12} = 
-  %\varepsilon^\frac{9+\eta}4\tau^\frac98\),
-  %\begin{equation}\label{eXtaud2}
-  %  \begin{aligned}
-  %    \|e^n\|_{X_{\tau,k+1}} &\lesssim 1 + \|e^n\|_{X_{\tau,k}} 
-  %    (\varepsilon^\alpha k\tau)^\frac2\alpha \langle\varepsilon^\alpha k\tau\rangle^{1-\frac2\alpha} %G1
-  %    + \varepsilon\tau^\frac12 (\varepsilon^\alpha k\tau)^\frac1\alpha
-  %    \langle\varepsilon^\alpha k\tau\rangle^{\frac12-\frac1\alpha} \|e^n\|_{X_{\tau,k}}^2 \\
-  %    & \qquad + \varepsilon^\frac{9+\eta}4\tau^\frac98 \|e^n\|_{X_{\tau,k}}^3 .
-  %  \end{aligned}
-  %\end{equation}
-  %And in dimension \(3\), by plugging~\eqref{Xtau},~\eqref{G1},~\eqref{G2},~\eqref{G3d3} 
-  %into~\eqref{enXtaupart}, 
-  %\begin{equation*}
-  %  \begin{aligned}
-  %    \|e^n\|_{X_{\tau,k+1}} &\lesssim 1 + \|e^n\|_{X_{\tau,k}} 
-  %    (\varepsilon^\alpha k\tau)^\frac2\alpha \langle\varepsilon^\alpha k\tau\rangle^{1-\frac2\alpha} %G1
-  %    + \delta(K\tau^\frac12)^\frac32 \varepsilon\tau^{-\frac14} (\varepsilon^\alpha k\tau)^\frac1\alpha
-  %    \langle\varepsilon^\alpha k\tau\rangle^{\frac12-\frac1\alpha} \|e^n\|_{X_{\tau,k}}^2 \\
-  %    & \qquad + \delta^2(K\tau^\frac12)^\frac94 \varepsilon^2 \tau^{-\frac12}
-  %    \|e^n\|_{X_{\tau,k}}^3 , 
-  %  \end{aligned}
-  %\end{equation*}
-  %and by~\eqref{bg} and~\eqref{delta}, since
-  %\(\delta(K\tau^\frac12)^\frac32 \varepsilon\tau^{-\frac14} = 
-  %\varepsilon^\frac23\tau^\frac16(|\log\tau|+|\log\varepsilon|)^\frac23\)
-  %\(\delta^2(K\tau^\frac12)^\frac94 \varepsilon^2 \tau^{-\frac12} = 
-  %\varepsilon^\frac{11}6\tau^\frac{11}{24}(|\log\tau|+|\log\varepsilon|)^\frac43\)
-  %\begin{equation}\label{eXtaud3}
-  %  \begin{aligned}
-  %    \|e^n\|_{X_{\tau,k+1}} &\lesssim 1 + \|e^n\|_{X_{\tau,k}} 
-  %    (\varepsilon^\alpha k\tau)^\frac2\alpha \langle\varepsilon^\alpha k\tau\rangle^{1-\frac2\alpha} %G1
-  %    + \varepsilon^\frac23\tau^\frac16(|\log\tau|+|\log\varepsilon|)^\frac23 
-  %    (\varepsilon^\alpha k\tau)^\frac1\alpha
-  %    \langle\varepsilon^\alpha k\tau\rangle^{\frac12-\frac1\alpha} \|e^n\|_{X_{\tau,k}}^2 \\
-  %    & \qquad + \varepsilon^\frac{11}6\tau^\frac{11}{24}(|\log\tau|+|\log\varepsilon|)^\frac43 
-  %    \|e^n\|_{X_{\tau,k}}^3 .
-  %  \end{aligned}
-  %\end{equation}
-  %To summarize the above discussion, define \(N_1\) such that 
-  %\(\varepsilon^\alpha N_1\tau = T_1 \leq T\). We can rewrite~\eqref{eXtaud1},~\eqref{eXtaud2} 
-  %and~\eqref{eXtaud3} as, for every \( 0 \leq k \leq N_1 \),
-  %\begin{equation}\label{enXtau0k}
-  %  \|e^n\|_{X_{\tau,k+1}} \leq C_T + C_T (T_1)^{\theta} \|e^n\|_{X_{\tau,k}} 
-  %  + C_T \tau^{\lambda_1} \|e^n\|_{X_{\tau,k}}^2 
-  %  + C_T \tau^{\lambda_2} \|e^n\|_{X_{\tau,k}}^3
-  %\end{equation}
-  %for some \(\theta,\lambda_1,\lambda_2 > 0 \).
-  %Consequently, by taking \(T_1\) sufficiently small so that \(C_T T_1^{\theta} 
-  %\leq \frac12 \), we get that by induction for every \(k\) so that 
-  %\(0 \leq k \leq N_1 + 1\),
-  %\[ \|e^n\|_{X_{\tau,k+1}} \leq \widetilde C_T \]
-  %for \(\tau\) sufficiently small.
 
-  %Now let us denote \(m\) be some positive integer, and we consider \(m\) such
-  %that \( m \leq n \leq m+N_1\), where \(N_1\) as above.
-  %Let us denote 
-  %\( \|f^k\|_{l^p_{\tau,m,n}X} = \|(f^k)_{m\leq k\leq n}\|_{l^p_{\tau,m,n}X} \)
-  %for simplicity, and 
-  %\[
-  %    \|e^k\|_{X_{\tau,m,n}} := \frac1\delta \|e^k\|_{l^\infty_{\tau,m,n}L^2} 
-  %    + \frac1{\delta(K\tau^\frac12)^\frac d4} \left(\|e^k\|_{l^\frac8d_{\tau,m,n}L^4}
-  %    + \|S_K(-2\tau)e^k\|_{l^\frac8d_{\tau,m,n}L^4}\right).
-  %\]
-  %By the same way above, we can use formula~\eqref{emn},and Remark~\ref{remF1}
-  %and~\ref{remF2}. 
-  %\begin{equation}\label{enXtaumn}
-  %  \|e^k\|_{X_{\tau,m,n}} \leq \frac1\delta \|e^m\|_{L^\infty L^2} + C_T + C_T (T_1)^{\theta}
-  %  \|e^k\|_{X_{\tau,m,n}} + C_T \tau^{\lambda_1} \|e^k\|_{X_{\tau,m,n}}^2 
-  %  + C_T \tau^{\lambda_2} \|e^k\|_{X_{\tau,m,n}}^3,
-  %\end{equation}
-  %where the constant \(C_T\) are the same as~\eqref{enXtau0k}.
-  %By inductive hypothesis, we have \( \frac1\delta \|e^m\|_{L^\infty L^2} \leq C_T'\).
-  %Hence we have again 
-  %\[ \|e^k\|_{X_{\tau,m,n}} \leq \widetilde C_T', \]
-  %for some constant \(\widetilde C_T'\) and sufficiently small \(\tau\).
-  %We can then iterate the estimates on \([0,T_1],[T_1,2T_1],\cdots\)to finally
-  %obtain the result after a finite number of steps.
-  %%\begin{equation}
-  %%  \begin{aligned}
-  %%    \|e^n\|_{X_{\tau,k+1}} &\lesssim 1 + \frac1{\varepsilon^\beta\tau^{-\frac\gamma2}}
-  %%    \left( \varepsilon^2\|G_n^1\|_{l^1_{\tau,k}L^2} 
-  %%    + \varepsilon^2\|G_n^2\|_{l^1_{\tau,k}L^2} + (\varepsilon^{-\beta}\tau^{-\frac\gamma2})^\frac d4 
-  %%    \varepsilon^2\|G_n^3\|_{l^{(\frac8d)'}_{\tau,k}L^\frac43}\right),\quad
-  %%    d=1,2, \\
-  %%    \|e^n\|_{X_{\tau,k+1}} &\lesssim 1 + 
-  %%    \frac1{\varepsilon^\beta\tau^{-\frac\gamma2}(|\log\tau|+|\log\varepsilon|)^\frac23}
-  %%    \left(\varepsilon^2\|G_n^1\|_{l^1_{\tau,k}L^2} 
-  %%    + \varepsilon^2\|G_n^2\|_{l^1_{\tau,k}L^2} + (\varepsilon^{-\beta}\tau^{-\frac\gamma2})^\frac d4 
-  %%    \varepsilon^2\|G_n^3\|_{l^{(\frac8d)'}_{\tau,k}L^\frac43}\right),\quad d=3
-  %%  \end{aligned}
-  %%\end{equation}
-  %%\varepsilon^\beta\tau^{-\frac\gamma2}(|\log\tau|+|\log\varepsilon|)^\frac23 
-  %%
   \section{proof of the generalization of discrete Strichartz estimates}
   \begin{proof}[Proof of Theorem~\ref{thmDSE}]
     Since the filtered Schr\"odinger flow satisfying the following truncated
