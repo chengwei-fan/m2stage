@@ -27,12 +27,12 @@ Schr\"odinger equations}
 \begin{document}
   \maketitle
   \begin{abstract}
-    We investigate the long-term behavior of a resonance-based low-regularity 
+    We investigate the long-time behavior of a resonance-based low-regularity 
     integrator for the cubic nonlinear Schrodinger equation (NLS). Specifically, 
     we analyze the cubic NLS with a weak nonlinearity characterized by a 
     dimensionless parameter \(\varepsilon \in (0,1]\). Through rescaling, this 
     equation is equivalent to the NLS with small initial data. We provide rigorous
-    error estimates for this system up to a time of \(O(\varepsilon^{-\alpha})\), 
+    error estimates for rough initial data \(\phi \in H^1\) up to a time of \(O(\varepsilon^{-\alpha})\), 
     where \(\alpha\) can be chosen up to \(4\) in dimension \(1\) and arbitrarily 
     large in dimension \(2\). Notably, in dimension \(3\), we establish uniform 
     estimates in time with the help of scattering theory.
@@ -70,18 +70,18 @@ Schr\"odinger equations}
   including finite difference methods, exponential integrators, and time-splitting 
   methods, see, e.g.~\cite{BDD02},~\cite{Lub08},~\cite{Tha12}.
   Most of them require the initial value to have high regularity, i.e. \(\phi
-  \in H^r\), \(r>d/2\). For nonsmooth initial data, resonance-based scheme plays
+  \in H^r\), \(r>d/2\). For nonsmooth initial data, resonance-based schemes plays
   a significant role thanks to discrete Bourgain spaces and discrete Strichartz
   type estimates~\cite{ORS21}. However, the current error analysis is restricted to
-  finite time \(T=O(1)\). 
+  short time scales \(T=O(1)\). 
 
-  In the long-time scale, the behavier of various
+  On long-time scale, the behavier of various
   numerical schemes for the NLS have been 
-  studied~\cite{CCMM15},~\cite{FGP10},~\cite{FGP10b},~\cite{GL10},~\cite{GL10b}. 
+  studied~\cite{CCMM15},~\cite{FGP10}, \cite{FGP10b}, \cite{GL10},~\cite{GL10b}. 
   Via a so-called regularity compensation oscillation technique, the uniform
   error bounds were proved for the time-splitting scheme and a non-resonant
   low-regularity scheme on torus up to time of order \(O(\varepsilon^{-2})\) for cubic
-  NLS~\cite{BCF},~\cite{FMS23}.
+  NLS~\eqref{nls-ep-nonl}~\cite{BCF},~\cite{FMS23}.
   In this paper, we analyze the long time behavier of the numerical scheme
   given in~\cite{ORS21}.
   Our aim is to carry out the long-time error bounds for low-regularity
@@ -108,7 +108,7 @@ Schr\"odinger equations}
     \end{aligned}
     \right.
   \end{equation}
-  to approximate the solution \(u(t)\) at time \( t = t_{n+1} = t_n + \tau \),
+  to approximate the solution \(u(t)\) of~\eqref{nls-ep-nonl} at time \( t = t_{n+1} = t_n + \tau \),
   with \( \varphi_1(z) = \frac{e^z-1}{z} \) and the projection operator defined
   by the Fourier multiplier
   \begin{equation}
@@ -149,7 +149,7 @@ Schr\"odinger equations}
         \( \varepsilon \in (0,1] \), we have 
         \[ \|u(t_n)-u^n\|_{L^2} \lesssim_\alpha \varepsilon^\frac{5(4-\alpha)}{18}\tau^\frac56, \quad 
         0 \leq n\tau\varepsilon^\alpha \leq T. \]
-      \item If \(d=2\), for every \(\alpha > 0\), and every \(\eta < 3/4\) with 
+      \item If \(d=2\), for every \(\alpha > 0\), and every \(0 < \eta < 3/4\) with 
         the choise \(K=1/\varepsilon^\eta\tau^\frac34\), there exist \(\tau_0 > 0\) 
         such that for every step size \(\tau \in (0,\tau_0]\), every 
         \( \varepsilon \in (0,1] \), we have
@@ -211,7 +211,7 @@ Schr\"odinger equations}
 
   We also have the discrete versions of these estimates for the group 
   \begin{equation}\label{SK}
-    S_K(t) = e^{it\Delta} \Pi_K = \Pi e^{it\Delta}.
+    S_K(t) = e^{it\Delta} \Pi_K = \Pi_K e^{it\Delta}.
   \end{equation}
 
   \begin{theorem}\label{thmDSEold} % discrete Strichartz estimates
@@ -237,12 +237,12 @@ Schr\"odinger equations}
   without loss. And~\cite{ORS21} gives a proof for arbitrary \(K\) that \(K\tau^\frac12 \geq 1\) 
   in order to optimize the total error. However, for our purposes, this is not enough.
 
-  Since the discrete Schr\"odinger flow is bounded by the following truncated
+  Note that the discrete Schr\"odinger flow is bounded by the following truncated
   decay estimate for every \(K\geq 1\) and every \(p \in [2,\infty]\)
   \[
     \|S_K(t)f\|_{L^p} \leq C \frac{K^{d(1-\frac2p)}}{1+|t|^{\frac{d}2(1-\frac2p)}} \|f\|_{L^{p'}}.
   \]
-  We can extend the class of the admissible exponent pairs to all pair \((p,q)\)
+  Thus we can extend the class of the admissible exponent pairs to all pairs \((p,q)\)
   such that 
   \begin{equation}\label{weakly-admissible}
     p,q \geq 2 ,\quad \frac2p + \frac{d}q \leq \frac{d}2 \text{ and } p \neq 2 \text{ if
@@ -301,7 +301,7 @@ Schr\"odinger equations}
   \(\beta\geq0\), and \(\gamma \geq 1\), which is a choice in order to optimize
   the total error. It will be useful to convert the estimates of the previous
   theorem into the estimates uniformly bounded with respect to \(\tau\), but
-  with loss of derivatives. Hence, we generalize the Corollary \(4.3\)
+  with loss of derivatives. Hence, we generalize Corollary \(4.3\)
   in~\cite{ORS21}.
 
   \begin{corollary}\label{corDSE}
@@ -330,7 +330,7 @@ Schr\"odinger equations}
       B^{\sigma}_{q_2',2}},
     \end{equation}
     where \(\sigma=d-\frac{d}{q_1}-\frac{d}{q_2}-\frac2{\gamma}(\frac1{p_1}+\frac1{p_2})\)
-    and we use \(B^s_{p,q}\) to denote Besov space.
+    and we use \(B^s_{p,q}\) to denote the classical Besov space.
   \end{corollary}
   Note that, since \(\tau^\frac1p\| \Pi_{K} f\|_{L^q} \leq  \left\| S_{K}(n \tau) f\right\|_{l^p_{\tau}L^q}\) 
   the estimate~\eqref{Tloss} also encodes the modified Sobolev estimate
@@ -364,7 +364,7 @@ Schr\"odinger equations}
     be the solution of~\eqref{nls-fil}. We have the estimates uniformly in
     \(\varepsilon\)
     \begin{equation}\label{LinftyH1}
-      \|u\|_{L^\infty H^1} \lesssim 1 \quad
+      \|u\|_{L^\infty H^1} \lesssim 1 ,\quad
       \|u^K\|_{L^\infty H^1} \lesssim 1.
     \end{equation}
   \end{proposition}
@@ -398,8 +398,8 @@ Schr\"odinger equations}
   which easily yields the scattering in \(H^1\).
   % TODO: show that it is a simplified proof.
 
-  Now for our purpose, one can easily get the similar uniformly in
-  \(\varepsilon\) estimates for \(u\) satisfying~\eqref{nls-ep-nonl} and
+  Now for our purpose, one can easily get similar estimates that hold uniformly in
+  \(\varepsilon\) for \(u\) satisfying~\eqref{nls-ep-nonl} and
   \(u^K\) satisfying~\eqref{nls-fil}. 
   % TODO: by either following the proof step by step 
   %or by pluging w into the above estimates and then rescaling to get estimates
@@ -412,7 +412,7 @@ Schr\"odinger equations}
       \begin{aligned}
         & \int_{(x,t)\in\mathbb R^3\times\mathbb R} |u(t,x)|^4\,\mathrm{d}x\mathrm{d}t
         \lesssim \infty \\ 
-        & \|u\|_{L^p(\mathbb R,W^{1,q})} \lesssim_{\|\phi\|_{H^1}} 1
+        & \|u\|_{L^p(\mathbb R,W^{1,q})} \lesssim_{\|\phi\|_{H^1}} 1.
       \end{aligned}
     \end{equation}
     Let \(u^K\) be the solution of~\eqref{nls-fil}, then we can get the similar
@@ -422,10 +422,10 @@ Schr\"odinger equations}
   For numerical purpose, it's hard to get the discrete version of
   interaction Morawetz estimate. Fortunately, due to Ginibre and
   Velo~\cite{GiVl85b} we have the following decay estimate which can be used to
-  get the scattering in numerical side. 
+  get the scattering on the numerical side. 
   \begin{theorem}
     Let \(\phi \in H^1\), \( d = 3 \). For every \(v\in C(\mathbb R,H^1(\mathbb
-    R^3))\) the maximal solution of~\eqref{nls}. Then \(v\) satisfies 
+    R^3))\) the solution of~\eqref{nls}. Then \(v\) satisfies 
     \[ \|v(t)\|_{L^r} \underset{t \to \infty}{\longrightarrow} 0, \]
     for every \(2 < r < 6\).
   \end{theorem}
@@ -442,7 +442,7 @@ Schr\"odinger equations}
     \[
     \begin{array}{rcl}
       f: (0,1] \times \mathbb R_+ &\rightarrow& H^1 \subset L^r \\
-    (\varepsilon,t) &\mapsto& u^K(t)
+    (\varepsilon,t) &\mapsto& u^K(t).
     \end{array}
     \]
     By using Strichartz estimates, \(f\) is continuous. Indeed, we know
@@ -461,7 +461,7 @@ Schr\"odinger equations}
   \end{proof}
   \section{Frequency truncation error}\label{sec:freq-trunc-err}
 
-  In this section, we analysis the first part of error in~\eqref{seperr}, which
+  In this section, we analysis the first part of the error in~\eqref{seperr}, which
   is \(\|u(t)-u^K(t)\|_{L^2}\). First, by using Duhamel's formula, we have
   that for every interval \(I = [t_1 , t_2]\),
   \begin{multline}
@@ -520,14 +520,14 @@ Schr\"odinger equations}
 
   \begin{proposition}
     Let \(\phi\in H^1\), \(d=1,2\) and \((p,q)\) admissible. Let \(u\) and \(u^K\) be the solution 
-    of~\eqref{nls-ep-nonl} and~\eqref{nls-fil}, for every \(\alpha>0\) (\(\alpha
+    of~\eqref{nls-ep-nonl} and~\eqref{nls-fil}. Then for every \(\alpha>0\) (\(\alpha
     \leq 4\) if \(d=1\)), for every \(T>0\) there exists a constant \(C_T\) such that for every
     time interval \(I\) satisfying \(\varepsilon^\alpha|I|<T\)
-    \[ \|u\|_{L^p_I W^{1,q}} + \|u^K\|_{L^p_I W^{1,q}} \leq C_T \]
+    \[ \|u\|_{L^p_I W^{1,q}} + \|u^K\|_{L^p_I W^{1,q}} \leq C_T. \]
   \end{proposition}
 
   \begin{proof}
-    Just recall the well-known fixed point argument. Define \(X_I=\cap_i L^{p_i} W^{1,q_i}\) 
+    Just recall the well-known fixed point argument. Let \(X_I=\cap_i L^{p_i} W^{1,q_i}\) 
     be the intersection of finite number of \(L^{p_i} W^{1,q_i}\), where these \((p_i,q_i)\) are 
     well-chosen admissible pairs, including the \((p,q)\) given, a \((p_1,q_1)\)
     that will be determined later, and \((\infty,2)\). We consider 
@@ -551,8 +551,8 @@ Schr\"odinger equations}
     Then by the standard fix point argument, there exist a sufficiently small
     \(\delta>0\) such that 
     \[ \|u\|_{X_I} + \|u^K\|_{X_I} \leq C \]
-    for all \(I\) satisfying \(\varepsilon^\alpha|I|<\delta\). Finally, we get
-    conclusion by iteration these arguments. It's similar for \(u^K\).
+    for all \(I\) satisfying \(\varepsilon^\alpha|I|<\delta\). Finally, we can
+    conclude by iterating these arguments. It's similar for \(u^K\).
   \end{proof}
 
   With the above estimate, we can give a bound for \(\|u-u^K\|_{L^2}\) uniformly
@@ -573,7 +573,7 @@ Schr\"odinger equations}
     \begin{equation}\label{uL2Linfty}
       \varepsilon (\|u\|_{L^2_I L^\infty} + \|u^K\|_{L^2_I L^\infty}) = 
       \varepsilon |I|^{\frac12-\frac1p} (\|u\|_{L^p L^q} + \|u^K\|_{L^p L^q}) 
-      \leq T_1^{\frac1\alpha} C_T.
+      \leq T_1^{\frac1\alpha} C_T
     \end{equation}
     for every time interval \(I\) satisfying \(\varepsilon^\alpha |I| <
     T_1 \leq T\), where \(C'\) is an constant given by the previous proposition.
@@ -595,13 +595,13 @@ Schr\"odinger equations}
     \geq 1\). We say that triple \((p,q,\sigma)\) verifies property {\bf (H)}
     if:
     \[ (p,q) \text{ is admissible}, \quad p>2,\quad \sigma q > d, \quad 
-    \sigma + \frac2p(1-\frac1\gamma) \leq 1 .
+    \sigma + \frac2p\left(1-\frac1\gamma\right) \leq 1 .
     \]
   \end{definition}
 
   \begin{proposition}\label{uKlpLq}
     Let \(K = \varepsilon^{-\beta\gamma}\tau^{-\frac\gamma2}\) for some
-    \(\beta\geq0\) \(\gamma\geq1\), \(\gamma<2\) in dimension \(3\). Furthur let
+    \(\beta\geq0\) \(\gamma\geq1\), \(\gamma<2\) in dimension \(3\). Furthur let the
     triple \((p,q,\sigma)\) verify property {\bf (H)}.  Then for every \(T > 0\),
     there exists \(C_T\) such that for every \( \tau \in (0,1] \), every \(\varepsilon \in (0,1]\), 
     every \(\hat{s} \in [-2\tau,2\tau] \) and for every integer 
@@ -644,7 +644,7 @@ Schr\"odinger equations}
         \|u^K(t_k+\tilde{s})\|_{l^2_{\tau,m,n}L^\infty}^2  \\
         & \leq C + C \varepsilon^{2(1-\frac{2\beta}p)} (N\tau)^{\frac12-\frac1p}
         \left( \sup_{\tilde{s} \in [s-\tau,s]} \varepsilon^{\frac{2\beta}p}
-        \|u^K(t_k+\tilde{s})\|_{l^p_{\tau,m,n}W^{\sigma,q}}\right)^2 
+        \|u^K(t_k+\tilde{s})\|_{l^p_{\tau,m,n}W^{\sigma,q}}\right)^2.
       \end{aligned}
     \end{equation}
     On the right hand side, when \(-\tau \leq \tilde s<0\), we can use modified Sobolev 
@@ -695,9 +695,10 @@ Schr\"odinger equations}
   \end{proof}
   
   \begin{corollary}\label{uKl2Linfty}
-    Under the same assumptions as previous proposition, and assume that \(T\) is
-    % TODO: 把这句话改掉不要说under the same assumption
-    given. For every \(\alpha > 0\) (\(\alpha\leq4\) in dimension one). If 
+    Under the same assumptions as in the previous proposition.
+    % TODO: 把这句话改掉不要说under the same assumption 
+    For every \(T>0\)
+    and every \(\alpha > 0\) (\(\alpha\leq4\) in dimension one). If 
     additionally, \(\beta\leq\frac{4-\alpha}2\) in dimension one. There exist
     an \(\eta>0\) such that for every \(0< T_1 \leq T\), we have 
     %for every \(0 < \delta < \delta_0\)
@@ -711,7 +712,7 @@ Schr\"odinger equations}
   \end{corollary}
 
   \begin{proof}
-    we obtain by Sobolev embedding, H\"older's inequality and the previous
+    We obtain by Sobolev embedding, H\"older's inequality and the previous
     proposition that 
     \[ \varepsilon \sup_{s\in[0,\tau]} \|e^{i\hat{s}\Delta}u^K(t_k+s)\|_{l^2_{\tau,m,n}L^\infty}
     \leq \varepsilon^{1-\frac{2\beta}p} (N\tau)^{\frac12-\frac1p} C_T. \]
@@ -722,12 +723,12 @@ Schr\"odinger equations}
   \end{proof}
   
   \begin{remark}\label{remuKl2Linfty}
-    The estimate above is a little bit rough, and it will be useful to determine 
-    in dimension one and two the optimal exponent \(\theta\) depends on \(\alpha\) 
+    The above estimate is a little bit rough, and it will be useful to determine 
+    in dimension one and two the optimal exponent \(\theta\) depending on \(\alpha\) 
     and \(\beta\)  such that we have
     \[ \varepsilon^\theta \sup_{s\in[0,\tau]} \|e^{i\hat{s}\Delta}u^K(t_k+s)\|_{l^2_{\tau,m,n}L^\infty} 
     \leq C_T, \quad \text{ for every } \varepsilon^\alpha N \tau \leq T. \]
-    In other word, we want to determine the optimal \(\theta\) such that there
+    In other words, we want to determine the optimal \(\theta\) such that there
     exist \((p,q,\sigma)\) satisfying property \((H)\), 
     \(2(1-\frac{2\beta}p)/(\frac12-\frac1p) \geq \alpha\) and 
     \((\theta-\frac{2\beta}p)/(\frac12-\frac1p) \geq \alpha\). Then by direct
@@ -736,12 +737,12 @@ Schr\"odinger equations}
   \end{remark}
 
   Using Lemma~\ref{varphiLp}, we can get the same estimates of Proposition~\ref{uKlpLq} 
-  for \(\varphi_1(-2i\tau\Delta)u^K\), then follows the same arguments in
+  for \(\varphi_1(-2i\tau\Delta)u^K\). Then, thanks to the same arguments in
   Corollary~\ref{uKl2Linfty}, we get the following
 
   \begin{corollary}\label{phiuKlpLq}
-    Under the same assumptions as previous. There exist
-    an \(\eta>0\) such that for every \(0< T_1 \leq T\), we have 
+    Under the same assumptions as previously, there exist
+    a \(\eta>0\) such that for every \(0< T_1 \leq T\), we have 
     \[ \varepsilon \sup_{s\in[0,\tau]} \|\varphi_1(-2i\tau\Delta)u^K(t_k+s)\|_{l^2_{\tau,m,n}L^\infty} 
     \leq C_T T_1^\eta, \quad \text{ for every } \varepsilon^\alpha N \tau \leq T_1. \]
   \end{corollary}
@@ -763,10 +764,10 @@ Schr\"odinger equations}
     \frac3{q_1}-
     \frac3{q_2} -\frac2\gamma(\frac12 + \frac1{p_2}) < 1\) and \(r= (\frac13 
     - \frac{p_2-1}{q_1})^{-1} < 6 \).
-    The proof is similar as Proposition~\ref{uKlpLq}. First write the Duhamel
+    The proof is similar as the proof of Proposition~\ref{uKlpLq}. First write Duhamel
     formula as~\eqref{Duhamel} but without \(\hat{s}\), then we use the generalized
     discrete Strichartz estimates~\ref{corDSE} for \((2,q_1)\),
-    and \((p_2,q_2)\) admissible, \(2 < p_2 < +\infty\). 
+    and \((p_2,q_2)\) admissible, \(2 < p_2 < +\infty\). This yields that
     \[ \varepsilon\|u^K(t_k+s)\|_{l^2_{\tau,m,n}W^{\sigma,q_1}} \leq C \varepsilon^{1-\beta} \| u
     \|_{H^{\sigma_1}} + \frac{C}\tau \varepsilon^{3-\beta(1+\frac2{p_2})} \int_{s-\tau}^s \|
     \left(|\Pi_K u^K|^2 \Pi_K u^K\right)(t_k+\tilde{s})\|_{l^{p_2'}_{\tau,m,n} W^{\sigma_2,q_2'}}
@@ -781,7 +782,7 @@ Schr\"odinger equations}
     Similar to Proposition~\ref{uKlpLq}, by modified Sobolev estimate, we can
     control the right hand side, for every \(\tilde s \in [-\tau,\tau]\),
     \[ \varepsilon \|u(t_k+\tilde{s})\|_{l^2_{\tau,m,n}W^{\sigma,q_1}}^{\frac2{p_2'}} 
-    \leq C + \sup_{s\in[0,\tau]}\varepsilon \|u(t_k+s)\|_{l^2_{\tau,m,n-1}W^{\sigma,q_1}}^{\frac2{p_2'}} \]
+    \leq C + \sup_{s\in[0,\tau]}\varepsilon \|u(t_k+s)\|_{l^2_{\tau,m,n-1}W^{\sigma,q_1}}^{\frac2{p_2'}}. \]
     Hence, we have for every \( M \leq m \leq n\)
     \[ \sup_{s\in[0,\tau]}\varepsilon\|u^K(t_k+s)\|_{l^2_{\tau,m,n}W^{\sigma,q_1}} \leq C 
     + C \left(\varepsilon^\eta \|u\|_{L^\infty([M,+\infty),L^3)}^{\frac2{p_2}} \right)\left(C + 
@@ -840,7 +841,7 @@ Schr\"odinger equations}
       (K\tau^\frac12)^\frac2p \|\phi\|_{H^1} 
       + \varepsilon^2
       (K\tau^\frac12)^\frac2p \sup_{\tilde{s}\in[0,\tau]}\left\| 
-      \left(|\Pi_K u^K|^2 \Pi_K u^K\right)(t_k+\tilde{s}) \right\|_{l^1_{\tau,N}H^1} \]
+      \left(|\Pi_K u^K|^2 \Pi_K u^K\right)(t_k+\tilde{s}) \right\|_{l^1_{\tau,N}H^1}. \]
     %\end{multline}
     By H\"older's inequality and Corollary~\ref{uKl2Linfty}, the last term is
     bounded by
@@ -863,16 +864,16 @@ Schr\"odinger equations}
   % TODO: Consider wheather to write more details of error analysis.
   Following the discussing in~\cite{ORS21}, we set
   \begin{align}
-    \label{TOp}& T(u)(\tau,t_n) = \int_0^{\tau} e^{-is\Delta} |u(t_n+s)|^2 u(t_n+s) \mathrm{d} s.\\
+    \label{TOp}& T(u)(\tau,t_n) = \int_0^{\tau} e^{-is\Delta} |u(t_n+s)|^2 u(t_n+s) \mathrm{d} s \\
     \label{T1} & T_1(s, t_n) = -i\varepsilon^2 \left(e^{i s \Delta} \Pi_K u^K\left(t_n\right)\right)^2 e^{-i s \Delta} \Pi_K \bar{T}\left(\Pi_K u^K\right)\left(s, t_n\right) \\
     \label{T2} & T_2(s, t_n) = -2\varepsilon^4 \left(e^{i s \Delta} \Pi_K u^K\left(t_n\right)\right)\left|e^{i s \Delta} \Pi_K T\left(\Pi_K u^K\right)\left(s, t_n\right)\right|^2 \\
     \label{T3} & T_3(s, t_n) = i\varepsilon^6 \left|e^{i s \Delta} \Pi_K T\left(\Pi_K u^K\right)\left(s, t_n\right)\right|^2 e^{i s \Delta} \Pi_K T\left(\Pi_K u^K\right)\left(s, t_n\right) \\
     \label{T4} & T_4(s, t_n) = 2i\varepsilon^2 \left|e^{i s \Delta} \Pi_K u^K\left(t_n\right)\right|^2 e^{i s \Delta} \Pi_K T\left(\Pi_K u^K\right)\left(s, t_n\right) \\
     \label{T5} & T_5(s, t_n) = \varepsilon^4 \left(e^{-i s \Delta} \Pi_K \bar{u}^K\left(t_n\right)\right)\left(e^{i s \Delta} \Pi_K T\left(\Pi_K u^K\right)\left(s, t_n\right)\right)^2 \\
     \label{E1} & E_1(u^K, \tau, t_n) = i \int_0^{\tau} e^{-is\Delta} 
-    [T_1 + T_2 + T_3 + T_4 + T_5](s, t_n) \mathrm{d} s,
+    [T_1 + T_2 + T_3 + T_4 + T_5](s, t_n) \mathrm{d} s.
   \end{align}
-  We have the following error analysis
+  We have the following
   \begin{multline}
     u^K(t_{n+1}) = e^{i\tau\Delta}u^K(t_n) 
     - i\varepsilon^2\tau S_K(\tau) \left( \left(\Pi_K u^K(t_n)\right)^2 
@@ -895,7 +896,7 @@ Schr\"odinger equations}
     u^{n+1} = e^{i\tau\Delta}u^n - i\varepsilon^2\tau S_K(\tau) 
     \left( (\Pi_K u^n)^2 \varphi_1(-2i\tau\Delta)\Pi_K \bar{u}^n \right).
   \]
-  Let \( e^n = u^K(t_n) - u^n \) donote the error. Thus the error satisfies 
+  Let \( e^n = u^K(t_n) - u^n \) donote the error. Then the error satisfies 
   the following 
   \begin{multline}
     e^{n+1} = e^{i\tau\Delta}e^n - i \varepsilon^2 \tau S_K(\tau) \left( 
@@ -929,10 +930,10 @@ Schr\"odinger equations}
   \begin{lemma}\label{lemE1} %estimates of F_1
     For every \( T > 0 \),
     there exists \(C_T>0\) such that for every \( \tau, \varepsilon
-    \in (0,1] \) and every positive integers \(m,n\), \(m \leq n\),\(n=m+N\)
+    \in (0,1] \) and every positive integers \(m,n\), \(m \leq n\), \(n=m+N\)
     satisfying \(\varepsilon^\alpha N\tau \leq T\)
     \begin{equation}
-      \|E_1(u^K,\tau,t_k)\|_{l^1_{\tau,m,n}L^2} \leq C_T \tau^2
+      \|E_1(u^K,\tau,t_k)\|_{l^1_{\tau,m,n}L^2} \leq C_T \tau^2.
     \end{equation}
     In dimension three, we can have the uniform in time estimate,
     \begin{equation}
@@ -952,7 +953,7 @@ Schr\"odinger equations}
       \begin{aligned}
         \|T_1(t_n,s)\|_{L^2} &\lesssim \varepsilon^2\|e^{is\Delta}u^K\|^2_{L^6} \|e^{is\Delta} T(\Pi_K u^K)(s,t_n)\|_{L^6} \\ 
         &\lesssim \varepsilon^2\|e^{is\Delta}u^K\|^2_{H^1} \|e^{is\Delta} T(\Pi_K u^K)(s,t_n)\|_{H^1} \\ 
-        &\lesssim \varepsilon^2\|u^K\|^2_{H^1} \|T(\Pi_K u^K)(s,t_n)\|_{H^1} \\ 
+        &\lesssim \varepsilon^2\|u^K\|^2_{H^1} \|T(\Pi_K u^K)(s,t_n)\|_{H^1} .\\ 
       \end{aligned}
     \end{equation}
     Next, by using~\eqref{TOp},
@@ -978,13 +979,13 @@ Schr\"odinger equations}
     \|u^K(t_n+\tilde{s})\|^2_{l^2_{\tau,m,n}L^\infty} .\]
     By using Corollary~\ref{uKl2Linfty}, we finally obtain 
     \begin{equation}\label{T1l1L2}
-      \|T_1(t_n,s)\|_{l^1_{\tau,m,n}L^2} \leq \tau C_T
+      \|T_1(t_n,s)\|_{l^1_{\tau,m,n}L^2} \leq \tau C_T.
     \end{equation}
     In a similar way, we obtain that 
     \begin{align*}
       \|T_2(s,t_n)\|_{L^2} & \lesssim  \varepsilon^4 \|e^{is\Delta} u^K(t_n)\|_{L^6}
       \| e^{is\Delta}T(\Pi_K u^K)(s,t_n) \|_{L^6}^2 \\
-      &\lesssim \varepsilon^4 \|u^K(t_n)\|_{H^1} \|T(\Pi_K u^K)(s, t_n) \|_{H^1}^2
+      &\lesssim \varepsilon^4 \|u^K(t_n)\|_{H^1} \|T(\Pi_K u^K)(s, t_n) \|_{H^1}^2.
     \end{align*}
     Hence, we get 
     \[ \|T_2(s,t_n)\|_{l^1_{\tau,m,n}L^2} \lesssim \|u\|_{L^\infty H^1} \varepsilon^2 
@@ -1012,7 +1013,7 @@ Schr\"odinger equations}
     \|T(\Pi_K u^K)(s,t_n)\|_{l^1_{\tau,m,n}H^1}. \]
     Therefore, by using~\eqref{Tl1H1} and~\eqref{TlinftyH1}, we obtain that 
     \begin{equation}\label{T3l1L2}
-      \|T_3(t_n,s)\|_{l^1_{\tau,m,n}L^2} \leq \tau C_T
+      \|T_3(t_n,s)\|_{l^1_{\tau,m,n}L^2} \leq \tau C_T.
     \end{equation}
     The term \(T_4\) is estimated in the same way as \(T_1\), the term \(T_5\)
     in the same way as \(T_2\). Finally, by combining~\eqref{F1lplq},~\eqref{T1l1L2},~\eqref{T2l1L2} 
@@ -1020,15 +1021,15 @@ Schr\"odinger equations}
     \[
       \|E_1(u^K,\tau,t_k)\|_{l^1_{\tau,m,n}L^2} \leq C_T \tau^2.
     \]
-    In dimension three, just notice that all the constant \(C_T\) above are
+    In dimension three, just notice that all the constants \(C_T\) above are
     independent of \(T\).
   \end{proof}
 
 
   \begin{lemma}\label{lemE2} %estimates of F_2
     Under the same assumption of the previous lemma, we have  for every \(0 \leq
-    m \leq n \),\(n = m+N\) and \(\varepsilon^\alpha N\tau < T\) in dimension one
-    and two.
+    m \leq n \), \(n = m+N\) and \(\varepsilon^\alpha N\tau < T\) in dimension one
+    and two
     \begin{align}
       &\label{E2d1} \varepsilon^2 \| E_2 \|_{l^1_{\tau,m,n}L^2} \leq C_T
       (K\tau^\frac12)^\frac12 \tau^2 \varepsilon^{\frac{4-\beta-\alpha}2} 
@@ -1047,7 +1048,7 @@ Schr\"odinger equations}
   \begin{proof}
     At first, using the expressions~\eqref{E2}, we rewrite that
     \begin{equation}%\label{1F2n0}
-      E_2(u^K,\tau,t_k) = \int_0^\tau \int_0^s e^{-is_1\Delta} G(s,s_1,t_k)\,\mathrm{d}s_1\,\mathrm{d}s.
+      E_2(u^K,\tau,t_k) = \int_0^\tau \int_0^s e^{-is_1\Delta} G(s,s_1,t_k)\,\mathrm{d}s_1\,\mathrm{d}s
     \end{equation}
     where
     \begin{multline*}
@@ -1079,7 +1080,7 @@ Schr\"odinger equations}
       \|\nabla e^{i\hat{s}\Delta}\Pi_K u^K(t_k)\|_{l^4_{\tau,m,n}L^4}  \right)^2 
       \sup_{\hat s \in [-2\tau, \tau]} \|e^{i\hat{s}\Delta}\Pi_K u^K(t_k)\|_{l^2_{\tau,m,n}L^\infty}.
     \end{equation}
-    Next, we use the Remark~\ref{remuKl2Linfty}
+    Next, we use Remark~\ref{remuKl2Linfty} and obtain 
     \begin{equation}\label{expuKl2Linfty}
       \sup_{\hat s \in [-2\tau, 2\tau]} \|e^{i\hat s\Delta}\Pi_{K} u^K(t_{k})\|_{l^2_{\tau,m,n}L^\infty} 
       \lesssim \varepsilon^{-\theta},
@@ -1089,7 +1090,7 @@ Schr\"odinger equations}
     \begin{equation}\label{1Dul4L4}
       \sup_{\hat{s} \in [-2\tau,\tau]} \|\nabla e^{i\hat{s}\Delta}\Pi_K u^K(t_k)\|_{l^4_{\tau,m,n}L^4}
     \leq (N\tau)^\frac18 \sup_{\hat{s} \in [-2\tau,\tau]} \|\nabla e^{i\hat{s}\Delta}\Pi_K u^K(t_k)\|_{l^8_{\tau,m,n}L^4}
-    \leq C_T (N\tau)^\frac18 (K\tau^\frac12)^\frac14.
+    \leq C_T (N\tau)^\frac18 (K\tau^\frac12)^\frac14
     \end{equation}
     while for \(d=2\), since \((4,4)\) is admissible, we get 
     \begin{equation}\label{2Dul4L4}
@@ -1117,7 +1118,7 @@ Schr\"odinger equations}
     and therefore, we get from Proposition~\ref{DuKlpLq} that 
     \[ \varepsilon^2 \|E_2(u^K,\tau,t_k)\|_{l^1_{\tau,m,n}L^2} \leq C \varepsilon^2 \tau^2
     (K\tau^\frac12)^\frac32 
-    \sup_{\hat s \in [-2\tau, \tau]} \|e^{i\hat s\Delta }\Pi_K u^K(t_k)\|_{l^4_{\tau,m,n}L^\infty} \]
+    \sup_{\hat s \in [-2\tau, \tau]} \|e^{i\hat s\Delta }\Pi_K u^K(t_k)\|_{l^4_{\tau,m,n}L^\infty} .\]
     Here we cannot use anymore Proposition~\ref{uKlpLq} in order to estimate 
     \(\|e^{i \hat s\Delta }\Pi_{K} u^K(t_{k})\|_{l^4_{\tau,m,n}L^\infty}\). We 
     are thus forced to use Sobolev embedding and Proposition~\ref{DuKlpLq}. 
@@ -1147,10 +1148,10 @@ Schr\"odinger equations}
     \begin{aligned}
       & \beta = (4-\alpha)/6, \gamma = 5/3 ,\quad \text{if } d=1, \\ 
       & \beta = 1/2-, \gamma = 3/2, \quad \text{if } d=2, \\ 
-      & \beta = 1/2, \gamma = 4/3, \quad \text{if } d=3. 
+      & \beta = 1/2, \gamma = 4/3, \quad \text{if } d=3, 
     \end{aligned}
   \end{equation}
-  where \(1/2-\) means that any \(\beta < 1/2.\) 
+  where \(1/2-\) means any \(\beta < 1/2.\) 
   Under this CFL type condition, we get that 
   \begin{equation}\label{F1F2linftyL2}
     \tau^{-1}\|E_1(u^K,\tau,t_k)\|_{l^1_{\tau,m,n} L^2} + 
@@ -1214,14 +1215,14 @@ Schr\"odinger equations}
   \end{multline*}
   which yields 
   \[ \varepsilon^2\|G_k^2\|_{l^1_{\tau,m,n}L^2} \leq  C_T \varepsilon
-  \left(\|e^n\|^2_{l^4_{\tau,m,n}L^4} + \|\varphi_1(-2i\tau\Delta)\Pi_K e^n\|^2_{l^4_{\tau,m,n}L^4} \right)
+  \left(\|e^n\|^2_{l^4_{\tau,m,n}L^4} + \|\varphi_1(-2i\tau\Delta)\Pi_K e^n\|^2_{l^4_{\tau,m,n}L^4} \right).
   \]
-  We will estimate the \(l^4L^4\) norm depending on dimension. Note that pair 
+  We will estimate the \(l^4L^4\) norm depending on the dimension. Note that the pair 
   \((\frac8d,4)\) is admissible. For \(d=1\), hence by H\"older, we have 
   \begin{equation*}
       \varepsilon \left(\|e^n\|^2_{l^4_{\tau,m,n}L^4} + \|\varphi_1(-2i\tau\Delta)\Pi_K e^n\|^2_{l^4_{\tau,m,n}L^4} \right)
       \leq \varepsilon (N\tau)^{\frac14} \left(\|e^n\|^2_{l^8_{\tau,m,n}L^4} 
-      + \|\varphi_1(-2i\tau\Delta)\Pi_K e^n\|^2_{l^8_{\tau,m,n}L^4} \right)
+      + \|\varphi_1(-2i\tau\Delta)\Pi_K e^n\|^2_{l^8_{\tau,m,n}L^4} \right).
   \end{equation*}
   For \(d=2\), \((4,4)\) is exactly \((\frac8d,4)\) which is admissible. And for
   \(d=3\), since \((\frac83,4) < 4\) we will use the reverse inclusion rule for
@@ -1238,7 +1239,7 @@ Schr\"odinger equations}
     \lesssim \|S_K(-2\tau)e^n\|_{L^4} + 
     \|e^n\|_{L^4}.
   \end{equation*}
-  For summary, we have 
+  To summarize, we have 
   \begin{equation*}
     \begin{aligned}
       \varepsilon^2\|G_n^2\|_{l^1_{\tau,k}L^2} &\leq C_T \varepsilon (N\tau)^\frac14 (K\tau^\frac12)^\frac12
@@ -1246,7 +1247,7 @@ Schr\"odinger equations}
       \varepsilon^2\|G_n^2\|_{l^1_{\tau,k}L^2} &\leq C_T \varepsilon (K\tau^\frac12)
       \|e^n\|_{S^{\tau,K}_{m,n}}^2,\quad \text{if }d=2,\\
       \varepsilon^2\|G_n^2\|_{l^1_{\tau,k}L^2} &\leq C \varepsilon \tau^{-\frac14} (K\tau^\frac12)^\frac32
-      \|e^n\|_{S^{\tau,K}_{m,n}}^2,\quad \text{if }d=3,\\
+      \|e^n\|_{S^{\tau,K}_{m,n}}^2,\quad \text{if }d=3.\\
     \end{aligned}
   \end{equation*}
   By using the definition of \(K\) and \(\delta\) above, we can uniformly write
@@ -1279,7 +1280,7 @@ Schr\"odinger equations}
     \varepsilon^2 \|G_n^3\|_{l^{(\frac8d)'}_{\tau,k}L^\frac43} \lesssim \varepsilon^2 \tau^{-\frac12}
     \left(\|e^n\|^3_{l^\frac8d_{\tau,k}L^4} + \|S_K(-2\tau)e^n\|_{l^\frac8d_{\tau,k}L^4}^3\right).
   \end{equation*}
-  For summary, by calculation, we have 
+  To summarize, by calculation, we have 
   \begin{equation}\label{G3}
     (K\tau^\frac12)^\frac d4 
     \varepsilon^2\|G_k^3\|_{l^{(\frac8d)'}_{\tau,m,n}L^\frac43}
@@ -1288,7 +1289,7 @@ Schr\"odinger equations}
   \end{equation}
   for some strictly positive \(\lambda_2\).
 
-  Finially, pluging~\eqref{G1},~\eqref{G2} and~\eqref{G3} into~\eqref{enlinftyL2}, we conclude that
+  Finially, plugging~\eqref{G1},~\eqref{G2} and~\eqref{G3} into~\eqref{enlinftyL2}, we conclude that
   in dimension one and two
   \begin{equation}\label{finalestimate}
     \|e^n\|_{S^{\tau,K}_{m,n+1}}/\delta \leq (\|e^m\|_{L^2}/\delta) + C_T + T_1^\eta C_T (\|e^n\|_{S^{\tau,K}_{m,n}}/\delta) + 
@@ -1296,14 +1297,14 @@ Schr\"odinger equations}
     C_T \tau^{\lambda_2}(\|e^n\|_{S^{\tau,K}_{m,n}}/\delta)^3.
   \end{equation}
   Consequently, taking \(T_1\) sufficiently small so that \(T_1^\eta C_T \leq
-  \frac12 \). Then we can by induction first let \(m=0\), \(n\) such that
+  \frac12 \). Then we can conclude by induction: first let \(m=0\), \(n\) such that
   \(\varepsilon^\alpha n \tau < T_1\), using Lemma~\ref{observation}, we get the
   bound of \(\|e^n\|_{L^2}\) on \([0,T_1/\varepsilon^\alpha]\), then let
   \(m=\lceil T_1/(\varepsilon^\alpha \tau)\rceil\), the first term \(\|e^m\|_{L^2}/\delta\) is
-  then bounded by inductive hypothesis. We can by iterating the argument and
+  then bounded by inductive hypothesis. We can iterate the argument and
   finally get 
   \[ \|e^n\|_{S^{\tau,K}_{m,n+1}}/\delta \leq C_T'. \]
-  For dimension three, estimate~\eqref{finalestimate} writes 
+  In dimension three, estimate~\eqref{finalestimate} takes the form
   \begin{multline}
     \|e^n\|_{S^{\tau,K}_{m,n+1}}/\delta \leq (\|e^m\|_{L^2}/\delta) + C + 
     C (\varepsilon^2 \|u^K(t_n)\|_{l^2_{\tau,m,n}L^\infty}^2 \\ +
@@ -1314,20 +1315,20 @@ Schr\"odinger equations}
     C \tau^{\lambda_2}(\|e^n\|_{S^{\tau,K}_{m,n}}/\delta)^3.
   \end{multline}
   By using Proposition~\ref{uKl2Linftyd3} and Corollary~\ref{phiuKL2Linftyd3}, 
-  we can divide \(\mathbb{N}\) into finite part such that on each part
+  we can divide \(\mathbb{N}\) into finite parts such that on each part
   \[C (\varepsilon^2 \|u^K(t_n)\|_{l^2_{\tau,m,n}L^\infty}^2 + \varepsilon^2 
   \|\varphi_1(-2i\tau\Delta)\Pi_K u^K(t_n)\|_{l^2_{\tau,m,n}L^\infty}^2) \leq
   \frac12,\] 
   then similarly the conclusion follows by induction.
 
 
-  \section{proof of the generalization of discrete Strichartz estimates}
+  \section{Proof of the generalization of discrete Strichartz estimates}
   \begin{proof}[Proof of Theorem~\ref{thmDSE}]
-    Since the filtered Schr\"odinger flow satisfying the following truncated
+    Since the filtered Schr\"odinger flow satisfies the following truncated
     decay estimates
     \[ \|S_K(t)f\|_{L^p} \lesssim
     \frac{K^{d(1-\frac2p)}}{1+|t|^{\frac{d}2(1-\frac2p)}}\|f\|_{L^{p'}},\]
-    we can just imitate the proof the continuous case but just replace the 
+    we can just imitate the proof in the continuous case by replacing the 
     Hardy-Littlewood-Sobelev inequality by Young inequality.
   \end{proof}
 
@@ -1357,11 +1358,11 @@ Schr\"odinger equations}
       \end{aligned}
     \end{equation}
 
-    The other statements are proved by the same spirit.
+    The other statements are proved in the same spirit.
   \end{proof}
 
 
-  \section{some technical estimates}
+  \section{Some technical estimates}
 
   \begin{lemma}\label{lemfilter1}
     We have the following:
@@ -1394,7 +1395,7 @@ Schr\"odinger equations}
     \(\tau \in (0,1]\),
     \begin{equation}\label{decomp}
       \|\varphi_1(-2i\tau\Delta) f\|_{L^p} \leq C \|f\|_{L^p} + C
-      \|e^{-2i\tau\Delta}f\|_{L^p}
+      \|e^{-2i\tau\Delta}f\|_{L^p}.
     \end{equation}
   \end{lemma}
 
@@ -1405,7 +1406,7 @@ Schr\"odinger equations}
       - \frac{1 - \Pi_{\tau^{-\frac12}}}{2i\tau\Delta} e^{-2i\tau\Delta} f 
       + \frac{1 - \Pi_{\tau^{-\frac12}}}{2i\tau\Delta} f,
     \end{equation}
-    and then use~\eqref{101} and~\eqref{102} to get the conclusion.
+    and then using~\eqref{101} and~\eqref{102}, we obtain the assertion.
   \end{proof}
 
   \begin{lemma}\label{sobbord}
