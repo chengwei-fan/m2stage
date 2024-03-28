@@ -67,25 +67,52 @@ Schr\"odinger equations}
   \end{equation}
 
   In recent decades, many numerical methods have been proposed to solve the NLS,
-  including finite difference methods, exponential integrators, and time-splitting 
-  methods, see, e.g.~\cite{BDD02},~\cite{Lub08},~\cite{Tha12}.
-  Most of them require the initial value to have high regularity, i.e. \(\phi
-  \in H^r\), \(r>d/2\). For nonsmooth initial data, resonance-based schemes plays
-  a significant role thanks to discrete Bourgain spaces and discrete Strichartz
-  type estimates~\cite{ORS21}. However, the current error analysis is restricted to
-  short time scales \(T=O(1)\). 
+  including finite difference methods~\cite{BDDLV21}, exponential integrators~\cite{HO10}, and time-splitting 
+  methods~\cite{BDD02,Lub08,Tha12}. 
+  These citations provide only a limited representation of the extensive research
+  conducted in this field, as there exist numerous other methods and references 
+  that cannot be comprehensively listed. 
+  However, in these works, we usually ask the initial data and error analysis in
+  high-regularity Sobolev space. More precisely, the typical scheme behaves as
+  follows: convergence in \(H^\sigma\) of order \(n\) for initial value in
+  \(\phi \in H^{\sigma+2n}\) with \(\sigma > d/2\). After that, new classes of
+  schemes requiring less regularity were presented, e.g.~\cite{OS18,OWY22} which
+  proves the convergence in in \(H^\sigma\) of order \(n\) for initial value in
+  \(\phi \in H^{\sigma+n}\) with \(\sigma > d/2\), and~\cite{AB23a} which proves 
+  the convergence in in \(H^\sigma\) for for initial value in \(\phi \in
+  H^\alpha\) with \(\sigma < d/2\) and \(\alpha > d/2\). Later, the seminal
+  work~\cite{ORS21} and~\cite{ORS22b} gives the rigorous error analysis on full
+  space and torus for
+  initial data in \(H^\alpha\) with some \(\alpha < d/2\)
+  thanks to resonance-based scheme, discrete Bourgain spaces and discrete Strichartz
+  type estimates. However, the current error analysis of is restricted to
+  short time scales \(T=O(1)\). The error roughly takes the form
+  \(Ce^{CT}\tau^\nu\) of some power \(\nu\), which will grow exponentially
+  over time \(T\). 
 
   On long-time scale, the behavier of various
   numerical schemes for the NLS have been 
   studied~\cite{CCMM15},~\cite{FGP10}, \cite{FGP10b}, \cite{GL10},~\cite{GL10b}. 
-  Via a so-called regularity compensation oscillation technique, the uniform
+  Via a so-called regularity compensation oscillation technique, the 
   error bounds were proved for the time-splitting scheme and a non-resonant
   low-regularity scheme on torus up to time of order \(O(\varepsilon^{-2})\) for cubic
   NLS~\eqref{nls-ep-nonl}~\cite{BCF},~\cite{FMS23}.
-  In this paper, we analyze the long time behavier of the numerical scheme
-  given in~\cite{ORS21}.
-  Our aim is to carry out the long-time error bounds for low-regularity
-  schemes. 
+  These long time error estimates are, however, up to now restricted to smooth
+  Sobolev spaces \(H^r\), \(r>d/2\). 
+
+  Hence, to summarize, low regularity error estimates
+  are so far restricted to short time scales \(T=O(1)\), while long time estimates
+  require smooth solutions.
+  In this work we aim to close this gap by establishing long time error estimates 
+  which also allow for rough data \(\phi \in H^1\). We focus on the numerical scheme 
+  given in~\cite{ORS21}. The techniques developed for our analysis also hold for 
+  other numerical schemes, such as splitting methods or exponential integrators.
+
+
+  %In this paper, we analyze the long time behavier of the numerical scheme
+  %given in~\cite{ORS21}.
+  %Our aim is to carry out the long-time error bounds for resonance-based
+  %schemes with small initial data.
 
   In particular, for the asymptotic behavier of the NLS, people have
   done a lot of work in the analytical aspect in the last century, and
@@ -165,9 +192,12 @@ Schr\"odinger equations}
     \end{itemize}
   \end{theorem}
 
-  Note that in dimension \(3\), in the special case when \(\varepsilon=1\), the
+  Note that the convergence rate of \(\tau\) is the same as in~\cite{ORS21}. 
+  Particularly in dimension \(3\), in the special case when \(\varepsilon=1\), the
   result above gives the uniform in time error estimates for the cubic
   Schr\"odinger equation, which is an improvement of the result in~\cite{ORS21}.
+  At the same time, the convergence rate in dimension \(3\) is better than 
+  \(\tau^\frac12\) which given in~\cite{CS22}.
 
   The rest of this paper is organized as follows. In
   Section~\ref{sec:pre-estim}, we recall some well-known results related to
@@ -411,7 +441,7 @@ Schr\"odinger equations}
     \begin{equation}
       \begin{aligned}
         & \int_{(x,t)\in\mathbb R^3\times\mathbb R} |u(t,x)|^4\,\mathrm{d}x\mathrm{d}t
-        \lesssim \infty \\ 
+        < +\infty \\ 
         & \|u\|_{L^p(\mathbb R,W^{1,q})} \lesssim_{\|\phi\|_{H^1}} 1.
       \end{aligned}
     \end{equation}
@@ -503,12 +533,13 @@ Schr\"odinger equations}
   \end{proposition}
 
   \begin{proof}
-    Using Theorem~\ref{S1} and Sobolev embedding, we have that 
+    Using Proposition~\ref{S1} and Sobolev embedding, we have that 
     \[ \|u\|_{L^2L^\infty}+\|u^K\|_{L^2L^\infty} \lesssim \|u\|_{L^2W^{1,6}} +
     \|u\|_{L^2W^{1,6}} < +\infty \]
     uniformly in \(\varepsilon\). Thus we can divide \(\mathbb R_+\) into finite 
     intervals such that on each interval \(I\), \(C (\|u\|_{L^2_I L^\infty} + 
-    \|u^K\|_{L^2_I L^\infty}) \leq \frac12\), then by~\eqref{u-uKLinftyL2}, we
+    \|u^K\|_{L^2_I L^\infty}) \leq \frac12\), where \(C\) is the constant
+    in~\eqref{u-uKLinftyL2}, then by~\eqref{u-uKLinftyL2}, we
     have that 
     \[ \|u-u^K\|_{L^\infty_I L^2} \leq 2\|(u-u^K)(t_1)\|_{L^2} + \frac1K. \]
     Therefore, we conclude that 
@@ -572,11 +603,11 @@ Schr\"odinger equations}
     inequality, Sobolev embedding and the previous proposition 
     \begin{equation}\label{uL2Linfty}
       \varepsilon (\|u\|_{L^2_I L^\infty} + \|u^K\|_{L^2_I L^\infty}) = 
-      \varepsilon |I|^{\frac12-\frac1p} (\|u\|_{L^p L^q} + \|u^K\|_{L^p L^q}) 
+      \varepsilon |I|^{\frac12-\frac1p} (\|u\|_{L^p_I L^q} + \|u^K\|_{L^p_I L^q}) 
       \leq T_1^{\frac1\alpha} C_T
     \end{equation}
     for every time interval \(I\) satisfying \(\varepsilon^\alpha |I| <
-    T_1 \leq T\), where \(C'\) is an constant given by the previous proposition.
+    T_1 \leq T\).
     Next, we can shrink \(T_1\) if necessary, to ensure that
     \(C\varepsilon^2 (\|u\|_{L^2_I L^\infty}^2 + \|u^K\|_{L^2_I L^\infty}^2)
     \leq \frac12\), where \(C\) is the constant in~\eqref{u-uKLinftyL2}. 
@@ -1418,6 +1449,11 @@ Schr\"odinger equations}
   The proof of this lemma can also be found in~\cite{ORS21}.
 
   \begin{thebibliography}{99}
+    \bibitem{AB23a}
+      {\rm Y. Alama Bronsard.}
+      {\em Error analysis of a class of semi-discrete schemes for solving the Gross-Pitaevskii equation at low regularity.}
+      J. Comput. Appl. Math., 418:Paper No. 114632, 19, (2023).
+
     \bibitem{BCD11}
       {\rm H. Bahouri, J.-Y. Chemin, R. Danchin.}
       {\em Fourier Analysis and Nonlinear Partial Differential Equations.}
@@ -1430,7 +1466,12 @@ Schr\"odinger equations}
     \bibitem{BDD02}
       {\rm C. Besse, B. Bid\'egaray, S. Descombes.}
       {\em Order estimates in time of splitting methods for the nonlinear Schr\"odinger equation.}
-      SIAM Journal on Numerical Analysis, 40(1):26--40 (2002).
+      SIAM J. Numer. Anal. 40(1):26--40 (2002).
+      
+    \bibitem{BDDLV21}
+      {\rm C. Besse, S. Descombes, G. Dujardin, and I. Lacroix-Violet.}
+      {\em Energy-preserving methods for nonlinear Schr\"odinger equations.}
+      IMA J. Numer. Anal. 41(1):618--653 (2021).
       
     \bibitem{CCMM15}
       {\rm F. Castella, P. Chartier, F. Méhats, A. Murua.}
@@ -1477,6 +1518,11 @@ Schr\"odinger equations}
       {\em Scattering Theory in the Energy Space for a Class of Nonlinear Schrodinger Equations.}
       J. Math. Pure Appl. 64:363--401 (1985).
 
+    \bibitem{HO10}
+      {\rm M. Hochbruck and A. Ostermann.}
+      {\em Exponential integrators.}
+      Acta Numerica, 19:209--286 (2010).
+
     \bibitem{IgZz09}
       {\rm L. Ignat, E. Zuazua.}
       {\em Numerical dispersive schemes for the nonlinear Schr\"odinger equation.}
@@ -1496,6 +1542,21 @@ Schr\"odinger equations}
       {\rm A. Ostermann, F. Rousset, K. Schratz.}
       {\em Error estimates of a fourier integrator for the cubic schr\"odinger equation at low regularity.}
       Found. Comput. Math. 21:725--765 (2021).
+
+    \bibitem{ORS22b}
+      {\rm A. Ostermann, F. Rousset, K Schratz.}
+      {\em Fourier integrator for periodic NLS: low regularity estimates via discrete Bourgain spaces.}
+      Journal of the European Mathematical Society, (2022).
+
+    \bibitem{OS18}
+      {\rm A. Ostermann, K. Schratz.}
+      {\em Low regularity exponential-type integrators for semilinear Schr\"odinger equations.}
+      Found. Comput. Math. 18:731--755, (2018).
+
+    \bibitem{OWY22}
+      {\rm A. Ostermann, Y. Wu, F. Yao.}
+      {\em A second-order low-regularity integrator for the nonlinear Schr\"odinger equation.}
+      Adv. Contin. Discrete Models, 23:14, (2022).
 
     \bibitem{Sz77}
       {\rm R. S. Strichartz.}
