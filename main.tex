@@ -67,28 +67,35 @@ Schr\"odinger equations}
   \end{equation}
 
   In recent decades, many numerical methods have been proposed to solve the NLS,
-  including finite difference methods~\cite{BDDLV21}, exponential integrators~\cite{HO10}, and time-splitting 
-  methods~\cite{BDD02,Lub08,Tha12}. 
-  These citations provide only a limited representation of the extensive research
-  conducted in this field, as there exist numerous other methods and references 
-  that cannot be comprehensively listed. 
-  However, in these works, we usually ask the initial data and error analysis in
-  high-regularity Sobolev space. More precisely, the typical scheme behaves as
-  follows: convergence in \(H^\sigma\) of order \(n\) for initial value in
-  \(\phi \in H^{\sigma+2n}\) with \(\sigma > d/2\). After that, new classes of
-  schemes requiring less regularity were presented, e.g.~\cite{OS18,OWY22} which
-  proves the convergence in in \(H^\sigma\) of order \(n\) for initial value in
-  \(\phi \in H^{\sigma+n}\) with \(\sigma > d/2\), and~\cite{AB23a} which proves 
-  the convergence in in \(H^\sigma\) for for initial value in \(\phi \in
-  H^\alpha\) with \(\sigma < d/2\) and \(\alpha > d/2\). Later, the seminal
-  work~\cite{ORS21} and~\cite{ORS22b} gives the rigorous error analysis on full
-  space and torus for
-  initial data in \(H^\alpha\) with some \(\alpha < d/2\)
-  thanks to resonance-based scheme, discrete Bourgain spaces and discrete Strichartz
-  type estimates. However, the current error analysis of is restricted to
-  short time scales \(T=O(1)\). The error roughly takes the form
-  \(Ce^{CT}\tau^\nu\) of some power \(\nu\), which will grow exponentially
-  over time \(T\). 
+  including finite difference methods, exponential integrators, and time-splitting
+  methods, see, e.g.~\cite{BDDLV21,HO10,BDD02,Lub08,Tha12}.
+  Most of them require the initial value to have high regularity, i.e. \(\phi
+  \in H^r\), \(r>d/2\). For nonsmooth initial data, resonance-based schemes play
+  a significant role thanks to discrete Bourgain spaces and discrete Strichartz
+  type estimates~\cite{ORS21,ORS22b}. However, the current error analysis is restricted to
+  short time scales \(T=O(1)\).
+  %including finite difference methods~\cite{BDDLV21}, exponential integrators~\cite{HO10}, and time-splitting
+  %methods~\cite{BDD02,Lub08,Tha12}.
+  %These citations provide only a limited representation of the extensive research
+  %conducted in this field, as there exist numerous other methods and references
+  %that cannot be comprehensively listed.
+  %However, in these works, we usually ask the initial data and error analysis in
+  %high-regularity Sobolev space. More precisely, the typical scheme behaves as
+  %follows: convergence in \(H^\sigma\) of order \(n\) for initial value in
+  %\(\phi \in H^{\sigma+2n}\) with \(\sigma > d/2\). After that, new classes of
+  %schemes requiring less regularity were presented, e.g.~\cite{OS18,OWY22} which
+  %proves the convergence in in \(H^\sigma\) of order \(n\) for initial value in
+  %\(\phi \in H^{\sigma+n}\) with \(\sigma > d/2\), and~\cite{AB23a} which proves
+  %the convergence in in \(H^\sigma\) for for initial value in \(\phi \in
+  %H^\alpha\) with \(\sigma < d/2\) and \(\alpha > d/2\). Later, the seminal
+  %work~\cite{ORS21} and~\cite{ORS22b} gives the rigorous error analysis on full
+  %space and torus for
+  %initial data in \(H^\alpha\) with some \(\alpha < d/2\)
+  %thanks to resonance-based scheme, discrete Bourgain spaces and discrete Strichartz
+  %type estimates. However, the current error analysis of is restricted to
+  %short time scales \(T=O(1)\). The error roughly takes the form
+  %\(Ce^{CT}\tau^\nu\) of some power \(\nu\), which will grow exponentially
+  %over time \(T\).
 
   On long-time scale, the behavier of various
   numerical schemes for the NLS have been 
